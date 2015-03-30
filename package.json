@@ -1,0 +1,14 @@
+{
+  "name": "rdpinspector",
+  "title": "RDP Inspector",
+  "id": "rdpinspector@getfirebug.com",
+  "description": "Remote debugger protocol inspector",
+  "author": "Firebug Working Group",
+  "contributors": [
+    "Jan Odvarko (Mozilla Corp.)",
+    "Luca Greco",
+  ],
+  "license": "BSD License",
+  "version": "0.1.0",
+  "main": "lib/main"
+}
