@@ -5,6 +5,8 @@
   "description": "Remote debugger protocol inspector",
   "author": "Firebug Working Group",
   "icon": "chrome://rdpinspector/skin/icon32.png",
+  "homepage": "https://github.com/firebug/rdp-inspector/wiki",
+  "forum": "https://groups.google.com/forum/#!forum/firebug",
   "contributors": [
     "Jan Odvarko (Mozilla Corp.)",
     "Luca Greco"
@@ -12,6 +14,14 @@
   "license": "BSD License",
   "version": "0.1.0",
   "main": "lib/main",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firebug/rdp-inspector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/firebug/rdp-inspector/issues"
+  },
+  "preferences-branch": "rdpinspector",
   "dependencies": {
     "firebug.sdk": "0.5.5"
   }
