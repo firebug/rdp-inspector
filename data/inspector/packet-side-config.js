@@ -8,7 +8,7 @@ require.config({
     "react": "../lib/react/react",
     "bootstrap": "../lib/bootstrap/js/bootstrap.min",
     "react-bootstrap": "../lib/react-bootstrap/react-bootstrap.min",
-    "reps": "../reps",
+    "reps": "../../node_modules/firebug.sdk/lib/reps",
   }
 });
 
