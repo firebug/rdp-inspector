@@ -4,11 +4,15 @@
   "id": "rdpinspector@getfirebug.com",
   "description": "Remote debugger protocol inspector",
   "author": "Firebug Working Group",
+  "icon": "chrome://rdpinspector/skin/icon32.png",
   "contributors": [
     "Jan Odvarko (Mozilla Corp.)",
     "Luca Greco"
   ],
   "license": "BSD License",
   "version": "0.1.0",
-  "main": "lib/main"
+  "main": "lib/main",
+  "dependencies": {
+    "firebug.sdk": "0.5.5"
+  }
 }

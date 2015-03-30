@@ -1,0 +1,3 @@
+content rdpinspector                chrome/content/
+skin    rdpinspector classic/1.0    chrome/skin/classic/shared/
+locale  rdpinspector en-US          chrome/locale/en-US/
