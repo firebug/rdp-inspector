@@ -25,7 +25,7 @@ var Packet = React.createClass({
     var classNames = ["packetPanel", this.props.type];
 
     // xxxHonza TODO: HACK, FIXME
-    var size = Str.formatSize(this.props.size);
+    var size = this.props.size+""//Str.formatSize(this.props.size);
     var time = this.props.time;
 
     // Use String.formatTime, but how to access from the content?
