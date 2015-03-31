@@ -16,6 +16,7 @@ const { DIV } = Reps.DOM;
  */
 var PacketList = React.createClass({
   displayName: "PacketList",
+
   getInitialState: function() {
     return { data: [] };
   },
@@ -23,10 +24,10 @@ var PacketList = React.createClass({
   render: function() {
     var output = [];
 
-    var packets = this.state.data;
+    var packets = this.props.data;
     for (var i in packets) {
-      if (this.state.searchFilter &&
-         JSON.stringify(packets[i]).indexOf(this.state.searchFilter) < 0) {
+      if (this.props.searchFilter &&
+         JSON.stringify(packets[i]).indexOf(this.props.searchFilter) < 0) {
         // filter out packets which don't match the filter
         continue;
       }

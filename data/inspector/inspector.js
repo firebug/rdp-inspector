@@ -9,9 +9,8 @@ var React = require("react");
 var { Pools } = require("pools");
 var { renderTabbedBox } = require("tabs");
 var { renderToolbar } = require("toolbar");
-var { PacketList } = require("packet-list");
 var { Factories } = require("factories");
-var { Reps } = require("reps/repository");
+var { PacketsTabBody } = require("packets-tab-body");
 
 // Reps
 
@@ -22,7 +21,7 @@ renderToolbar();
 renderTabbedBox();
 
 // Render packet list.
-var packetList = React.render(PacketList(packets),
+var packetList = React.render(PacketsTabBody(packets),
   document.querySelector("#tabPacketsPane"));
 var globalActorsPane = Pools.render(
   document.querySelector("#globalActorsPane"));

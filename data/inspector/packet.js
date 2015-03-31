@@ -81,7 +81,7 @@ var Packet = React.createClass({
   // Event Handlers
 
   onClick: function(event) {
-    postChromeMessage("selection", this.props.packet);
+    // TODO: refresh the packet details panel.
   }
 });
 

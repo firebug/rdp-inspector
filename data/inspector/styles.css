@@ -127,10 +127,26 @@ a:focus {
   display: none;
 }
 .packetPanel .from {
-  padding-bottom: 5px;
-}
+  padding-bottom: 5px;}
 
 .packetPanel .errorMessage {
   color: red;
   margin-bottom: 5px;
+}
+
+/******************************************************************************/
+/* Packets Tab */
+
+.packetDetailsBox {
+  border: 1px solid lightgray;
+  width: 200px;
+  height: 200px;
+}
+
+.packetsTabBodyBox TD {
+  vertical-align: top;
+}
+
+.packetsTabBodyBox .details {
+  padding-left: 10px;
 }

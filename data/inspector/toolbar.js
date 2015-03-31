@@ -26,6 +26,9 @@ var InspectorToolbar = React.createClass({
       ButtonToolbar({},
         Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onRefresh},
           "Refresh"
+        ),
+        Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onClear},
+          "Clear"
         )
       )
     )
@@ -40,6 +43,10 @@ var InspectorToolbar = React.createClass({
    */
   onRefresh: function(event) {
     document.location.reload();
+  },
+
+  onClear: function(event) {
+    // xxxHonza: TODO
   }
 });
 
