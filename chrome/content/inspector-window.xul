@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css"?>
+<?xml-stylesheet href="chrome://global/skin/findBar.css" type="text/css"?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  id="RDPInspectorConsole"
+  windowtype="RDPInspectorConsole"
+  title="RDP Inspector"
+  width="640" height="480"
+  screenX="10" screenY="10"
+  persist="screenX screenY width height sizemode">
+
+  <!-- Firefox Files -->
+  <script type="application/x-javascript" src="chrome://global/content/globalOverlay.js"/>
+  <script type="application/x-javascript" src="chrome://global/content/findBar.js"/>
+
+  <!-- String Bundles -->
+  <stringbundle id="bundle_findBar" src="chrome://global/locale/findbar.properties"/>
+
+  <!-- Application Content -->
+  <vbox flex="1">
+
+    <!-- Logging Output -->
+    <browser id="content" type="content-primary" flex="1"
+      disablehistory="true" />
+
+    <!-- Search bar -->
+    <findbar id="FindToolbar" browserid="content"/>
+
+    <script type="application/x-javascript">
+    window.gFindBar = document.getElementById("FindToolbar");
+    </script>
+  </vbox>
+</window>
