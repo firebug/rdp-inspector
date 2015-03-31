@@ -24,9 +24,22 @@ var InspectorToolbar = React.createClass({
   render: function() {
     return (
       ButtonToolbar({},
-        Button({bsSize: "small"}, "Refresh")
+        Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onRefresh},
+          "Refresh"
+        )
       )
     )
+  },
+
+  // Commands
+
+  /**
+   * This is for debugging purposes. Clicking the 'Refresh' button
+   * reloads the content and applies new changes without browser
+   * restart.
+   */
+  onRefresh: function(event) {
+    document.location.reload();
   }
 });
 
