@@ -27,7 +27,7 @@ a:focus {
 /******************************************************************************/
 /* Tabs */
 
-.actorPane {
+.tabPane {
   border: 1px solid rgb(221, 221, 221);
   border-top: none;
   padding: 10px;
@@ -59,7 +59,7 @@ a:focus {
 }
 
 /******************************************************************************/
-/* Packets */
+/* Packet */
 
 .packetPanel {
   font-size: 12px;
@@ -135,13 +135,14 @@ a:focus {
 }
 
 /******************************************************************************/
-/* Packets Tab */
+/* Packet List */
 
-.packetDetailsBox {
-  border: 1px solid lightgray;
-  width: 200px;
-  height: 200px;
+.packetListBox {
+  padding: 10px;
 }
+
+/******************************************************************************/
+/* Packets Tab */
 
 .packetsTabBodyBox TD {
   vertical-align: top;
@@ -149,4 +150,19 @@ a:focus {
 
 .packetsTabBodyBox .details {
   padding-left: 10px;
+}
+
+.packetsTabBodyBox .list {
+  width: 100%;
+}
+
+.tabPacketsPane {
+  padding: 0px;
+}
+
+/******************************************************************************/
+/* Packets Details */
+
+.packetDetailsBox {
+  border-left: 1px solid #EFEFEF;
 }

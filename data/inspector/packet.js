@@ -25,7 +25,7 @@ var Packet = React.createClass({
     var classNames = ["packetPanel", this.props.data.type];
 
     // xxxHonza TODO: HACK, FIXME
-    var size = this.props.data.size+""//Str.formatSize(this.props.data.size);
+    var size = Str.formatSize(this.props.data.size);
     var time = this.props.data.time;
 
     // Use String.formatTime, but how to access from the content?
@@ -68,10 +68,10 @@ var Packet = React.createClass({
             DIV({className: "errorMessage"},
               DIV({}, packet.error),
               DIV({}, packet.message)
-            ),
+            )/*, xxxHonza: we need an option for this.
             DIV({className: "preview"},
               TreeView({data: previewData, mode: mode})
-            )
+            )*/
           )
         )
       );

@@ -29,18 +29,18 @@ var TabbedBox = React.createClass({
     return (
       TabbedArea({activeKey: key, onSelect: handleSelect},
         TabPane({eventKey: 1, tab: "Packets"},
-          DIV({className: "actorPane", id: "tabPacketsPane"},
+          DIV({className: "tabPacketsPane tabPane", id: "tabPacketsPane"},
             "History of sent/received packets"
           )
         ),
         TabPane({eventKey: 2, tab: "Global Actors"},
-          DIV({className: "actorPane", id: "globalActorsPane"})
+          DIV({className: "tabPane", id: "globalActorsPane"})
         ),
         TabPane({eventKey: 3, tab: "Tab Actors"},
-          DIV({className: "actorPane", id: "tabActorsPane"})
+          DIV({className: "tabPane", id: "tabActorsPane"})
         ),
         TabPane({eventKey: 4, tab: "Actor Factories"},
-          DIV({className: "actorPane", id: "actorFactoriesPane"})
+          DIV({className: "tabPane", id: "actorFactoriesPane"})
         )
       )
     )
