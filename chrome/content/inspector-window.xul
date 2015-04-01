@@ -38,7 +38,7 @@
       disablehistory="true" />
 
     <!-- Search bar -->
-    <findbar id="FindToolbar" browserid="content"/>
+    <findbar id="FindToolbar" browserid="contentFrame"/>
 
     <script type="application/x-javascript">
     window.gFindBar = document.getElementById("FindToolbar");
