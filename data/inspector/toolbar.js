@@ -26,16 +26,16 @@ var InspectorToolbar = React.createClass({
   render: function() {
     return (
       ButtonToolbar({},
-        Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onClear},
+        Button({bsSize: "xsmall", onClick: this.onClear},
           "Clear"
         ),
-        Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onFind},
+        Button({bsSize: "xsmall", onClick: this.onFind},
           "Find"
         ),
-        Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onBookmark},
+        Button({bsSize: "xsmall", onClick: this.onBookmark},
           "Bookmark"
         ),
-        DropdownButton({bsSize: "xsmall", bsStyle: "info", title: "Options"},
+        DropdownButton({bsSize: "xsmall", title: "Options"},
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails},
             "Show Inline Packet Details"
           )
