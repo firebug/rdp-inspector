@@ -20,8 +20,14 @@ var packets = [];
 renderToolbar();
 renderTabbedBox();
 
+var actions = {
+  selectPacket: function(packet) {
+    packetList.setState({selectedPacket: packet});
+  }
+};
+
 // Render packet list.
-var packetList = React.render(PacketsTabBody(packets),
+var packetList = React.render(PacketsTabBody({packets: packets, actions: actions}),
   document.querySelector("#tabPacketsPane"));
 var globalActorsPane = Pools.render(
   document.querySelector("#globalActorsPane"));
@@ -103,6 +109,10 @@ function appendPacket(packet) {
   }
 
   refreshPackets();
+}
+
+function onPacketSelected(packet) {
+  packetList.setState({ selectedPacket: packet });
 }
 
 // xxxHonza: refactor into an utility object.

@@ -32,7 +32,7 @@ var PacketList = React.createClass({
         continue;
       }
       packets[i].key = i;
-      output.push(Packet(packets[i]));
+      output.push(Packet({data: packets[i], actions: this.props.actions}));
     };
 
     return (

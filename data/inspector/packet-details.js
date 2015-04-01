@@ -22,12 +22,9 @@ var PacketDetails = React.createClass({
   },
 
   render: function() {
-    // xxxHonza: FIXME
-    var packet = (this.props.data && this.props.data.length) ? this.props.data[0] : {};
-
     return (
       DIV({className: "packetDetailsBox"},
-        TreeView({data: packet})
+        TreeView({ key: "packet-detail", data: this.props.data || {} })
       )
     );
   }

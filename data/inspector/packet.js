@@ -19,14 +19,14 @@ const { DIV, SPAN, BR, IMG } = Reps.DOM;
 var Packet = React.createClass({
   displayName: "Packet",
   render: function() {
-    var packet = this.props.packet;
+    var packet = this.props.data.packet;
     var type = packet.type ? "\"" + packet.type + "\"" : "";
     var mode = "tiny";
-    var classNames = ["packetPanel", this.props.type];
+    var classNames = ["packetPanel", this.props.data.type];
 
     // xxxHonza TODO: HACK, FIXME
-    var size = this.props.size+""//Str.formatSize(this.props.size);
-    var time = this.props.time;
+    var size = this.props.data.size+""//Str.formatSize(this.props.data.size);
+    var time = this.props.data.time;
 
     // Use String.formatTime, but how to access from the content?
     var timeText = time.toLocaleTimeString() + "." + time.getMilliseconds();
@@ -44,7 +44,7 @@ var Packet = React.createClass({
     }
 
     // xxxHonza: localization
-    if (this.props.type == "send") {
+    if (this.props.data.type == "send") {
       return (
         DIV({className: classNames.join(" "), onClick: this.onClick},
           DIV({className: "body"},
@@ -82,6 +82,7 @@ var Packet = React.createClass({
 
   onClick: function(event) {
     // TODO: refresh the packet details panel.
+    this.props.actions.selectPacket(this.props.data.packet);
   }
 });
 
