@@ -14,16 +14,11 @@ a:focus {
   outline: none;
 }
 
-#content {
-  padding: 10px;
-  background-color: rgb(221, 221, 221);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
-}
-
 /******************************************************************************/
 /* Toolbar */
 
 #toolbar {
+  height: 30px;
   padding: 4px;
   border-bottom: 1px solid rgb(170, 188, 207);
   background-color: rgb(219, 234, 249) !important;
@@ -38,12 +33,38 @@ a:focus {
 /******************************************************************************/
 /* Tabs */
 
+#content {
+  height: calc(100% - 30px);
+  padding: 10px;
+  background-color: rgb(221, 221, 221);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+}
+
+#content > DIV {
+  height: 100%;
+}
+
+.tab-content {
+  /* xxxHonza: 42 px is height of the tab bar */
+  height: calc(100% - 42px);
+}
+
+.tab-pane {
+  height: 100%;
+}
+
+/******************************************************************************/
+/* Tabs */
+
+.mainTabBox {
+  hright: 100%;
+}
+
 .tabPane {
   border: 1px solid rgb(221, 221, 221);
   border-top: none;
   padding: 10px;
   background-color: white;
-  overflow: auto;
 }
 
 /******************************************************************************/
@@ -150,24 +171,39 @@ a:focus {
 
 .packetListBox {
   padding: 10px;
+  height: 100%;
 }
 
 /******************************************************************************/
 /* Packets Tab */
 
+.packetsTabBodyBox {
+  height: 100%;
+}
+
 .packetsTabBodyBox TD {
   vertical-align: top;
 }
 
-.packetsTabBodyBox .details {
-  padding-left: 10px;
+.packetsTabBodyBox .list {
+  height: 100%;
+  width: 60%;
+  float: left;
+  overflow: auto;
 }
 
-.packetsTabBodyBox .list {
-  width: 100%;
+.packetsTabBodyBox .details {
+  height: 100%;
+  width: 40%;
+  overflow: auto;
+}
+
+.packetsTabBodyBox .footer {
+  clear: both;
 }
 
 .tabPacketsPane {
+  height: 100%;
   padding: 0px;
 }
 

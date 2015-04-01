@@ -130,4 +130,12 @@ function refreshPackets() {
   }, 200);
 }
 
+function onResize() {
+  document.body.style.height = window.innerHeight + "px";
+  document.body.style.width = window.innerWidth + "px";
+}
+
+addEventListener("resize", onResize);
+
+onResize();
 });

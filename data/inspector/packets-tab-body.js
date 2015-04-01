@@ -26,18 +26,19 @@ var PacketsTabBody = React.createClass({
 
   render: function() {
     return (
-      TABLE({className: "packetsTabBodyBox"},
-        TBODY({},
-          TR({},
-            TD({className: "list"},
-              PacketList({data: this.state.packets,
-                          actions: this.props.actions})
-            ),
-            TD({className: "details"},
-              PacketDetails({data: this.state.selectedPacket})
-            )
-          )
-        )
+      DIV({className: "packetsTabBodyBox"},
+        DIV({className: "list"},
+          PacketList({
+            data: this.state.packets,
+            actions: this.props.actions
+          })
+        ),
+        DIV({className: "details"},
+          PacketDetails({
+            data: this.state.selectedPacket
+          })
+        ),
+        DIV({className: "footer"})
       )
     );
   }
