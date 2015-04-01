@@ -48,7 +48,7 @@ var InspectorToolbar = React.createClass({
   },
 
   onFind: function(event) {
-    // xxxHonza: TODO
+    postChromeMessage("find");
   },
 
   onShowInlineDetails: function() {
