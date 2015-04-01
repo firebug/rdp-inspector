@@ -18,7 +18,10 @@ var PacketsTabBody = React.createClass({
   displayName: "PacketsTabBody",
 
   getInitialState: function() {
-    return { data: this.props.data };
+    return {
+      packets: this.props.packets,
+      selectedPacket: null
+    };
   },
 
   render: function() {
@@ -27,10 +30,11 @@ var PacketsTabBody = React.createClass({
         TBODY({},
           TR({},
             TD({className: "list"},
-              PacketList({data: this.state.data})
+              PacketList({data: this.state.packets,
+                          actions: this.props.actions})
             ),
             TD({className: "details"},
-              PacketDetails({data: this.state.data})
+              PacketDetails({data: this.state.selectedPacket})
             )
           )
         )
