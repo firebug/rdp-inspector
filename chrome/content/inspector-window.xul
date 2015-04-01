@@ -34,7 +34,7 @@
   <vbox flex="1">
 
     <!-- Logging Output -->
-    <browser id="content" type="content-primary" flex="1"
+    <browser id="contentFrame" type="content-primary" flex="1"
       disablehistory="true" />
 
     <!-- Search bar -->
