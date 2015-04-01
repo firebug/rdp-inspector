@@ -9,6 +9,8 @@ var ReactBootstrap = require("react-bootstrap");
 // Shortcuts
 var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 var Button = React.createFactory(ReactBootstrap.Button);
+var DropdownButton = React.createFactory(ReactBootstrap.DropdownButton);
+var MenuItem = React.createFactory(ReactBootstrap.MenuItem);
 
 const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
@@ -24,11 +26,16 @@ var InspectorToolbar = React.createClass({
   render: function() {
     return (
       ButtonToolbar({},
-        Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onRefresh},
-          "Refresh"
-        ),
         Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onClear},
           "Clear"
+        ),
+        Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onFind},
+          "Find"
+        ),
+        DropdownButton({bsSize: "xsmall", bsStyle: "info", title: "Options"},
+          MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails},
+            "Show Inline Packet Details"
+          )
         )
       )
     )
@@ -36,16 +43,15 @@ var InspectorToolbar = React.createClass({
 
   // Commands
 
-  /**
-   * This is for debugging purposes. Clicking the 'Refresh' button
-   * reloads the content and applies new changes without browser
-   * restart.
-   */
-  onRefresh: function(event) {
-    document.location.reload();
+  onClear: function(event) {
+    // xxxHonza: TODO
   },
 
-  onClear: function(event) {
+  onFind: function(event) {
+    // xxxHonza: TODO
+  },
+
+  onShowInlineDetails: function() {
     // xxxHonza: TODO
   }
 });
