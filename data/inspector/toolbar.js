@@ -32,6 +32,9 @@ var InspectorToolbar = React.createClass({
         Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onFind},
           "Find"
         ),
+        Button({bsSize: "xsmall", bsStyle: "info", onClick: this.onBookmark},
+          "Bookmark"
+        ),
         DropdownButton({bsSize: "xsmall", bsStyle: "info", title: "Options"},
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails},
             "Show Inline Packet Details"
@@ -49,6 +52,12 @@ var InspectorToolbar = React.createClass({
 
   onFind: function(event) {
     postChromeMessage("find");
+  },
+
+  onBookmark: function(event) {
+    // xxxHonza: TODO
+    // insert a horizontal line with summary: number of packets
+    // sent/received + amount of data sent/received
   },
 
   onShowInlineDetails: function() {
