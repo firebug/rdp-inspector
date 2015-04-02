@@ -35,12 +35,14 @@ var PacketsPanel = React.createClass({
         DIV({className: "mainPanel"},
           PacketsToolbar(),
           PacketList({
-            data: this.state.packets,
+            data: this.props.packets,
             actions: this.props.actions
           })
         ),
         DIV({className: "sidePanel"},
-          PacketsSidebar({selectedPacket: this.state.selectedPacket})
+          PacketsSidebar({
+            selectedPacket: this.props.selectedPacket
+          })
         ),
         DIV({className: "panelFooter"})
       )

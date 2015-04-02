@@ -18,6 +18,7 @@ const { DIV, SPAN, BR, IMG } = Reps.DOM;
  */
 var Packet = React.createClass({
   displayName: "Packet",
+
   render: function() {
     var packet = this.props.data.packet;
     var type = packet.type ? "\"" + packet.type + "\"" : "";
