@@ -7,7 +7,7 @@ var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
 // RDP Inspector
-const { ActorsTabBody } = require("actors-tab-body");
+const { ActorsPanel } = require("actors-panel");
 
 const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
@@ -38,7 +38,7 @@ var TabbedBox = React.createClass({
           )
         ),
         TabPane({eventKey: 2, tab: "Actors"},
-          ActorsTabBody()
+          ActorsPanel()
         )
         /*TabPane({eventKey: 2, tab: "Global Actors"},
           DIV({className: "tabPane", id: "globalActorsPane"})

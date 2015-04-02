@@ -11,7 +11,7 @@ const { Reps } = require("reps/repository");
 // RDP Inspector
 const { PacketList } = require("packet-list");
 const { PacketsSidebar } = require("packets-sidebar");
-const { PacketsTabToolbar } = require("packets-tab-toolbar");
+const { PacketsToolbar } = require("packets-toolbar");
 
 // Shortcuts
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
@@ -19,8 +19,8 @@ const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
 /**
  * @template This template renders 'Packets' tab body.
  */
-var PacketsTabBody = React.createClass({
-  displayName: "PacketsTabBody",
+var PacketsPanel = React.createClass({
+  displayName: "PacketsPanel",
 
   getInitialState: function() {
     return {
@@ -31,9 +31,9 @@ var PacketsTabBody = React.createClass({
 
   render: function() {
     return (
-      DIV({className: "packetsTabBodyBox"},
+      DIV({className: "packetsPanelBox"},
         DIV({className: "mainPanel"},
-          PacketsTabToolbar(),
+          PacketsToolbar(),
           PacketList({
             data: this.state.packets,
             actions: this.props.actions
@@ -49,6 +49,6 @@ var PacketsTabBody = React.createClass({
 });
 
 // Exports from this module
-exports.PacketsTabBody = React.createFactory(PacketsTabBody);
+exports.PacketsPanel = React.createFactory(PacketsPanel);
 
 });

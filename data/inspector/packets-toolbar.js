@@ -19,8 +19,8 @@ const { DIV } = Reps.DOM;
  * xxxHonza: TODO localization
  * xxxHonza: TODO docs
  */
-var PacketsTabToolbar = React.createClass({
-  displayName: "PacketTabToolbar",
+var PacketsToolbar = React.createClass({
+  displayName: "PacketsToolbar",
 
   render: function() {
     return (
@@ -72,5 +72,5 @@ var PacketsTabToolbar = React.createClass({
 });
 
 // Exports from this module
-exports.PacketsTabToolbar = React.createFactory(PacketsTabToolbar);
+exports.PacketsToolbar = React.createFactory(PacketsToolbar);
 });

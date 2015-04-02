@@ -268,22 +268,22 @@ a:focus {
 /******************************************************************************/
 /* Packets Tab */
 
-.packetsTabBodyBox {
+.packetsPanelBox {
   height: 100%;
 }
 
-.packetsTabBodyBox TD {
+.packetsPanelBox TD {
   vertical-align: top;
 }
 
-.packetsTabBodyBox .list {
+.packetsPanelBox .list {
   /* xxxHonza: minus the toolbar height*/
   height: calc(100% - 30px);
   overflow: auto;
   padding: 10px;
 }
 
-.packetsTabBodyBox .details {
+.packetsPanelBox .details {
   border-left: 1px solid #EFEFEF;
   height: 100%;
   overflow: auto;

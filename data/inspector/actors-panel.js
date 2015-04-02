@@ -9,7 +9,7 @@ const React = require("react");
 const { Reps } = require("reps/repository");
 
 // RDP Inspector
-const { ActorsTabToolbar } = require("actors-tab-toolbar");
+const { ActorsToolbar } = require("actors-toolbar");
 
 // Shortcuts
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
@@ -17,8 +17,8 @@ const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
 /**
  * @template This template renders 'Actors' tab body.
  */
-var ActorsTabBody = React.createClass({
-  displayName: "ActorsTabBody",
+var ActorsPanel = React.createClass({
+  displayName: "ActorsPanel",
 
   getInitialState: function() {
     return {
@@ -29,17 +29,15 @@ var ActorsTabBody = React.createClass({
 
   render: function() {
     return (
-      DIV({className: "actorsTabBodyBox"},
-        DIV({className: "toolbar"},
-          ActorsTabToolbar({}),
-          DIV({}, "TODO")
-        )
+      DIV({className: "actorsPanelBox"},
+        ActorsToolbar(),
+        DIV({}, "TODO")
       )
     );
   }
 });
 
 // Exports from this module
-exports.ActorsTabBody = React.createFactory(ActorsTabBody);
+exports.ActorsPanel = React.createFactory(ActorsPanel);
 
 });

@@ -17,12 +17,12 @@ const { DIV } = Reps.DOM;
  * xxxHonza: TODO localization
  * xxxHonza: TODO docs
  */
-var ActorsTabToolbar = React.createClass({
-  displayName: "ActorsTabToolbar",
+var ActorsToolbar = React.createClass({
+  displayName: "ActorsToolbar",
 
   render: function() {
     return (
-      ButtonToolbar({},
+      ButtonToolbar({className: "toolbar"},
         Button({bsSize: "xsmall", onClick: this.onRefresh},
           "Refresh"
         )
@@ -38,5 +38,5 @@ var ActorsTabToolbar = React.createClass({
 });
 
 // Exports from this module
-exports.ActorsTabToolbar = React.createFactory(ActorsTabToolbar);
+exports.ActorsToolbar = React.createFactory(ActorsToolbar);
 });

@@ -10,7 +10,6 @@ const ReactBootstrap = require("react-bootstrap");
 const { Reps } = require("reps/reps");
 
 // RDP Inspector
-const { ActorsTabBody } = require("actors-tab-body");
 const { PacketDetails } = require("packet-details");
 
 // Constants

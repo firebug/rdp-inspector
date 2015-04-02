@@ -9,7 +9,6 @@ const React = require("react");
 const { Reps } = require("reps/reps");
 
 // RDP Inspector
-const { PacketsTabToolbar } = require("packets-tab-toolbar");
 const { Packet } = require("packet");
 
 // Shortcuts
