@@ -47,7 +47,8 @@ var PacketsPanel = React.createClass({
         ),
         DIV({className: "sidePanel"},
           PacketsSidebar({
-            selectedPacket: this.props.selectedPacket
+            selectedPacket: this.props.selectedPacket,
+            actions: this.props.actions
           })
         ),
         DIV({className: "panelFooter"})

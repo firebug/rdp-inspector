@@ -38,7 +38,10 @@ var PacketsSidebar = React.createClass({
           PacketDetails({selectedPacket: this.props.selectedPacket})
         ),
         TabPane({eventKey: 2, tab: "Send Packet"},
-          PacketDetails({selectedPacket: this.props.selectedPacket})
+          PacketEditor({
+            selectedPacket: this.props.selectedPacket,
+            actions: this.props.actions
+          })
         )
       )
     );
