@@ -10,7 +10,7 @@ const { Reps } = require("reps/repository");
 
 // RDP Inspector
 const { PacketList } = require("packet-list");
-const { PacketDetails } = require("packet-details");
+const { PacketsSidebar } = require("packets-sidebar");
 const { PacketsTabToolbar } = require("packets-tab-toolbar");
 
 // Shortcuts
@@ -32,23 +32,19 @@ var PacketsTabBody = React.createClass({
   render: function() {
     return (
       DIV({className: "packetsTabBodyBox"},
-        DIV({className: "toolbar"},
-          PacketsTabToolbar({})
-        ),
-        DIV({className: "list"},
+        DIV({className: "mainPanel"},
+          PacketsTabToolbar(),
           PacketList({
             data: this.state.packets,
             actions: this.props.actions
           })
         ),
-        DIV({className: "details"},
-          PacketDetails({
-            data: this.state.selectedPacket
-          })
+        DIV({className: "sidePanel"},
+          PacketsSidebar({selectedPacket: this.state.selectedPacket})
         ),
-        DIV({className: "footer"})
+        DIV({className: "panelFooter"})
       )
-    );
+    )
   }
 });
 

@@ -24,7 +24,7 @@ var PacketsTabToolbar = React.createClass({
 
   render: function() {
     return (
-      ButtonToolbar({},
+      ButtonToolbar({className: "toolbar"},
         DropdownButton({bsSize: "xsmall", title: "Options"},
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails},
             "Show Inline Packet Details"

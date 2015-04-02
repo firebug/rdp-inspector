@@ -6,15 +6,15 @@ define(function(require, exports, module) {
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
-// Shortcuts
-var TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
-var TabPane = React.createFactory(ReactBootstrap.TabPane);
-
 // RDP Inspector
 const { ActorsTabBody } = require("actors-tab-body");
 
 const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
+
+// Shortcuts
+var TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
+var TabPane = React.createFactory(ReactBootstrap.TabPane);
 
 var content = document.getElementById("content")
 

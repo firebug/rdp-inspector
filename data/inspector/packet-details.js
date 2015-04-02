@@ -4,6 +4,8 @@ define(function(require, exports, module) {
 
 // Dependencies
 const React = require("react");
+
+// Firebug SDK
 const { Reps } = require("reps/repository");
 const { TreeView } = require("reps/tree-view");
 
@@ -18,13 +20,17 @@ var PacketDetails = React.createClass({
   displayName: "PacketDetails",
 
   getInitialState: function() {
-    return { data: [] };
+    return {
+      selectedPacket: null
+    };
   },
 
   render: function() {
+    var selectedPacket = this.props.selectedPacket || {};
+
     return (
-      DIV({className: "packetDetailsBox"},
-        TreeView({ key: "packet-detail", data: this.props.data || {} })
+      DIV({className: "details"},
+        TreeView({key: "packet-detail", data: selectedPacket})
       )
     );
   }

@@ -185,6 +185,56 @@ a:focus {
 }
 
 /******************************************************************************/
+/* Panels */
+
+.mainPanel {
+  height: 100%;
+  float: left;
+  width: 60%;
+}
+
+.sidePanel {
+  height: 100%;
+  float: right;
+  width: 40%;
+}
+
+.sidePanel > DIV {
+  height: 100%;
+}
+
+.panelFooter {
+  clear: both;
+}
+
+/******************************************************************************/
+/* SideBar TabbedArea*/
+
+.sideBarTabbedArea {
+  height: 30px;
+  border-bottom: 1px solid rgb(170, 188, 207);
+  background-color: rgb(219, 234, 249) !important;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+}
+
+.sideBarTabbedArea li a {
+  padding: 4px 9px;
+  font-weight: normal;
+  font-size: 12px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #141414;
+}
+
+.sideBarTabbedArea li.active a {
+  color: #141414;
+}
+
+.sideBarTabbedArea.nav-tabs {
+  padding-top: 3px;
+  padding-left: 3px;
+}
+
+/******************************************************************************/
 /* Packets Tab */
 
 .packetsTabBodyBox {
@@ -198,30 +248,17 @@ a:focus {
 .packetsTabBodyBox .list {
   /* xxxHonza: minus the toolbar height*/
   height: calc(100% - 30px);
-  width: 60%;
-  float: left;
   overflow: auto;
   padding: 10px;
 }
 
 .packetsTabBodyBox .details {
+  border-left: 1px solid #EFEFEF;
   height: 100%;
-  width: 40%;
   overflow: auto;
-}
-
-.packetsTabBodyBox .footer {
-  clear: both;
 }
 
 .tabPacketsPane {
   height: 100%;
   padding: 0px;
-}
-
-/******************************************************************************/
-/* Packets Details */
-
-.packetDetailsBox {
-  border-left: 1px solid #EFEFEF;
 }

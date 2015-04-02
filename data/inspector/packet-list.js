@@ -4,8 +4,13 @@ define(function(require, exports, module) {
 
 // Dependencies
 const React = require("react");
+
+// Firebug SDK
 const { Reps } = require("reps/reps");
-const { Packet } = require("./packet");
+
+// RDP Inspector
+const { PacketsTabToolbar } = require("packets-tab-toolbar");
+const { Packet } = require("packet");
 
 // Shortcuts
 const { DIV } = Reps.DOM;
@@ -36,7 +41,9 @@ var PacketList = React.createClass({
     };
 
     return (
-      DIV({}, output)
+      DIV({className: "list"},
+        DIV({}, output)
+      )
     );
   }
 });
