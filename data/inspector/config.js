@@ -13,4 +13,4 @@ require.config({
 });
 
 // Load the main panel module
-requirejs(["inspector"]);
+requirejs(["main"]);
