@@ -25,6 +25,14 @@ var PacketsTabToolbar = React.createClass({
   render: function() {
     return (
       ButtonToolbar({},
+        DropdownButton({bsSize: "xsmall", title: "Options"},
+          MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails},
+            "Show Inline Packet Details"
+          ),
+          MenuItem({key: "cachePackets", onClick: this.onCachePackets},
+            "Cache packets before the inspector is opened"
+          )
+        ),
         Button({bsSize: "xsmall", onClick: this.onClear},
           "Clear"
         ),
@@ -33,11 +41,6 @@ var PacketsTabToolbar = React.createClass({
         ),
         Button({bsSize: "xsmall", onClick: this.onBookmark},
           "Bookmark"
-        ),
-        DropdownButton({bsSize: "xsmall", title: "Options"},
-          MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails},
-            "Show Inline Packet Details"
-          )
         )
       )
     )
@@ -60,6 +63,10 @@ var PacketsTabToolbar = React.createClass({
   },
 
   onShowInlineDetails: function() {
+    // xxxHonza: TODO
+  },
+
+  onCachePackets: function() {
     // xxxHonza: TODO
   }
 });
