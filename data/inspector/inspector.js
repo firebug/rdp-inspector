@@ -36,13 +36,6 @@ var tabActorsPane = Pools.render(
 var actorFactoriesPane = Factories.render(
   document.querySelector("#actorFactoriesPane"));
 
-// Initialization
-window.addEventListener("refresh", onRefresh);
-window.addEventListener("clear", onClear);
-window.addEventListener("send-packet", onSendPacket);
-window.addEventListener("receive-packet", onReceivePacket);
-window.addEventListener("search", onSearch);
-
 /**
  * Renders content of the Inspector panel.
  */
@@ -82,6 +75,20 @@ function refreshFactories(main, child) {
 /**
  * RDP Transport Listener
  */
+function onInitPacketList(event) {
+  var packets = JSON.parse(event.data);
+
+  for (var i=0; i<packets.length; i++) {
+    var packet = packets[i];
+    appendPacket({
+      type: packet.type,
+      packet: packet.packet,
+      size: JSON.stringify(packet.packet).length,
+      time: new Date(packet.time)
+    });
+  }
+}
+
 function onSendPacket(event) {
   appendPacket({
     type: "send",
@@ -135,7 +142,18 @@ function onResize() {
   document.body.style.width = window.innerWidth + "px";
 }
 
-addEventListener("resize", onResize);
-
 onResize();
+
+// Register event listeners
+window.addEventListener("refresh", onRefresh);
+window.addEventListener("clear", onClear);
+window.addEventListener("send-packet", onSendPacket);
+window.addEventListener("receive-packet", onReceivePacket);
+window.addEventListener("search", onSearch);
+window.addEventListener("init-packet-list", onInitPacketList);
+window.addEventListener("resize", onResize);
+
+// Send notification about initialization being done.
+postChromeMessage("initialized");
+
 });
