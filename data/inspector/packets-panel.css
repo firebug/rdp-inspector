@@ -43,6 +43,11 @@
   background-color: rgb(255, 221, 221);
 }
 
+.packetPanel.selected .body {
+  border-color: rgb(0, 170, 214);
+  background-color: rgb(173, 211, 232);
+}
+
 .packetPanel .type,
 .packetPanel .to,
 .packetPanel .from {
@@ -103,3 +108,5 @@
   height: 100%;
   padding: 0px;
 }
+
+.

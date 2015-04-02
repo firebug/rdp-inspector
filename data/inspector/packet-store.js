@@ -2,6 +2,9 @@
 
 define(function(require, exports, module) {
 
+// Constants
+const refreshTimeout = 200;
+
 /**
  * TODO docs
  */
@@ -12,7 +15,7 @@ function PacketStore(win, app) {
   // List of all sent and received packets.
   this.packets = [];
 
-  this.refreshTimeout = null;
+  this.timeout = null;
 
   this.win.addEventListener("init-packet-list", this.onInitialize.bind(this));
   this.win.addEventListener("send-packet", this.onSendPacket.bind(this));
@@ -33,6 +36,10 @@ PacketStore.prototype =
         size: JSON.stringify(packet.packet).length,
         time: new Date(packet.time)
       });
+    }
+
+    if (!packets.length) {
+      return;
     }
   },
 
@@ -66,16 +73,25 @@ PacketStore.prototype =
   },
 
   refreshPackets: function() {
-    if (this.refreshTimeout) {
-      this.win.clearTimeout(this.refreshTimeout);
-      this.refreshTimeout = null;
+    if (this.timeout) {
+      this.win.clearTimeout(this.timeout);
+      this.timeout = null;
     }
 
     // Refresh on timeout to avoid to many re-renderings.
-    this.refreshTimeout = this.win.setTimeout(() => {
-      this.app.setState({data: this.packets});
-      this.refreshTimeout = null;
-    }, 200);
+    this.timeout = this.win.setTimeout(() => {
+      var newState = {
+        data: this.packets
+      }
+
+      // Default selection
+      if (!this.app.state.selectedPacket) {
+        newState.selectedPacket = this.packets[0].packet;
+      }
+
+      this.app.setState(newState);
+      this.timeout = null;
+    }, refreshTimeout);
   },
 }
 

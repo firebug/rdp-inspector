@@ -30,13 +30,22 @@ var PacketList = React.createClass({
 
     var packets = this.props.data;
     for (var i in packets) {
-      if (this.props.searchFilter &&
-         JSON.stringify(packets[i]).indexOf(this.props.searchFilter) < 0) {
-        // filter out packets which don't match the filter
+      var packet = packets[i];
+
+      // Filter out packets which don't match the search token.
+      var filter = this.props.searchFilter;
+      if (filter && JSON.stringify(packet).indexOf(filter) < 0) {
         continue;
       }
+
+      var selected = this.props.selectedPacket == packet.packet;
+
       packets[i].key = i;
-      output.push(Packet({data: packets[i], actions: this.props.actions}));
+      output.push(Packet({
+        data: packet,
+        actions: this.props.actions,
+        selected: selected
+      }));
     };
 
     return (

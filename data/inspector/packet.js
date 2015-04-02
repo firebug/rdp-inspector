@@ -39,6 +39,10 @@ var Packet = React.createClass({
       classNames.push("error");
     }
 
+    if (this.props.selected) {
+      classNames.push("selected");
+    }
+
     var imgClassNames = ["arrow"];
     if (!type) {
       imgClassNames.push("hide");
