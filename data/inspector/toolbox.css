@@ -1,39 +1,39 @@
 /* See license.txt for terms of usage */
 
 /******************************************************************************/
-/* Tabs */
+/* Main Tabs */
 
-.tabbedArea {
+.mainTabbedArea {
   background-color: rgb(219, 234, 249);
   background-image: linear-gradient(rgba(253, 253, 253, 0.2), rgba(253, 253, 253, 0));
 }
 
-.tabbedArea li a {
+.mainTabbedArea li a {
   padding: 3px 8px;
   font-weight: bold;
   color: #565656;
 }
 
-.tabbedArea li.active a,
-.tabbedArea li.active a:focus {
+.mainTabbedArea li.active a,
+.mainTabbedArea li.active a:focus {
   background-color: rgb(247, 251, 254);
   border: 1px solid rgb(170, 188, 207);
   border-bottom-color: transparent;
 }
 
-.tabbedArea li:hover a {
+.mainTabbedArea li:hover a {
   border: 1px solid #C8C8C8;
   border-bottom: 1px solid transparent;
   background-color: transparent !important;
 }
 
-.tabbedArea li.active:hover a {
+.mainTabbedArea li.active:hover a {
   border: 1px solid rgb(170, 188, 207) !important;
   background-color: rgb(247, 251, 254) !important;
   border-bottom-color: transparent !important;
 }
 
-.tabbedArea.nav-tabs {
+.mainTabbedArea.nav-tabs {
   padding-top: 3px;
   padding-left: 3px;
   height: 31px;
@@ -49,16 +49,7 @@
   height: 100%;
 }
 
-/******************************************************************************/
-/* Tabs */
-
-.mainTabBox {
-  hright: 100%;
-}
-
 .tabPane {
-  border: 1px solid rgb(221, 221, 221);
-  border-top: none;
   padding: 10px;
   background-color: white;
 }

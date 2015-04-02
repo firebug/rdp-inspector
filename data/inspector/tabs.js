@@ -30,7 +30,7 @@ var TabbedBox = React.createClass({
   displayName: "TabbedBox",
   render: function() {
     return (
-      TabbedArea({className: "tabbedArea", activeKey: key,
+      TabbedArea({className: "mainTabbedArea", activeKey: key,
         onSelect: handleSelect, animation: false},
         TabPane({eventKey: 1, tab: "Packets"},
           DIV({className: "tabPacketsPane tabPane", id: "tabPacketsPane"},
