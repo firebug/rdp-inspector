@@ -10,7 +10,8 @@ const ReactBootstrap = require("react-bootstrap");
 const { Reps } = require("reps/reps");
 
 // RDP Inspector
-const { PacketDetails } = require("packet-details");
+const { PacketDetails } = require("./packet-details");
+const { PacketEditor } = require("./packet-editor");
 
 // Constants
 const { DIV } = Reps.DOM;
@@ -25,7 +26,7 @@ var PacketsSidebar = React.createClass({
   displayName: "PacketsSidebar",
 
   getInitialState: function() {
-    return { 
+    return {
       selectedPacket: null
     };
   },
@@ -37,7 +38,7 @@ var PacketsSidebar = React.createClass({
           PacketDetails({selectedPacket: this.props.selectedPacket})
         ),
         TabPane({eventKey: 2, tab: "Send Packet"},
-          "TODO"
+          PacketDetails({selectedPacket: this.props.selectedPacket})
         )
       )
     );

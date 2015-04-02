@@ -9,10 +9,10 @@ const React = require("react");
 const { Reps } = require("reps/reps");
 
 // RDP Inspector
-const { Packet } = require("packet");
-const { PacketsSummary } = require("packets-summary");
+const { Packet } = require("./packet");
+const { PacketsSummary } = require("./packets-summary");
 
-// Constants
+// Shortcuts
 const { DIV } = Reps.DOM;
 
 /**
@@ -50,6 +50,7 @@ var PacketList = React.createClass({
 
       var selected = this.props.selectedPacket == packet.packet;
 
+      packets[i].key = i;
       output.push(Packet({
         data: packet,
         actions: this.props.actions,
