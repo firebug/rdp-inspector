@@ -50,8 +50,8 @@ var PacketList = React.createClass({
 
       var selected = this.props.selectedPacket == packet.packet;
 
-      packets[i].key = i;
       output.push(Packet({
+        key: i,
         data: packet,
         actions: this.props.actions,
         selected: selected,
