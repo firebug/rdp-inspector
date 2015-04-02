@@ -38,9 +38,7 @@ var TabbedBox = React.createClass({
           )
         ),
         TabPane({eventKey: 2, tab: "Actors"},
-          ActorsTabBody({},
-            "TODO"
-          )
+          ActorsTabBody()
         )
         /*TabPane({eventKey: 2, tab: "Global Actors"},
           DIV({className: "tabPane", id: "globalActorsPane"})

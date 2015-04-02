@@ -31,7 +31,8 @@ var ActorsTabBody = React.createClass({
     return (
       DIV({className: "actorsTabBodyBox"},
         DIV({className: "toolbar"},
-          ActorsTabToolbar({})
+          ActorsTabToolbar({}),
+          DIV({}, "TODO")
         )
       )
     );
