@@ -1,0 +1,130 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* Tabs */
+
+.tabbedArea {
+  background-color: rgb(219, 234, 249);
+  background-image: linear-gradient(rgba(253, 253, 253, 0.2), rgba(253, 253, 253, 0));
+}
+
+.tabbedArea li a {
+  padding: 3px 8px;
+  font-weight: bold;
+  color: #565656;
+}
+
+.tabbedArea li.active a,
+.tabbedArea li.active a:focus {
+  background-color: rgb(247, 251, 254);
+  border: 1px solid rgb(170, 188, 207);
+  border-bottom-color: transparent;
+}
+
+.tabbedArea li:hover a {
+  border: 1px solid #C8C8C8;
+  border-bottom: 1px solid transparent;
+  background-color: transparent !important;
+}
+
+.tabbedArea li.active:hover a {
+  border: 1px solid rgb(170, 188, 207) !important;
+  background-color: rgb(247, 251, 254) !important;
+  border-bottom-color: transparent !important;
+}
+
+.tabbedArea.nav-tabs {
+  padding-top: 3px;
+  padding-left: 3px;
+  height: 31px;
+  border-bottom-color: rgb(170, 188, 207);
+}
+
+.tab-content {
+  /* xxxHonza: minus the height of the tab bar */
+  height: calc(100% - 31px);
+}
+
+.tab-pane {
+  height: 100%;
+}
+
+/******************************************************************************/
+/* Tabs */
+
+.mainTabBox {
+  hright: 100%;
+}
+
+.tabPane {
+  border: 1px solid rgb(221, 221, 221);
+  border-top: none;
+  padding: 10px;
+  background-color: white;
+}
+
+/******************************************************************************/
+/* SideBar */
+
+.sideBarTabbedArea {
+  height: 30px;
+  border-bottom: 1px solid rgb(170, 188, 207);
+  background-color: rgb(219, 234, 249) !important;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+}
+
+.sideBarTabbedArea li a {
+  padding: 4px 9px;
+  font-weight: normal;
+  font-size: 12px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #141414;
+}
+
+.sideBarTabbedArea li.active a,
+.sideBarTabbedArea li.active a:focus {
+  background-color: white;
+  border: 1px solid rgb(170, 188, 207);
+  border-bottom-color: transparent;
+  color: #141414;
+}
+
+.sideBarTabbedArea li:hover a {
+  border-color: #C8C8C8;
+  background-color: transparent;
+}
+
+.sideBarTabbedArea li.active:hover a {
+  border: 1px solid rgb(170, 188, 207) !important;
+  border-bottom-color: transparent !important;
+  color: #141414 !important;
+}
+
+.sideBarTabbedArea.nav-tabs {
+  padding-top: 3px;
+  padding-left: 3px;
+}
+
+/******************************************************************************/
+/* Panels */
+
+.mainPanel {
+  height: 100%;
+  float: left;
+  width: 60%;
+}
+
+.sidePanel {
+  height: 100%;
+  float: right;
+  width: 40%;
+}
+
+.sidePanel > DIV {
+  height: 100%;
+}
+
+.panelFooter {
+  clear: both;
+}
+

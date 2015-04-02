@@ -1,0 +1,24 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* Actors Panel */
+
+.poolContainer {
+  font-size: 12px;
+}
+
+.poolTable {
+  border: 1px solid rgb(221, 221, 221);
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.poolRow TD,
+.poolRow TH {
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding-left: 10px;
+}
+
+.poolTable.actorClass {
+  background-color: rgb(247, 247, 247);
+}

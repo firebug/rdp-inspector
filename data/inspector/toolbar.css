@@ -1,0 +1,17 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* Toolbar */
+
+.toolbar {
+  height: 30px;
+  padding: 4px;
+  border-bottom: 1px solid rgb(170, 188, 207);
+  background-color: rgb(219, 234, 249) !important;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+}
+
+.toolbar .btn {
+  border-radius: 2px;
+  color: #141414;
+}
