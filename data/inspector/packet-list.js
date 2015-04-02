@@ -36,9 +36,7 @@ var PacketList = React.createClass({
     };
 
     return (
-      DIV({className: "packetListBox"},
-        output
-      )
+      DIV({}, output)
     );
   }
 });

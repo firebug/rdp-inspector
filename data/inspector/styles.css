@@ -17,7 +17,7 @@ a:focus {
 /******************************************************************************/
 /* Toolbar */
 
-#toolbar {
+.toolbar {
   height: 30px;
   padding: 4px;
   border-bottom: 1px solid rgb(170, 188, 207);
@@ -25,7 +25,7 @@ a:focus {
   background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
 }
 
-#toolbar .btn {
+.toolbar .btn {
   border-radius: 2px;
   color: #141414;
 }
@@ -34,19 +34,37 @@ a:focus {
 /* Tabs */
 
 #content {
-  height: calc(100% - 30px);
-  padding: 10px;
-  background-color: rgb(221, 221, 221);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+  height: 100%;
 }
 
 #content > DIV {
   height: 100%;
 }
 
+.tabbedArea {
+  background-color: rgb(219, 234, 249);
+  background-image: linear-gradient(rgba(253, 253, 253, 0.2), rgba(253, 253, 253, 0));
+}
+
+.tabbedArea li a {
+  padding: 3px 8px;
+  font-weight: bold;
+  color: #565656;
+}
+
+.tabbedArea li.active a {
+  background-color: rgb(247, 251, 254) !important;
+}
+
+.tabbedArea.nav-tabs {
+  padding-top: 3px;
+  padding-left: 3px;
+  height: 31px;
+}
+
 .tab-content {
-  /* xxxHonza: 42 px is height of the tab bar */
-  height: calc(100% - 42px);
+  /* xxxHonza: minus the height of the tab bar */
+  height: calc(100% - 31px);
 }
 
 .tab-pane {
@@ -167,14 +185,6 @@ a:focus {
 }
 
 /******************************************************************************/
-/* Packet List */
-
-.packetListBox {
-  padding: 10px;
-  height: 100%;
-}
-
-/******************************************************************************/
 /* Packets Tab */
 
 .packetsTabBodyBox {
@@ -186,10 +196,12 @@ a:focus {
 }
 
 .packetsTabBodyBox .list {
-  height: 100%;
+  /* xxxHonza: minus the toolbar height*/
+  height: calc(100% - 30px);
   width: 60%;
   float: left;
   overflow: auto;
+  padding: 10px;
 }
 
 .packetsTabBodyBox .details {

@@ -4,9 +4,14 @@ define(function(require, exports, module) {
 
 // Dependencies
 const React = require("react");
-const { PacketList } = require("./packet-list");
-const { PacketDetails } = require("./packet-details");
+
+// Firebug SDK
 const { Reps } = require("reps/repository");
+
+// RDP Inspector
+const { PacketList } = require("packet-list");
+const { PacketDetails } = require("packet-details");
+const { PacketsTabToolbar } = require("packets-tab-toolbar");
 
 // Shortcuts
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
@@ -27,6 +32,9 @@ var PacketsTabBody = React.createClass({
   render: function() {
     return (
       DIV({className: "packetsTabBodyBox"},
+        DIV({className: "toolbar"},
+          PacketsTabToolbar({})
+        ),
         DIV({className: "list"},
           PacketList({
             data: this.state.packets,

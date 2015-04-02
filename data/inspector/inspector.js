@@ -8,7 +8,6 @@ var React = require("react");
 
 var { Pools } = require("pools");
 var { renderTabbedBox } = require("tabs");
-var { renderToolbar } = require("toolbar");
 var { Factories } = require("factories");
 var { PacketsTabBody } = require("packets-tab-body");
 
@@ -17,7 +16,6 @@ var { PacketsTabBody } = require("packets-tab-body");
 var packets = [];
 
 // Initial panel rendering
-renderToolbar();
 renderTabbedBox();
 
 var actions = {
@@ -29,13 +27,13 @@ var actions = {
 // Render packet list.
 var packetList = React.render(PacketsTabBody({packets: packets, actions: actions}),
   document.querySelector("#tabPacketsPane"));
-var globalActorsPane = Pools.render(
+/*var globalActorsPane = Pools.render(
   document.querySelector("#globalActorsPane"));
 var tabActorsPane = Pools.render(
   document.querySelector("#tabActorsPane"));
 var actorFactoriesPane = Factories.render(
   document.querySelector("#actorFactoriesPane"));
-
+*/
 /**
  * Renders content of the Inspector panel.
  */

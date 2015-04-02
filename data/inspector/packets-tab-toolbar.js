@@ -15,14 +15,13 @@ var MenuItem = React.createFactory(ReactBootstrap.MenuItem);
 const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
-var parentNode = document.getElementById("toolbar")
-
 /**
  * xxxHonza: TODO localization
  * xxxHonza: TODO docs
  */
-var InspectorToolbar = React.createClass({
-  displayName: "ButtonToolbar",
+var PacketsTabToolbar = React.createClass({
+  displayName: "PacketTabToolbar",
+
   render: function() {
     return (
       ButtonToolbar({},
@@ -65,14 +64,6 @@ var InspectorToolbar = React.createClass({
   }
 });
 
-var inspectorToolbar = React.createFactory(InspectorToolbar);
-
-// Rendering
-function renderToolbar() {
-  React.render(inspectorToolbar(), parentNode);
-}
-
 // Exports from this module
-exports.renderToolbar = renderToolbar;
-
+exports.PacketsTabToolbar = React.createFactory(PacketsTabToolbar);
 });
