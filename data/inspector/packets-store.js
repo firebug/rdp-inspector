@@ -69,30 +69,50 @@ PacketsStore.prototype =
       this.packets.shift();
     }
 
-    this.refreshPackets();
+    this.refreshPackets(false);
   },
 
-  refreshPackets: function() {
+  refreshPackets: function(now) {
     if (this.timeout) {
       this.win.clearTimeout(this.timeout);
       this.timeout = null;
     }
 
+    if (now) {
+      this.doRefreshPackets();
+      return;
+    }
+
     // Refresh on timeout to avoid to many re-renderings.
     this.timeout = this.win.setTimeout(() => {
-      var newState = {
-        data: this.packets
-      }
-
-      // Default selection
-      if (!this.app.state.selectedPacket) {
-        newState.selectedPacket = this.packets[0].packet;
-      }
-
-      this.app.setState(newState);
+      this.doRefreshPackets();
       this.timeout = null;
     }, refreshTimeout);
   },
+
+  doRefreshPackets: function() {
+    var newState = {
+      data: this.packets
+    }
+
+    // Default selection
+    if (!this.app.state.selectedPacket) {
+      var selection = this.packets.length ? this.packets[0].packet : null;
+      newState.selectedPacket = selection;
+    }
+
+    // If there are no packets clear the details side panel.
+    if (!this.packets.length) {
+      newState.selectedPacket = null;
+    }
+
+    this.app.setState(newState);
+  },
+
+  clear: function() {
+    this.packets = [];
+    this.refreshPackets(true);
+  }
 }
 
 // Exports from this module

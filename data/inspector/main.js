@@ -11,11 +11,21 @@ var { PacketsStore } = require("packets-store");
 var { Resizer } = require("resizer");
 var { Search } = require("search");
 
-// List of all actions.
+/**
+ * List of all application commands. The list is passed into
+ * components (starting with theApp) and so any part of the
+ * application can execute them.
+ */
 var actions = {
   selectPacket: function(packet) {
     theApp.setState({selectedPacket: packet});
-  }
+  },
+  clear: function() {
+    store.clear();
+  },
+  find: function() {
+    postChromeMessage("find");
+  },
 };
 
 /**

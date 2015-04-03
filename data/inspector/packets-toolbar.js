@@ -49,11 +49,11 @@ var PacketsToolbar = React.createClass({
   // Commands
 
   onClear: function(event) {
-    // xxxHonza: TODO
+    this.props.actions.clear();
   },
 
   onFind: function(event) {
-    postChromeMessage("find");
+    this.props.actions.find();
   },
 
   onSummary: function(event) {

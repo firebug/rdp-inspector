@@ -33,7 +33,9 @@ var PacketsPanel = React.createClass({
     return (
       DIV({className: "packetsPanelBox"},
         DIV({className: "mainPanel"},
-          PacketsToolbar(),
+          PacketsToolbar({
+            actions: this.props.actions
+          }),
           PacketList({
             data: this.props.packets,
             actions: this.props.actions,
