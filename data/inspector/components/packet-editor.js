@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 
   // Firebug SDK
   const { Reps } = require("reps/repository");
-  const { TreeView } = require("reps/tree-view");
+  const { TreeEditorView } = require("./tree-editor-view");
 
   // Shortcuts
   const { DIV } = Reps.DOM;
@@ -70,7 +70,7 @@ define(function(require, exports, module) {
       return (
         DIV({className: "details editor"},
             PacketEditorToolbar({}),
-            TreeView({key: "packet-editor", data: selectedPacket})
+            TreeEditorView({key: "packet-editor", data: selectedPacket})
            )
       );
     }
