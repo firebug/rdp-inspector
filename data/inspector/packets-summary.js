@@ -17,7 +17,7 @@ const OverlayTrigger = React.createFactory(ReactBootstrap.OverlayTrigger);
 const { DIV } = Reps.DOM;
 
 /**
- * TODO docs
+ * xxxHonza TODO docs
  */
 var PacketsSummary = React.createClass({
   displayName: "PacketsSummary",

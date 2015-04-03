@@ -2,31 +2,25 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
+
+// Firebug SDK
+const { Reps } = require("reps/reps");
 
 // RDP Inspector
 const { ActorsPanel } = require("actors-panel");
 const { PacketsPanel } = require("packets-panel");
 
-const { Reps } = require("reps/reps");
+// Constants
+const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
+const TabPane = React.createFactory(ReactBootstrap.TabPane);
 const { DIV } = Reps.DOM;
 
-// Constants
-var TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
-var TabPane = React.createFactory(ReactBootstrap.TabPane);
-
-var content = document.getElementById("content")
-
-var key = 1;
-
-function handleSelect(selectedKey) {
-  key = selectedKey;
-  renderTabbedBox();
-}
-
-// xxxHonza: TODO: localization
+/**
+ * @template xxxHonza: TODO: localization
+ */
 var MainTabbedArea = React.createClass({
   displayName: "MainTabbedArea",
 
@@ -36,8 +30,7 @@ var MainTabbedArea = React.createClass({
 
   render: function() {
     return (
-      TabbedArea({className: "mainTabbedArea", activeKey: key,
-        onSelect: handleSelect, animation: false},
+      TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1, animation: false},
         TabPane({eventKey: 1, tab: "Packets"},
           PacketsPanel({
             packets: this.state.data,
@@ -62,15 +55,6 @@ var MainTabbedArea = React.createClass({
   }
 });
 
-var tabbedBox = React.createFactory(MainTabbedArea);
-
-// Rendering
-function renderTabbedBox() {
-  React.render(tabbedBox(), content);
-}
-
 // Exports from this module
-exports.renderTabbedBox = renderTabbedBox;
 exports.MainTabbedArea = React.createFactory(MainTabbedArea);
-
 });
