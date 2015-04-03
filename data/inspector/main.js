@@ -26,6 +26,9 @@ var actions = {
   find: function() {
     postChromeMessage("find");
   },
+  appendSummary: function() {
+    store.appendSummary();
+  }
 };
 
 /**

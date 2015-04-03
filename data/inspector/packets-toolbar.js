@@ -2,11 +2,11 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
-// Shortcuts
+// Constants
 var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 var Button = React.createFactory(ReactBootstrap.Button);
 var DropdownButton = React.createFactory(ReactBootstrap.DropdownButton);
@@ -16,7 +16,7 @@ const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
- * @react This object represents a template for a toolbar displayed
+ * @template This object represents a template for a toolbar displayed
  * within the Packets tab
  */
 var PacketsToolbar = React.createClass({
@@ -57,9 +57,7 @@ var PacketsToolbar = React.createClass({
   },
 
   onSummary: function(event) {
-    // xxxHonza: TODO
-    // insert a horizontal line with summary: number of packets
-    // sent/received + amount of data sent/received
+    this.props.actions.appendSummary();
   },
 
   onShowInlineDetails: function() {

@@ -10,8 +10,9 @@ const { Reps } = require("reps/reps");
 
 // RDP Inspector
 const { Packet } = require("packet");
+const { PacketsSummary } = require("packets-summary");
 
-// Shortcuts
+// Constants
 const { DIV } = Reps.DOM;
 
 /**
@@ -31,6 +32,14 @@ var PacketList = React.createClass({
     var packets = this.props.data;
     for (var i in packets) {
       var packet = packets[i];
+      packets[i].key = i;
+
+      if (packet.type == "summary") {
+        output.push(PacketsSummary({
+          data: packet
+        }));
+        continue;
+      }
 
       // Filter out packets which don't match the search token.
       var filter = this.props.searchFilter;
@@ -40,7 +49,6 @@ var PacketList = React.createClass({
 
       var selected = this.props.selectedPacket == packet.packet;
 
-      packets[i].key = i;
       output.push(Packet({
         data: packet,
         actions: this.props.actions,

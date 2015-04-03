@@ -12,14 +12,11 @@ function PacketsStore(win, app) {
   this.win = win;
   this.app = app;
 
-  // List of all sent and received packets.
-  this.packets = [];
-
-  this.timeout = null;
-
   this.win.addEventListener("init-packet-list", this.onInitialize.bind(this));
   this.win.addEventListener("send-packet", this.onSendPacket.bind(this));
   this.win.addEventListener("receive-packet", this.onReceivePacket.bind(this));
+
+  this.clear();
 }
 
 PacketsStore.prototype =
@@ -38,9 +35,8 @@ PacketsStore.prototype =
       });
     }
 
-    if (!packets.length) {
-      return;
-    }
+    // Default summary info appended into the list.
+    this.appendSummary();
   },
 
   onSendPacket: function(event) {
@@ -61,15 +57,24 @@ PacketsStore.prototype =
     });
   },
 
-  appendPacket: function(packet) {
+  appendPacket: function(packet, now) {
     this.packets.push(packet);
+
+    // Collect statistics data.
+    if (packet.type == "send") {
+      this.summary.data.sent += packet.size;
+      this.summary.packets.sent += 1;
+    } else if (packet.type == "receive") {
+      this.summary.data.received += packet.size;
+      this.summary.packets.received += 1;
+    }
 
     // xxxHonza: limit for now.
     if (this.packets.length > 500) {
       this.packets.shift();
     }
 
-    this.refreshPackets(false);
+    this.refreshPackets(now);
   },
 
   refreshPackets: function(now) {
@@ -111,7 +116,34 @@ PacketsStore.prototype =
 
   clear: function() {
     this.packets = [];
+
+    this.summary = {
+      data: {
+        sent: 0,
+        received: 0
+      },
+      packets: {
+        sent: 0,
+        received: 0,
+      }
+    };
+
     this.refreshPackets(true);
+  },
+
+  appendSummary: function() {
+    this.appendPacket({
+      type: "summary",
+      time: new Date(),
+      data: {
+        sent: this.summary.data.sent,
+        received: this.summary.data.received
+      },
+      packets: {
+        sent: this.summary.packets.sent,
+        received: this.summary.packets.received
+      }
+    }, true);
   }
 }
 

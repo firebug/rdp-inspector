@@ -2,14 +2,16 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 const React = require("react");
 const ReactBootstrap = require("react-bootstrap");
+
+// Firebug SDK
 const { Reps } = require("reps/reps");
 const { TreeView } = require("reps/tree-view");
 const { Obj } = require("reps/object");
 
-// Shortcuts
+// Constants
 const Panel = React.createFactory(ReactBootstrap.Panel);
 const { DIV, SPAN, BR, IMG } = Reps.DOM;
 
