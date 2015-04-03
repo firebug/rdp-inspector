@@ -7,7 +7,7 @@ var React = require("react");
 
 // RDP Inspector
 var { MainTabbedArea } = require("main-tabbed-area");
-var { PacketStore } = require("packet-store");
+var { PacketsStore } = require("packets-store");
 var { Resizer } = require("resizer");
 var { Search } = require("search");
 
@@ -27,7 +27,7 @@ var theApp = React.render(MainTabbedArea({packets: [],
   actions: actions}), content);
 
 // Helper modules for handling application events.
-var packetStore = new PacketStore(window, theApp);
+var store = new PacketsStore(window, theApp);
 var resizer = new Resizer(window, theApp);
 
 // Send notification about initialization being done.

@@ -8,7 +8,7 @@ const refreshTimeout = 200;
 /**
  * TODO docs
  */
-function PacketStore(win, app) {
+function PacketsStore(win, app) {
   this.win = win;
   this.app = app;
 
@@ -22,8 +22,8 @@ function PacketStore(win, app) {
   this.win.addEventListener("receive-packet", this.onReceivePacket.bind(this));
 }
 
-PacketStore.prototype =
-/** @lends PacketStore */
+PacketsStore.prototype =
+/** @lends PacketsStore */
 {
   onInitialize: function(event) {
     var packets = JSON.parse(event.data);
@@ -96,5 +96,5 @@ PacketStore.prototype =
 }
 
 // Exports from this module
-exports.PacketStore = PacketStore;
+exports.PacketsStore = PacketsStore;
 });
