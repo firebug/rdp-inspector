@@ -16,8 +16,8 @@ const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
- * xxxHonza: TODO localization
- * xxxHonza: TODO docs
+ * @react This object represents a template for a toolbar displayed
+ * within the Packets tab
  */
 var PacketsToolbar = React.createClass({
   displayName: "PacketsToolbar",
@@ -27,20 +27,20 @@ var PacketsToolbar = React.createClass({
       ButtonToolbar({className: "toolbar"},
         DropdownButton({bsSize: "xsmall", title: "Options"},
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails},
-            "Show Inline Packet Details"
+            Locale.$STR("rdpInspector.option.inlineDetails")
           ),
           MenuItem({key: "cachePackets", onClick: this.onCachePackets},
-            "Cache packets before the inspector is opened"
+            Locale.$STR("rdpInspector.option.cachePackets")
           )
         ),
         Button({bsSize: "xsmall", onClick: this.onClear},
-          "Clear"
+          Locale.$STR("rdpInspector.cmd.clear")
         ),
         Button({bsSize: "xsmall", onClick: this.onFind},
-          "Find"
+          Locale.$STR("rdpInspector.cmd.find")
         ),
-        Button({bsSize: "xsmall", onClick: this.onBookmark},
-          "Bookmark"
+        Button({bsSize: "xsmall", onClick: this.onSummary},
+          Locale.$STR("rdpInspector.cmd.summary")
         )
       )
     )
@@ -56,7 +56,7 @@ var PacketsToolbar = React.createClass({
     postChromeMessage("find");
   },
 
-  onBookmark: function(event) {
+  onSummary: function(event) {
     // xxxHonza: TODO
     // insert a horizontal line with summary: number of packets
     // sent/received + amount of data sent/received
