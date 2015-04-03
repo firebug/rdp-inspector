@@ -65,12 +65,17 @@ define(function(require, exports, module) {
     },
 
     render: function() {
-      var selectedPacket = this.props.selectedPacket || {};
-
       return (
         DIV({className: "details editor"},
             PacketEditorToolbar({}),
-            TreeEditorView({key: "packet-editor", data: selectedPacket})
+            TreeEditorView({
+              key: "packet-editor",
+              data: this.props.selectedPacket,
+              defaultData: {
+                to: "root",
+                type: "requestTypes"
+              }
+            })
            )
       );
     }
