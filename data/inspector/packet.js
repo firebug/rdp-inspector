@@ -50,6 +50,9 @@ var Packet = React.createClass({
       imgClassNames.push("hide");
     }
 
+    var preview = this.props.showInlineDetails ? TreeView(
+      {data: previewData, mode: mode}) : null;
+
     // xxxHonza: localization
     if (this.props.data.type == "send") {
       return (
@@ -75,10 +78,10 @@ var Packet = React.createClass({
             DIV({className: "errorMessage"},
               DIV({}, packet.error),
               DIV({}, packet.message)
-            )/*, xxxHonza: we need an option for this.
+            ),
             DIV({className: "preview"},
-              TreeView({data: previewData, mode: mode})
-            )*/
+              preview
+            )
           )
         )
       );
@@ -88,8 +91,17 @@ var Packet = React.createClass({
   // Event Handlers
 
   onClick: function(event) {
-    // TODO: refresh the packet details panel.
-    this.props.actions.selectPacket(this.props.data.packet);
+    var target = event.target;
+
+    event.stopPropagation();
+    event.preventDefault();
+
+    // If a 'memberLabel' is clicked inside the inline preview
+    // tree, let's process it by the tree, so expansion and
+    // collapsing works. Otherwise just select the packet.
+    if (!target.classList.contains("memberLabel")) {
+      this.props.actions.selectPacket(this.props.data.packet);
+    }
   }
 });
 

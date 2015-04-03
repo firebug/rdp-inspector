@@ -28,6 +28,10 @@ var actions = {
   },
   appendSummary: function() {
     store.appendSummary();
+  },
+  onShowInlineDetails: function() {
+    var show = !theApp.state.showInlineDetails;
+    theApp.setState({showInlineDetails: show});
   }
 };
 

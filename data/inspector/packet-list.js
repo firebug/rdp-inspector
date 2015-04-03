@@ -53,7 +53,8 @@ var PacketList = React.createClass({
       output.push(Packet({
         data: packet,
         actions: this.props.actions,
-        selected: selected
+        selected: selected,
+        showInlineDetails: this.props.showInlineDetails
       }));
     };
 

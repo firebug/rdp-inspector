@@ -82,6 +82,22 @@
 }
 
 /******************************************************************************/
+/* Inline Packet Details Preview */
+
+.packetPanel .preview {
+  overflow: auto;
+  width: 100%;
+}
+
+.packetPanel .memberRow:hover {
+  background-color: transparent;
+}
+
+.packetPanel .domTable > tbody > tr > td {
+  border-bottom: transparent;
+}
+
+/******************************************************************************/
 
 .packetsPanelBox {
   height: 100%;

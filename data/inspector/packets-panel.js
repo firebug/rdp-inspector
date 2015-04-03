@@ -34,13 +34,15 @@ var PacketsPanel = React.createClass({
       DIV({className: "packetsPanelBox"},
         DIV({className: "mainPanel"},
           PacketsToolbar({
-            actions: this.props.actions
+            actions: this.props.actions,
+            showInlineDetails: this.props.showInlineDetails
           }),
           PacketList({
             data: this.props.packets,
             actions: this.props.actions,
             selectedPacket: this.props.selectedPacket,
-            searchFilter: this.props.searchFilter
+            searchFilter: this.props.searchFilter,
+            showInlineDetails: this.props.showInlineDetails
           })
         ),
         DIV({className: "sidePanel"},
