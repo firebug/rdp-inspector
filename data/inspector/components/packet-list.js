@@ -38,6 +38,7 @@ var PacketList = React.createClass({
       // Special treatment for 'summary' packets.
       if (packet.type == "summary") {
         output.push(PacketsSummary({
+          key: "summary-" + i,
           data: packet
         }));
         continue;
