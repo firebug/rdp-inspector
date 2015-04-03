@@ -12,6 +12,7 @@ const { Reps } = require("reps/reps");
 // RDP Inspector
 const { ActorsPanel } = require("actors-panel");
 const { PacketsPanel } = require("packets-panel");
+const { SearchBox } = require("search-box");
 
 // Constants
 const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
@@ -28,14 +29,26 @@ var MainTabbedArea = React.createClass({
     return { data: [] };
   },
 
+  componentDidMount: function() {
+    var tabbedArea = this.refs.tabbedArea.getDOMNode();
+    SearchBox.create(tabbedArea.querySelector(".nav-tabs"));
+  },
+
+  componentWillUnmount: function() {
+    var tabbedArea = this.refs.tabbedArea.getDOMNode();
+    SearchBox.destroy(tabbedArea.querySelector(".nav-tabs"));
+  },
+
   render: function() {
     return (
-      TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1, animation: false},
+      TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1,
+        animation: false, ref: "tabbedArea"},
         TabPane({eventKey: 1, tab: "Packets"},
           PacketsPanel({
             packets: this.state.data,
             actions: this.props.actions,
-            selectedPacket: this.state.selectedPacket
+            selectedPacket: this.state.selectedPacket,
+            searchFilter: this.state.searchFilter
           })
         ),
         TabPane({eventKey: 2, tab: "Actors"},

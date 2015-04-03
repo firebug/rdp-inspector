@@ -42,6 +42,7 @@ var theApp = React.render(MainTabbedArea({packets: [],
 // Helper modules for handling application events.
 var store = new PacketsStore(window, theApp);
 var resizer = new Resizer(window, theApp);
+var search = new Search(window, theApp);
 
 // Send notification about initialization being done.
 postChromeMessage("initialized");

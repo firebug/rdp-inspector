@@ -8,6 +8,7 @@ define(function(require, exports, module) {
 function Search(win, app) {
   this.win = win;
   this.app = app;
+
   this.win.addEventListener("search", this.onSearch.bind(this));
 }
 
@@ -15,7 +16,7 @@ Search.prototype =
 /** @lends Search */
 {
   onSearch: function(event) {
-    var value = JSON.parse(event.data);
+    var value = event.data;
     this.app.setState({searchFilter: value});
   },
 }

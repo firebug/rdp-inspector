@@ -39,7 +39,8 @@ var PacketsPanel = React.createClass({
           PacketList({
             data: this.props.packets,
             actions: this.props.actions,
-            selectedPacket: this.props.selectedPacket
+            selectedPacket: this.props.selectedPacket,
+            searchFilter: this.props.searchFilter
           })
         ),
         DIV({className: "sidePanel"},

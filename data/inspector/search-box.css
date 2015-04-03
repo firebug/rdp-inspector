@@ -1,0 +1,18 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* Search Box */
+
+.searchBox {
+  height: 21px;
+  font-size: 12px;
+  margin-top: 2px;
+  border: 1px solid rgb(170, 188, 207);
+  width: 200px;
+  position: fixed; /* xxxHonza: how to avoid fixed position? */
+  right: 5px;
+  background-image: url("chrome://rdpinspector/skin/search.svg");
+  background-repeat: no-repeat;
+  background-position: 2px center;
+  padding-left: 20px;
+}

@@ -28,12 +28,14 @@ var PacketList = React.createClass({
 
   render: function() {
     var output = [];
+    var filter = this.props.searchFilter;
 
     var packets = this.props.data;
     for (var i in packets) {
       var packet = packets[i];
       packets[i].key = i;
 
+      // Special treatment for 'summary' packets.
       if (packet.type == "summary") {
         output.push(PacketsSummary({
           data: packet
@@ -42,7 +44,6 @@ var PacketList = React.createClass({
       }
 
       // Filter out packets which don't match the search token.
-      var filter = this.props.searchFilter;
       if (filter && JSON.stringify(packet).indexOf(filter) < 0) {
         continue;
       }
