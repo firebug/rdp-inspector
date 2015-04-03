@@ -31,10 +31,10 @@ var PacketsToolbar = React.createClass({
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails,
             checked: showInlineDetails},
             Locale.$STR("rdpInspector.option.inlineDetails")
-          ),
+          )/*,
           MenuItem({key: "cachePackets", onClick: this.onCachePackets},
             Locale.$STR("rdpInspector.option.cachePackets")
-          )
+          )*/
         ),
         Button({bsSize: "xsmall", onClick: this.onClear},
           Locale.$STR("rdpInspector.cmd.clear")
