@@ -79,12 +79,14 @@ define(function(require, exports, module) {
           level: level, label: key, keyPath: keyPath,
           hasChildren: hasChildren, opened: opened,
           value: value, actions: this.props.actions,
-          onRowLabelClick: this.onRowLabelClick,
-          onRowValueClick: this.onRowValueClick
+          onRowLabelClick: this.onToggleOpenField,
+          onRowLabelDblClick: this.onStartEditingFieldLabel,
+          onRowValueClick: this.onStartEditingFieldValue,
+          onRowRemoveClick: this.onRemoveField
         }));
 
         return acc;
-      }, [TableNewField({
+      }, [TableRowNewField({
         level: 0,
         key: "new-field",
         onSubmit: (newKey) => this.onNewField([], newKey, undefined)
@@ -109,10 +111,31 @@ define(function(require, exports, module) {
       this.setState({
         currentState: newState,
         stateHistory: newHistory
-      })
+      });
     },
 
-    onRowLabelClick: function(keyPath, label) {
+    onRemoveField: function(keyPath) {
+      var fullKeyPath = ["data"].concat(keyPath);
+
+      if (!this.state.currentState.hasIn(fullKeyPath)) {
+        // nop if the key doesn't exists
+        return;
+      }
+
+      var newState = this.state.currentState.deleteIn(fullKeyPath);
+
+      var newHistory = this.state.stateHistory.withMutations(function(v) {
+        v.get('history').push(newState);
+        v.set('index', v.get('history').size);
+      });
+
+      this.setState({
+        currentState: newState,
+        stateHistory: newHistory
+      });
+    },
+
+    onToggleOpenField: function(keyPath, label) {
       // toggle open/close tree view level
       var newState = this.state.currentState.updateIn(
         ["openedKeyPaths"].concat(keyPath),
@@ -129,8 +152,12 @@ define(function(require, exports, module) {
       });
     },
 
-    onRowValueClick: function(keyPath, value) {
-      console.log("CLICK ROW VALUE", arguments);
+    onStartEditingFieldLabel: function(keyPath, label) {
+      console.log("START EDITING ROW LABEL", arguments);
+    },
+
+    onStartEditingFieldValue: function(keyPath, value) {
+      console.log("START EDITING ROW VALUE", arguments);
     },
 
     flattenTreeValue: function (level, key, value, keyPath) {
@@ -169,8 +196,8 @@ define(function(require, exports, module) {
   // Exports from this module
   exports.TreeEditorView = React.createFactory(TreeEditorView);
 
-  var TableNewField = React.createFactory(React.createClass({
-    displayName: "TableNewField",
+  var TableRowNewField = React.createFactory(React.createClass({
+    displayName: "TableRowNewField",
     render: function() {
       var { level } = this.props;
 
@@ -178,6 +205,39 @@ define(function(require, exports, module) {
 
       var inputEl = INPUT({
         placeholder: "New...",
+        onKeyPress: this.onKeyPress
+      });
+
+      return TR({ className: rowClassName }, [
+        TD({
+          key: 'new-label',
+          className: "memberLabelCell",
+          colSpan: 2,
+          style: { paddingLeft: 18 + (8 * level) }
+        }, inputEl)
+      ]);
+    },
+    onKeyPress: function(event) {
+      if(event.which == 13) {
+
+        if (typeof this.props.onSubmit == "function") {
+          this.props.onSubmit(event.target.value);
+        }
+
+        event.target.value = null;
+      }
+    }
+  }));
+
+  var TableRowEditingFieldLabel = React.createFactory(React.createClass({
+    displayName: "TableRowEditingField",
+    render: function() {
+      var { level, value } = this.props;
+
+      var rowClassName = "memberRow newRow";
+
+      var inputEl = INPUT({
+        value: value,
         onKeyPress: this.onKeyPress
       });
 
@@ -233,6 +293,7 @@ define(function(require, exports, module) {
         key: 'label',
         className: "memberLabelCell",
         style: { paddingLeft: 8 * level },
+        onDoubleClick: () => this.props.onRowLabelDblClick(keyPath, label),
         onClick: () => this.props.onRowLabelClick(keyPath, label)
       }, SPAN({ className: 'memberLabel domLabel'}, label));
     },
@@ -240,16 +301,17 @@ define(function(require, exports, module) {
     renderRowValue: function() {
       var { hasChildren, value, keyPath } = this.props;
 
-      var jsonValue = hasChildren ? value.toJS() : value;
+      var jsonValue = hasChildren ? value.toJSON() : value;
 
-      var valueSummary = Reps.getRep(value)({ object: jsonValue });
+      var valueSummary = Reps.getRep(jsonValue)({ object: jsonValue });
 
-      return TD({ key: 'value', className: "memberValueCell",
-                  onClick: () => this.props.onRowValueClick(keyPath, value)
-                },
-                SPAN({ className: 'memberLabel domLabel' },
-                     valueSummary,
-                     I({ className: "closeButton" })));
+      return TD({ key: 'value', className: "memberValueCell" },
+                SPAN({ className: 'memberLabel domLabel',
+                       onClick: () => this.props.onRowValueClick(keyPath, value)
+                     }, valueSummary),
+                I({ className: "closeButton",
+                    onClick: () => this.props.onRowRemoveClick(keyPath) })
+               );
     }
   }));
 });
