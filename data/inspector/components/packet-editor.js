@@ -29,10 +29,6 @@ define(function(require, exports, module) {
                  bsStyle: "primary", bsSize: "xsmall",
                  style: { marginLeft: 12, color: 'white' } }, "Send"),
 
-        Button({ onClick: this.props.onAddField, key: "add",
-                 bsStyle: "default", bsSize: "xsmall",
-                 style: { marginLeft: 12 } }, "Add Field"),
-
         Button({ onClick: this.props.onRedo, key: "redo",
                  className: "pull-right",
                  disabled: !this.props.isRedoEnabled,

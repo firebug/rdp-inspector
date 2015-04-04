@@ -11,7 +11,7 @@ define(function(require, exports, module) {
   const { Reps } = require("reps/repository");
 
   // Shortcuts
-  const { UL, LI, SPAN, DIV,
+  const { UL, LI, SPAN, DIV, I,
           TABLE, TBODY, THEAD, TFOOT, TR, TD,
           INPUT, TEXTAREA } = Reps.DOM;
 
@@ -22,7 +22,7 @@ define(function(require, exports, module) {
       nextProps = nextProps || {};
       var data = nextProps.data;
 
-      // no packet selected or received packet selected
+      // no data selected and no default data configured
       if (!data && nextProps.defaultData) {
         data = nextProps.defaultData;
       }
@@ -55,9 +55,8 @@ define(function(require, exports, module) {
     render: function() {
       return (
         TABLE({
-          className: "domTable",
-          cellPadding: 0, cellSpacing: 0,
-          style: { marginBottom: 80 }
+          className: "domTable editable",
+          cellPadding: 0, cellSpacing: 0
         }, TBODY({}, this.renderTableRows()))
       );
     },
@@ -65,7 +64,7 @@ define(function(require, exports, module) {
     renderTableRows: function() {
       var rootValue = this.state ? this.state.currentState.get("data") : null;
       var rows = rootValue ?
-            this.flattenTreeValue(-1, "packet", rootValue ) : [];
+            this.flattenTreeValue(-1, "data", rootValue ) : [];
 
       console.log("TREE EDITOR VIEW", rows, this.props, this.state);
 
@@ -74,11 +73,6 @@ define(function(require, exports, module) {
           level, key, value, keyPath,
           opened, hasChildren
         } = row;
-
-        if (level < 0) {
-          // skip the fake level -1
-          return acc;
-        }
 
         acc.push(TableRow({
           key: keyPath.join("-") || "root",
@@ -90,12 +84,35 @@ define(function(require, exports, module) {
         }));
 
         return acc;
-      }, [])
+      }, [TableNewField({
+        level: 0,
+        key: "new-field",
+        onSubmit: (newKey) => this.onNewField([], newKey, undefined)
+      })])
+    },
+
+    onNewField: function(keyPath, key, value) {
+      var fullKeyPath = ["data"].concat(keyPath, key);
+
+      if (this.state.currentState.hasIn(fullKeyPath)) {
+        // nop if the key already exists
+        return;
+      }
+
+      var newState = this.state.currentState.setIn(fullKeyPath, value);
+
+      var newHistory = this.state.stateHistory.withMutations(function(v) {
+        v.get('history').push(newState);
+        v.set('index', v.get('history').size);
+      });
+
+      this.setState({
+        currentState: newState,
+        stateHistory: newHistory
+      })
     },
 
     onRowLabelClick: function(keyPath, label) {
-      console.log("CLICK ROW LABEL", keyPath);
-
       // toggle open/close tree view level
       var newState = this.state.currentState.updateIn(
         ["openedKeyPaths"].concat(keyPath),
@@ -130,7 +147,7 @@ define(function(require, exports, module) {
 
       var opened = openedKeyPaths.getIn(keyPath) && hasChildren;
 
-      if (level >= 0) {  // skip the fake root packet object level
+      if (level >= 0) {  // skip the fake root data object level
         res.push({ key: key, level: level, value: value,
                    opened: opened,
                    keyPath: keyPath, hasChildren: hasChildren});
@@ -151,6 +168,39 @@ define(function(require, exports, module) {
 
   // Exports from this module
   exports.TreeEditorView = React.createFactory(TreeEditorView);
+
+  var TableNewField = React.createFactory(React.createClass({
+    displayName: "TableNewField",
+    render: function() {
+      var { level } = this.props;
+
+      var rowClassName = "memberRow newRow";
+
+      var inputEl = INPUT({
+        placeholder: "New...",
+        onKeyPress: this.onKeyPress
+      });
+
+      return TR({ className: rowClassName }, [
+        TD({
+          key: 'new-label',
+          className: "memberLabelCell",
+          colSpan: 2,
+          style: { paddingLeft: 18 + (8 * level) }
+        }, inputEl)
+      ]);
+    },
+    onKeyPress: function(event) {
+      if(event.which == 13) {
+
+        if (typeof this.props.onSubmit == "function") {
+          this.props.onSubmit(event.target.value);
+        }
+
+        event.target.value = null;
+      }
+    }
+  }));
 
   var TableRow = React.createFactory(React.createClass({
     displayName: "TableRow",
@@ -194,11 +244,12 @@ define(function(require, exports, module) {
 
       var valueSummary = Reps.getRep(value)({ object: jsonValue });
 
-      return TD({
-        key: 'value',
-        className: "memberValueCell",
-        onClick: () => this.props.onRowValueClick(keyPath, value)
-      }, SPAN({ className: 'memberLabel domLabel'}, valueSummary));
+      return TD({ key: 'value', className: "memberValueCell",
+                  onClick: () => this.props.onRowValueClick(keyPath, value)
+                },
+                SPAN({ className: 'memberLabel domLabel' },
+                     valueSummary,
+                     I({ className: "closeButton" })));
     }
   }));
 });
