@@ -35,7 +35,6 @@ define(function(require, exports, module) {
     },
 
     undo: function() {
-      console.log("PRE UNDO", this.state.stateHistory.toJSON());
       if (this.hasUndo()) {
         var index = this.state.stateHistory.get("index");
         var newHistory = this.state.stateHistory.set("index", index - 1);

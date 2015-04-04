@@ -26,6 +26,9 @@ var actions = {
   find: function() {
     postChromeMessage("find");
   },
+  send: function(packet) {
+    postChromeMessage("injectRDPPacket", packet);
+  },
   appendSummary: function() {
     store.appendSummary();
   },

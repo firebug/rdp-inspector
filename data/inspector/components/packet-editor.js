@@ -71,6 +71,8 @@ define(function(require, exports, module) {
     },
 
     render: function() {
+      var selectedPacket = this.state.selectedPacket || this.props.selectedPacket;
+
       return (
         DIV({className: "details editor"},
             PacketEditorToolbar({
@@ -84,7 +86,7 @@ define(function(require, exports, module) {
             TreeEditorView({
               ref: "editor",
               key: "packet-editor",
-              data: this.state.selectedPacket || this.props.selectedPacket,
+              data: selectedPacket && selectedPacket.to ? selectedPacket : null,
               defaultData: this.state.defaultData
             })
            )
