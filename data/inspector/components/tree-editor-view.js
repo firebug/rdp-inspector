@@ -76,7 +76,9 @@ define(function(require, exports, module) {
           acc.push(TableRowNewField({
             level: level,
             key: keyPath.join("-") +"_newField",
-            onSubmit: (newKey) => this.onNewField(keyPath, newKey, undefined)
+            onSubmit: (newKey, cancel) => {
+              this.onNewField(keyPath, newKey, cancel);
+            }
           }));
 
           return acc;
@@ -95,8 +97,8 @@ define(function(require, exports, module) {
               // TODO: auto completion
               return [];
             },
-            onSubmit: (newKey) => {
-              this.onStopEditingFieldLabel(keyPath, value, newKey);
+            onSubmit: (newKey, cancel) => {
+              this.onStopEditingFieldLabel(keyPath, key, newKey, cancel);
             }
           }));
 
@@ -125,8 +127,8 @@ define(function(require, exports, module) {
               // TODO: auto completion
               return [];
             },
-            onSubmit: (newValue) => {
-              this.onStopEditingFieldValue(keyPath, value, JSON.parse(newValue));
+            onSubmit: (newValue, cancel) => {
+              this.onStopEditingFieldValue(keyPath, value, JSON.parse(newValue), cancel);
             }
           }));
 
@@ -147,7 +149,7 @@ define(function(require, exports, module) {
       }, [])
     },
 
-    onNewField: function(keyPath, key, value) {
+    onNewField: function(keyPath, key, cancel) {
       var fullKeyPath = ["data"].concat(keyPath, key);
 
       if (this.state.currentState.hasIn(fullKeyPath)) {
@@ -155,12 +157,15 @@ define(function(require, exports, module) {
         return;
       }
 
-      var newState = this.state.currentState.setIn(fullKeyPath, value);
+      var newState = !cancel ?
+            this.state.currentState.setIn(fullKeyPath, undefined) :
+            this.state.currentState;
 
-      var newHistory = this.state.stateHistory.withMutations(function(v) {
-        v.get('history').push(newState);
-        v.set('index', v.get('history').size);
-      });
+      var newHistory = !cancel ?
+            this.state.stateHistory.withMutations(function(v) {
+              v.get('history').push(newState);
+              v.set('index', v.get('history').size);
+            }) : this.state.stateHistory;
 
       this.setState({
         currentState: newState,
@@ -222,14 +227,14 @@ define(function(require, exports, module) {
       });
     },
 
-    onStopEditingFieldLabel: function(keyPath, oldKey, newKey) {
+    onStopEditingFieldLabel: function(keyPath, oldKey, newKey, cancel) {
       // start editing label on key path
       var parentKeyPath = keyPath.slice(0, -1);
       var changed = oldKey !== newKey;
 
       var newState = this.state.currentState.withMutations((state) => {
         state.updateIn(["editingKeyPath"], (v) => v.clear());
-        if (changed) {
+        if (!cancel && changed) {
           var value = state.getIn(["data"].concat(keyPath));
           state.deleteIn(["data"].concat(keyPath));
           state.setIn(["data"].concat(parentKeyPath, newKey), value);
@@ -238,7 +243,7 @@ define(function(require, exports, module) {
 
       var oldHistory = this.state.stateHistory;
 
-      if (changed) {
+      if (!cancel && changed) {
         var newHistory = this.state.stateHistory.withMutations(function(v) {
           v.get('history').push(newState);
           v.set('index', v.get('history').size);
@@ -268,7 +273,7 @@ define(function(require, exports, module) {
       });
     },
 
-    onStopEditingFieldValue: function(keyPath, oldValue, newValue) {
+    onStopEditingFieldValue: function(keyPath, oldValue, newValue, cancel) {
       // stop editing value on key path
       var parentKeyPath = keyPath.slice(0, -1);
       var value = Immutable.fromJS(newValue);
@@ -276,14 +281,14 @@ define(function(require, exports, module) {
 
       var newState = this.state.currentState.withMutations((state) => {
         state.updateIn(["editingKeyPath"], (v) => v.clear());
-        if (changed) {
+        if (!cancel && changed) {
           state.setIn(["data"].concat(keyPath), value);
         }
       });
 
       var oldHistory = this.state.stateHistory;
 
-      if (changed) {
+      if (!cancel && changed) {
         var newHistory = oldHistory.withMutations(function(v) {
           v.get('history').push(newState);
           v.set('index', v.get('history').size);
@@ -338,6 +343,12 @@ define(function(require, exports, module) {
 
   var TableRowNewField = React.createFactory(React.createClass({
     displayName: "TableRowNewField",
+    getInitialState: function() {
+      return {
+        valid: true
+      }
+    },
+
     render: function() {
       var { level } = this.props;
 
@@ -345,7 +356,7 @@ define(function(require, exports, module) {
 
       var inputEl = INPUT({
         placeholder: "New...",
-        onKeyPress: this.onKeyPress
+        onKeyUp: this.onKeyUp
       });
 
       return TR({ className: rowClassName }, [
@@ -357,13 +368,30 @@ define(function(require, exports, module) {
         }, inputEl)
       ]);
     },
-    onKeyPress: function(event) {
-      if(event.which == 13) {
+
+    onChange: function(event) {
+      var { valid } = this.state;
+
+      valid = this.props.validation ?
+        this.props.validation(event.target.value) :
+        true
+
+      this.setState({valid: valid});
+    },
+
+    onKeyUp: function(event) {
+      var { valid } = this.state;
+
+      if(valid && event.which == 13) {
 
         if (typeof this.props.onSubmit == "function") {
+          // submit
           this.props.onSubmit(event.target.value);
         }
-
+        event.target.value = null;
+      } else if (event.which == 27) {
+        // cancel
+        this.props.onSubmit(event.target.value, true);
         event.target.value = null;
       }
     }
@@ -371,14 +399,26 @@ define(function(require, exports, module) {
 
   var TableRowEditingFieldLabel = React.createFactory(React.createClass({
     displayName: "TableRowEditingFieldLabel",
+
+    getInitialState: function() {
+      return {
+        valid: true
+      }
+    },
+
+    componentDidMount: function() {
+      React.findDOMNode(this.refs.input).focus();
+    },
+
     render: function() {
       var { level, label } = this.props;
 
       var rowClassName = "memberRow newRow";
 
       var inputEl = INPUT({
+        ref: 'input',
         defaultValue: label,
-        onKeyPress: this.onKeyPress
+        onKeyUp: this.onKeyUp
       });
 
       return TR({ className: rowClassName }, [
@@ -390,14 +430,26 @@ define(function(require, exports, module) {
         }, inputEl)
       ]);
     },
-    onKeyPress: function(event) {
-      if(event.which == 13) {
 
-        if (typeof this.props.onSubmit == "function") {
-          this.props.onSubmit(event.target.value);
-        }
+    onChange: function(event) {
+      var { valid } = this.state;
 
-        event.target.value = null;
+      valid = this.props.validation ?
+        this.props.validation(event.target.value) :
+        true
+
+      this.setState({valid: valid});
+    },
+
+    onKeyUp: function(event) {
+      var { valid } = this.state;
+
+      if(valid && event.which == 13) {
+        // submit
+        this.props.onSubmit(event.target.value);
+      } else if (event.which == 27) {
+        // cancel
+        this.props.onSubmit(event.target.value, true);
       }
     }
   }));
@@ -408,6 +460,9 @@ define(function(require, exports, module) {
       return  {
         valid: true
       }
+    },
+    componentDidMount: function() {
+      React.findDOMNode(this.refs.input).focus();
     },
     render: function() {
       var { level, label, value } = this.props;
@@ -438,8 +493,9 @@ define(function(require, exports, module) {
             value.toJSON() : value;
 
       var inputEl = INPUT({
+        ref: 'input',
         defaultValue: JSON.stringify(jsonValue),
-        onKeyPress: this.onKeyPress,
+        onKeyUp: this.onKeyUp,
         onChange: this.onChange,
         className: valid ? "valid" : "invalid"
       });
@@ -458,11 +514,15 @@ define(function(require, exports, module) {
       this.setState({valid: valid});
     },
 
-    onKeyPress: function(event) {
+    onKeyUp: function(event) {
       var { valid } = this.state;
 
       if(valid && event.which == 13) {
+        // submit
         this.props.onSubmit(event.target.value);
+      } else if (event.which == 27) {
+        // cancel
+        this.props.onSubmit(event.target.value, true);
       }
     }
   }));
