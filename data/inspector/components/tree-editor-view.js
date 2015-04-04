@@ -1,7 +1,6 @@
 /* See license.txt for terms of usage */
 
 define(function(require, exports, module) {
-
   // Dependencies
   const React = require("react");
   const ReactBootstrap = require("react-bootstrap");
@@ -17,6 +16,66 @@ define(function(require, exports, module) {
 
   var TreeEditorView = React.createClass({
     displayName: "TreeEditorView",
+
+    undo: function() {
+      console.log("PRE UNDO", this.state.stateHistory.toJSON());
+      if (this.hasUndo()) {
+        var index = this.state.stateHistory.get("index");
+        var newHistory = this.state.stateHistory.set("index", index - 1);
+        var newState = this.state.stateHistory.getIn(["history", index - 1]);
+
+        this.setState({
+          currentState: newState,
+          stateHistory: newHistory
+        })
+      }
+    },
+    redo: function() {
+      if (this.hasRedo()) {
+        var index = this.state.stateHistory.get("index");
+        var newHistory = this.state.stateHistory.set("index", index + 1);
+        var newState = this.state.stateHistory.getIn(["history", index + 1]);
+
+        this.setState({
+          currentState: newState,
+          stateHistory: newHistory
+        })
+      }
+    },
+    hasUndo: function() {
+      var size = this.state.stateHistory.get("history").size;
+      var index = this.state.stateHistory.get("index");
+
+      if (size > 1 && index > 0) {
+        return true;
+      }
+
+      return false;
+    },
+    hasRedo: function() {
+      var size = this.state.stateHistory.get("history").size;
+      var index = this.state.stateHistory.get("index");
+
+      if (size > 1 && index < size - 1) {
+        return true;
+      }
+
+      return false;
+    },
+
+    generateUpdatedHistory: function(newState) {
+      return this.state.stateHistory.withMutations(function(v) {
+        v.update('history', (history) => {
+          // TODO: configurable history size
+          if (history.size > 4) {
+            return history.skip(1).push(newState);
+          } else {
+            return history.push(newState);
+          }
+        });
+        v.set('index', v.get('history').size - 1);
+      })
+    },
 
     propsToState: function(nextProps) {
       nextProps = nextProps || {};
@@ -34,8 +93,8 @@ define(function(require, exports, module) {
       });
 
       var stateHistory = Immutable.fromJS({
-        history: [],
-        index: -1
+        history: [currentState],
+        index: 0
       });
 
       return {
@@ -162,10 +221,8 @@ define(function(require, exports, module) {
             this.state.currentState;
 
       var newHistory = !cancel ?
-            this.state.stateHistory.withMutations(function(v) {
-              v.get('history').push(newState);
-              v.set('index', v.get('history').size);
-            }) : this.state.stateHistory;
+            this.generateUpdatedHistory(newState) :
+            this.state.stateHistory;
 
       this.setState({
         currentState: newState,
@@ -183,10 +240,7 @@ define(function(require, exports, module) {
 
       var newState = this.state.currentState.deleteIn(fullKeyPath);
 
-      var newHistory = this.state.stateHistory.withMutations(function(v) {
-        v.get('history').push(newState);
-        v.set('index', v.get('history').size);
-      });
+      var newHistory = this.generateUpdatedHistory(newState);
 
       this.setState({
         currentState: newState,
@@ -241,18 +295,13 @@ define(function(require, exports, module) {
         }
       });
 
-      var oldHistory = this.state.stateHistory;
-
-      if (!cancel && changed) {
-        var newHistory = this.state.stateHistory.withMutations(function(v) {
-          v.get('history').push(newState);
-          v.set('index', v.get('history').size);
-        });
-      }
+      var newHistory = (!cancel && changed) ?
+            this.generateUpdatedHistory(newState) :
+            this.state.stateHistory;
 
       this.setState({
         currentState: newState,
-        stateHistory: changed ? newHistory : oldHistory
+        stateHistory: newHistory
       });
 
     },
@@ -286,18 +335,13 @@ define(function(require, exports, module) {
         }
       });
 
-      var oldHistory = this.state.stateHistory;
-
-      if (!cancel && changed) {
-        var newHistory = oldHistory.withMutations(function(v) {
-          v.get('history').push(newState);
-          v.set('index', v.get('history').size);
-        });
-      }
+      var newHistory = (!cancel && changed) ?
+            this.generateUpdatedHistory(newState) :
+            this.state.stateHistory;
 
       this.setState({
         currentState: newState,
-        stateHistory: changed ? newHistory : oldHistory
+        stateHistory: newHistory
       });
 
     },

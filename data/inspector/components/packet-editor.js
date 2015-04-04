@@ -63,8 +63,14 @@ define(function(require, exports, module) {
     render: function() {
       return (
         DIV({className: "details editor"},
-            PacketEditorToolbar({}),
+            PacketEditorToolbar({
+              onUndo: this.onUndo,
+              onRedo: this.onRedo,
+              isUndoEnabled: true,
+              isRedoEnabled: true
+            }),
             TreeEditorView({
+              ref: "editor",
               key: "packet-editor",
               data: this.props.selectedPacket,
               defaultData: {
@@ -74,6 +80,14 @@ define(function(require, exports, module) {
             })
            )
       );
+    },
+
+    onUndo: function() {
+      this.refs.editor.undo();
+    },
+
+    onRedo: function() {
+      this.refs.editor.redo();
     }
   });
 
