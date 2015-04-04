@@ -30,7 +30,7 @@ define(function(require, exports, module) {
       var currentState = Immutable.fromJS({
         data: data,
         openedKeyPaths: {},
-        editingKeyPath: null
+        editingKeyPath: {}
       });
 
       var stateHistory = Immutable.fromJS({
@@ -66,19 +66,39 @@ define(function(require, exports, module) {
       var rows = rootValue ?
             this.flattenTreeValue(-1, "data", rootValue ) : [];
 
-      console.log("TREE EDITOR VIEW", rows, this.props, this.state);
-
       return rows.reduce((acc, row) => {
         var {
           level, key, value, keyPath,
-          opened, hasChildren
+          opened, editing, hasChildren, newField
         } = row;
 
+        if (newField) {
+          acc.push(TableRowNewField({
+            level: level,
+            key: keyPath.join("-") +"_newField",
+            onSubmit: (newKey) => this.onNewField(keyPath, newKey, undefined)
+          }));
+
+          return acc;
+        }
+
+        if (editing == "label") {
+          acc.push(TableRowEditingFieldLabel({
+            key: keyPath.join("-") + "_editingLabel",
+            level: level, label: key, keyPath: keyPath,
+            hasChildren: hasChildren, value: value,
+            onSubmit: (newKey) => {
+              this.onStopEditingFieldLabel(keyPath, value, newKey);
+            }
+          }));
+
+          return acc;
+        }
+
         acc.push(TableRow({
-          key: keyPath.join("-") || "root",
+          key: keyPath.join("-"), value: value,
           level: level, label: key, keyPath: keyPath,
           hasChildren: hasChildren, opened: opened,
-          value: value, actions: this.props.actions,
           onRowLabelClick: this.onToggleOpenField,
           onRowLabelDblClick: this.onStartEditingFieldLabel,
           onRowValueClick: this.onStartEditingFieldValue,
@@ -86,11 +106,7 @@ define(function(require, exports, module) {
         }));
 
         return acc;
-      }, [TableRowNewField({
-        level: 0,
-        key: "new-field",
-        onSubmit: (newKey) => this.onNewField([], newKey, undefined)
-      })])
+      }, [])
     },
 
     onNewField: function(keyPath, key, value) {
@@ -153,18 +169,71 @@ define(function(require, exports, module) {
     },
 
     onStartEditingFieldLabel: function(keyPath, label) {
-      console.log("START EDITING ROW LABEL", arguments);
+      if (this.state.currentState.get("editingKeyPath").size > 0) {
+        // nop if there's aleady an editing key path active
+        return;
+      }
+
+      // start editing label on key path
+      var newState = this.state.currentState.setIn(
+        ["editingKeyPath"].concat(keyPath),
+        "label");
+
+      this.setState({
+        currentState: newState
+      });
+    },
+
+    onStopEditingFieldLabel: function(keyPath, oldKey, newKey) {
+      // start editing label on key path
+      var parentKeyPath = keyPath.slice(0, -1);
+      var changed = oldKey !== newKey;
+
+      var newState = this.state.currentState.withMutations((state) => {
+        state.updateIn(["editingKeyPath"], (v) => v.clear());
+        if (changed) {
+          var value = state.getIn(["data"].concat(keyPath));
+          state.deleteIn(["data"].concat(keyPath));
+          state.setIn(["data"].concat(parentKeyPath, newKey), value);
+        }
+      });
+
+      if (changed) {
+        var newHistory = this.state.stateHistory.withMutations(function(v) {
+          v.get('history').push(newState);
+          v.set('index', v.get('history').size);
+        });
+      }
+
+      this.setState({
+        currentState: newState,
+        stateHistory: newHistory
+      });
+
     },
 
     onStartEditingFieldValue: function(keyPath, value) {
       console.log("START EDITING ROW VALUE", arguments);
+      if (this.state.currentState.get("editingKeyPath").size > 0) {
+        // nop if there's aleady an editing key path active
+        return;
+      }
+
+      // start editing label on key path
+      var newState = this.state.currentState.setIn(
+        ["editingKeyPath"].concat(keyPath),
+        "value");
+
+      this.setState({
+        currentState: newState
+      });
     },
 
     flattenTreeValue: function (level, key, value, keyPath) {
       keyPath = keyPath || [];
 
-      var openedKeyPaths = this.state ?
-            this.state.currentState.get("openedKeyPaths") : null;
+      var openedKeyPaths = this.state.currentState.get("openedKeyPaths");
+      var editingKeyPath = this.state.currentState.get("editingKeyPath");
 
       var res = [];
       var hasChildren = (
@@ -172,15 +241,18 @@ define(function(require, exports, module) {
           value instanceof Immutable.Map
       );
 
-      var opened = openedKeyPaths.getIn(keyPath) && hasChildren;
+      var opened = hasChildren && openedKeyPaths.getIn(keyPath);
+      var editing = editingKeyPath.getIn(keyPath);
 
       if (level >= 0) {  // skip the fake root data object level
         res.push({ key: key, level: level, value: value,
-                   opened: opened,
+                   opened: opened, editing: editing,
                    keyPath: keyPath, hasChildren: hasChildren});
       }
 
-      if (opened) {
+      if (level == -1 || (opened && !editing)) {
+        res.push({ newField: true, level: level + 1, keyPath: keyPath });
+
         value.forEach((value, subkey) => {
           res = res.concat(
             this.flattenTreeValue(level + 1, subkey, value,
@@ -232,12 +304,12 @@ define(function(require, exports, module) {
   var TableRowEditingFieldLabel = React.createFactory(React.createClass({
     displayName: "TableRowEditingField",
     render: function() {
-      var { level, value } = this.props;
+      var { level, label } = this.props;
 
       var rowClassName = "memberRow newRow";
 
       var inputEl = INPUT({
-        value: value,
+        defaultValue: label,
         onKeyPress: this.onKeyPress
       });
 
