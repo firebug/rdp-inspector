@@ -14,7 +14,6 @@ const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
- * xxxHonza: TODO localization
  * xxxHonza: TODO docs
  */
 var ActorsToolbar = React.createClass({
@@ -24,7 +23,7 @@ var ActorsToolbar = React.createClass({
     return (
       ButtonToolbar({className: "toolbar"},
         Button({bsSize: "xsmall", onClick: this.onRefresh},
-          "Refresh"
+          Locale.$STR("rdpInspector.cmd.refresh")
         )
       )
     )
