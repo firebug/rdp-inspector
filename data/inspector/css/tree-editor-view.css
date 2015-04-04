@@ -22,5 +22,20 @@
 .domTable.editable .memberRow.newRow input {
   border: none;
   background: transparent;
-  width: '100%'
+  width: 100%;
+}
+
+.domTable.editable .memberRow.editRow input {
+  border: 1px groove;
+  width: 100%;
+}
+
+.domTable.editable .memberRow.editRow input.valid {
+  border-color: green;
+  background-color: rgba(0,210,0,0.2);
+}
+
+.domTable.editable .memberRow.editRow input.invalid {
+  border-color: red;
+  background-color: rgba(210,0,0,0.2);
 }

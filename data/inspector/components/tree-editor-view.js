@@ -87,8 +87,46 @@ define(function(require, exports, module) {
             key: keyPath.join("-") + "_editingLabel",
             level: level, label: key, keyPath: keyPath,
             hasChildren: hasChildren, value: value,
+            validation: (value) => {
+              // TODO: validator
+              return true;
+            },
+            autocompletion: (value) => {
+              // TODO: auto completion
+              return [];
+            },
             onSubmit: (newKey) => {
               this.onStopEditingFieldLabel(keyPath, value, newKey);
+            }
+          }));
+
+          return acc;
+        }
+
+        if (editing == "value") {
+          acc.push(TableRowEditingFieldValue({
+            key: keyPath.join("-") + "_editingValue",
+            level: level, label: key, keyPath: keyPath,
+            hasChildren: hasChildren, value: value,
+            validation: (value) => {
+              // TODO: add support to custom validators
+              var valid;
+
+              try {
+                JSON.parse(value);
+                valid = true;
+              } catch(e) {
+                valid = false;
+              }
+
+              return valid;
+            },
+            autocompletion: (value) => {
+              // TODO: auto completion
+              return [];
+            },
+            onSubmit: (newValue) => {
+              this.onStopEditingFieldValue(keyPath, value, JSON.parse(newValue));
             }
           }));
 
@@ -198,6 +236,8 @@ define(function(require, exports, module) {
         }
       });
 
+      var oldHistory = this.state.stateHistory;
+
       if (changed) {
         var newHistory = this.state.stateHistory.withMutations(function(v) {
           v.get('history').push(newState);
@@ -207,19 +247,18 @@ define(function(require, exports, module) {
 
       this.setState({
         currentState: newState,
-        stateHistory: newHistory
+        stateHistory: changed ? newHistory : oldHistory
       });
 
     },
 
     onStartEditingFieldValue: function(keyPath, value) {
-      console.log("START EDITING ROW VALUE", arguments);
       if (this.state.currentState.get("editingKeyPath").size > 0) {
         // nop if there's aleady an editing key path active
         return;
       }
 
-      // start editing label on key path
+      // start editing value on key path
       var newState = this.state.currentState.setIn(
         ["editingKeyPath"].concat(keyPath),
         "value");
@@ -227,6 +266,35 @@ define(function(require, exports, module) {
       this.setState({
         currentState: newState
       });
+    },
+
+    onStopEditingFieldValue: function(keyPath, oldValue, newValue) {
+      // stop editing value on key path
+      var parentKeyPath = keyPath.slice(0, -1);
+      var value = Immutable.fromJS(newValue);
+      var changed = !Immutable.is(oldValue, value);
+
+      var newState = this.state.currentState.withMutations((state) => {
+        state.updateIn(["editingKeyPath"], (v) => v.clear());
+        if (changed) {
+          state.setIn(["data"].concat(keyPath), value);
+        }
+      });
+
+      var oldHistory = this.state.stateHistory;
+
+      if (changed) {
+        var newHistory = oldHistory.withMutations(function(v) {
+          v.get('history').push(newState);
+          v.set('index', v.get('history').size);
+        });
+      }
+
+      this.setState({
+        currentState: newState,
+        stateHistory: changed ? newHistory : oldHistory
+      });
+
     },
 
     flattenTreeValue: function (level, key, value, keyPath) {
@@ -250,7 +318,7 @@ define(function(require, exports, module) {
                    keyPath: keyPath, hasChildren: hasChildren});
       }
 
-      if (level == -1 || (opened && !editing)) {
+      if (level == -1 || (opened && !editing) || (editing && editing.size > 0)) {
         res.push({ newField: true, level: level + 1, keyPath: keyPath });
 
         value.forEach((value, subkey) => {
@@ -302,7 +370,7 @@ define(function(require, exports, module) {
   }));
 
   var TableRowEditingFieldLabel = React.createFactory(React.createClass({
-    displayName: "TableRowEditingField",
+    displayName: "TableRowEditingFieldLabel",
     render: function() {
       var { level, label } = this.props;
 
@@ -330,6 +398,71 @@ define(function(require, exports, module) {
         }
 
         event.target.value = null;
+      }
+    }
+  }));
+
+  var TableRowEditingFieldValue = React.createFactory(React.createClass({
+    displayName: "TableRowEditingFieldValue",
+    getInitialState: function() {
+      return  {
+        valid: true
+      }
+    },
+    render: function() {
+      var { level, label, value } = this.props;
+
+      var rowClassName = "memberRow domRow editRow";
+
+      var rowContent = [
+        this.renderRowLabel(),
+        this.renderRowValue()
+      ]
+
+      return TR({ className: rowClassName }, rowContent);
+    },
+    renderRowLabel: function() {
+      var { keyPath, label, level } = this.props;
+
+      return TD({
+        key: 'label',
+        className: "memberLabelCell",
+        style: { paddingLeft: 8 * level }
+      }, SPAN({ className: 'memberLabel domLabel' }, label));
+    },
+    renderRowValue: function() {
+      var { hasChildren, value, keyPath } = this.props;
+      var { valid } = this.state;
+
+      var jsonValue = (value instanceof Immutable.Collection) ?
+            value.toJSON() : value;
+
+      var inputEl = INPUT({
+        defaultValue: JSON.stringify(jsonValue),
+        onKeyPress: this.onKeyPress,
+        onChange: this.onChange,
+        className: valid ? "valid" : "invalid"
+      });
+
+      return TD({ key: 'value', className: "memberValueCell" },
+                inputEl, I({}));
+    },
+
+    onChange: function(event) {
+      var { valid } = this.state;
+
+      valid = this.props.validation ?
+        this.props.validation(event.target.value) :
+        true
+
+      this.setState({valid: valid});
+    },
+
+    onKeyPress: function(event) {
+      var { valid } = this.state;
+
+      if(valid && event.which == 13) {
+        this.props.onSubmit(event.target.value);
       }
     }
   }));
@@ -367,7 +500,7 @@ define(function(require, exports, module) {
         style: { paddingLeft: 8 * level },
         onDoubleClick: () => this.props.onRowLabelDblClick(keyPath, label),
         onClick: () => this.props.onRowLabelClick(keyPath, label)
-      }, SPAN({ className: 'memberLabel domLabel'}, label));
+      }, SPAN({ className: 'memberLabel domLabel' }, label));
     },
 
     renderRowValue: function() {
@@ -378,9 +511,9 @@ define(function(require, exports, module) {
       var valueSummary = Reps.getRep(jsonValue)({ object: jsonValue });
 
       return TD({ key: 'value', className: "memberValueCell" },
-                SPAN({ className: 'memberLabel domLabel',
-                       onClick: () => this.props.onRowValueClick(keyPath, value)
-                     }, valueSummary),
+                SPAN({
+                  onClick: () => this.props.onRowValueClick(keyPath, value)
+                }, valueSummary),
                 I({ className: "closeButton",
                     onClick: () => this.props.onRowRemoveClick(keyPath) })
                );
