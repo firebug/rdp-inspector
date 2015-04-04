@@ -56,14 +56,26 @@ define(function(require, exports, module) {
 
     getInitialState: function() {
       return {
-        selectedPacket: null
+        selectedPacket: null,
+        defaultData: {
+          to: "root",
+          type: "requestTypes"
+        }
       };
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+      this.setState({
+        selectedPacket: this.props.selectedPacket
+      });
     },
 
     render: function() {
       return (
         DIV({className: "details editor"},
             PacketEditorToolbar({
+              onClear: this.onClear,
+              onSend: this.onSend,
               onUndo: this.onUndo,
               onRedo: this.onRedo,
               isUndoEnabled: true,
@@ -72,11 +84,8 @@ define(function(require, exports, module) {
             TreeEditorView({
               ref: "editor",
               key: "packet-editor",
-              data: this.props.selectedPacket,
-              defaultData: {
-                to: "root",
-                type: "requestTypes"
-              }
+              data: this.state.selectedPacket || this.props.selectedPacket,
+              defaultData: this.state.defaultData
             })
            )
       );
@@ -88,6 +97,14 @@ define(function(require, exports, module) {
 
     onRedo: function() {
       this.refs.editor.redo();
+    },
+
+    onClear: function() {
+      this.refs.editor.clearData();
+    },
+
+    onSend: function() {
+      this.props.actions.send(this.refs.editor.getData());
     }
   });
 

@@ -17,6 +17,23 @@ define(function(require, exports, module) {
   var TreeEditorView = React.createClass({
     displayName: "TreeEditorView",
 
+    clearData: function() {
+      var data = Immutable.fromJS(this.props.defaultData || {});
+      var newState = this.state.currentState.set("data", data);
+      var newHistory = !Immutable.is(this.state.currentState, newState) ?
+            this.generateUpdatedHistory(newState) :
+            this.state.stateHistory;
+
+      this.setState({
+        currentState: newState,
+        stateHistory: newHistory
+      });
+    },
+
+    getData: function() {
+      return this.state.currentState.get("data").toJSON();
+    },
+
     undo: function() {
       console.log("PRE UNDO", this.state.stateHistory.toJSON());
       if (this.hasUndo()) {
@@ -67,7 +84,7 @@ define(function(require, exports, module) {
       return this.state.stateHistory.withMutations(function(v) {
         v.update('history', (history) => {
           // TODO: configurable history size
-          if (history.size > 4) {
+          if (history.size >= 16) {
             return history.skip(1).push(newState);
           } else {
             return history.push(newState);
@@ -82,8 +99,8 @@ define(function(require, exports, module) {
       var data = nextProps.data;
 
       // no data selected and no default data configured
-      if (!data && nextProps.defaultData) {
-        data = nextProps.defaultData;
+      if (!data) {
+        data = nextProps.defaultData || {};
       }
 
       var currentState = Immutable.fromJS({
