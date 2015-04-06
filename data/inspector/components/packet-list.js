@@ -28,6 +28,19 @@ var PacketList = React.createClass({
     return { data: [] };
   },
 
+  componentWillUpdate: function() {
+    var node = this.getDOMNode();
+    this.shouldScrollBottom = node.scrollTop +
+      node.offsetHeight === node.scrollHeight;
+  },
+
+  componentDidUpdate: function() {
+    if (this.shouldScrollBottom) {
+      var node = this.getDOMNode();
+      node.scrollTop = node.scrollHeight;
+    }
+  },
+
   render: function() {
     var output = [];
     var filter = this.props.searchFilter;
