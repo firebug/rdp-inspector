@@ -17,6 +17,8 @@ const { DIV } = Reps.DOM;
  * inside the panel content.
  */
 var PacketDetails = React.createClass({
+/** @lends PacketDetails */
+
   displayName: "PacketDetails",
 
   getInitialState: function() {

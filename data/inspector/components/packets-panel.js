@@ -20,6 +20,8 @@ const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
  * @template This template renders 'Packets' tab body.
  */
 var PacketsPanel = React.createClass({
+/** @lends PacketPanel */
+
   displayName: "PacketsPanel",
 
   getInitialState: function() {

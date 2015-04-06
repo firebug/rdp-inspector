@@ -23,6 +23,8 @@ const { DIV } = Reps.DOM;
  * @template xxxHonza: TODO: localization
  */
 var MainTabbedArea = React.createClass({
+/** @lends MainTabbedArea */
+
   displayName: "MainTabbedArea",
 
   getInitialState: function() {

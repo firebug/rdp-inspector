@@ -18,6 +18,8 @@ const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
  * @template This template renders 'Actors' tab body.
  */
 var ActorsPanel = React.createClass({
+/** @lends ActorsPanel */
+
   displayName: "ActorsPanel",
 
   getInitialState: function() {

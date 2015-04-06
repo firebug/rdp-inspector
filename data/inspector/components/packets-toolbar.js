@@ -20,6 +20,8 @@ const { DIV } = Reps.DOM;
  * within the Packets tab
  */
 var PacketsToolbar = React.createClass({
+/** @lends PacketsToolbar */
+
   displayName: "PacketsToolbar",
 
   render: function() {

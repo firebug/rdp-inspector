@@ -17,6 +17,8 @@ const { DIV } = Reps.DOM;
  * xxxHonza: TODO docs
  */
 var ActorsToolbar = React.createClass({
+/** @lends ActorsToolbar */
+
   displayName: "ActorsToolbar",
 
   render: function() {

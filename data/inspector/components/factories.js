@@ -14,7 +14,10 @@ const { TR, TD, SPAN, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
  * TODO docs
  */
 var FactoryRow = React.createFactory(React.createClass({
+/** @lends FactoryRow */
+
   displayName: "FactoryRow",
+
   render: function() {
     var factory = this.props;
     return (
@@ -32,7 +35,10 @@ var FactoryRow = React.createFactory(React.createClass({
  * xxxHonza: localization
  */
 var FactoryTable = React.createFactory(React.createClass({
+/** @lends FactoryTable */
+
   displayName: "FactoryTable",
+
   render: function() {
     var rows = [];
 
@@ -65,7 +71,10 @@ var FactoryTable = React.createFactory(React.createClass({
  * TODO docs
  */
 var FactoryList = React.createFactory(React.createClass({
+/** @lends FactoryList */
+
   displayName: "FactoryList",
+
   getInitialState: function() {
     return {
       main: {factories: {}},

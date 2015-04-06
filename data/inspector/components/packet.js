@@ -19,6 +19,8 @@ const { DIV, SPAN, BR, IMG } = Reps.DOM;
  * TODO docs
  */
 var Packet = React.createClass({
+/** @lends Packet */
+
   displayName: "Packet",
 
   render: function() {

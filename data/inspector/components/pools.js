@@ -13,7 +13,10 @@ const { TR, TD, SPAN, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
  * TODO docs
  */
 var PoolRow = React.createFactory(React.createClass({
+/** @lends PoolRow */
+
   displayName: "PoolRow",
+
   render: function() {
     var actor = this.props;
     return (
@@ -33,7 +36,10 @@ var PoolRow = React.createFactory(React.createClass({
  * xxxHonza: localization
  */
 var PoolTable = React.createFactory(React.createClass({
+/** @lends PoolTable */
+
   displayName: "PoolTable",
+
   render: function() {
     var rows = [];
 
@@ -79,12 +85,16 @@ var PoolTable = React.createFactory(React.createClass({
  * TODO docs
  */
 var PoolList = React.createFactory(React.createClass({
+/** @lends PoolList */
+
   displayName: "PoolList",
+
   getInitialState: function() {
     return {
       pools: []
     };
   },
+
   render: function() {
     var pools = [];
 

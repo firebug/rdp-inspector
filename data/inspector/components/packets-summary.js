@@ -20,6 +20,8 @@ const { DIV } = Reps.DOM;
  * xxxHonza TODO docs
  */
 var PacketsSummary = React.createClass({
+/** @lends PacketsSummary */
+
   displayName: "PacketsSummary",
 
   render: function() {

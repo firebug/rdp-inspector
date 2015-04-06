@@ -20,6 +20,8 @@ const { DIV } = Reps.DOM;
  * inside the panel content.
  */
 var PacketList = React.createClass({
+/** @lends PacketList */
+
   displayName: "PacketList",
 
   getInitialState: function() {

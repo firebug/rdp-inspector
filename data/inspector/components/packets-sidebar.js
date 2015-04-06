@@ -23,6 +23,8 @@ const TabPane = React.createFactory(ReactBootstrap.TabPane);
  * inside the panel content.
  */
 var PacketsSidebar = React.createClass({
+/** @lends PacketsSidebar */
+
   displayName: "PacketsSidebar",
 
   getInitialState: function() {
