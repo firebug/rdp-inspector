@@ -7,6 +7,7 @@ require.config({
     "jquery": "../lib/jquery/jquery.min",
     "react": "../lib/react/react",
     "bootstrap": "../lib/bootstrap/js/bootstrap.min",
+    "immutable": "../lib/immutable/immutable.min",
     "react-bootstrap": "../lib/react-bootstrap/react-bootstrap.min",
     "reps": "../../node_modules/firebug.sdk/lib/reps",
   }
