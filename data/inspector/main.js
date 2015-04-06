@@ -31,6 +31,11 @@ var actions = {
   },
   appendSummary: function() {
     store.appendSummary();
+
+    // Auto scroll to the bottom, so the new summary is
+    // immediately visible.
+    var node = document.querySelector(".packetsPanelBox .list");
+    node.scrollTop = node.scrollHeight;
   },
   onShowInlineDetails: function() {
     var show = !theApp.state.showInlineDetails;
