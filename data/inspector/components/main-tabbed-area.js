@@ -10,9 +10,9 @@ var ReactBootstrap = require("react-bootstrap");
 const { Reps } = require("reps/reps");
 
 // RDP Inspector
-const { ActorsPanel } = require("actors-panel");
-const { PacketsPanel } = require("packets-panel");
-const { SearchBox } = require("search-box");
+const { ActorsPanel } = require("./actors-panel");
+const { PacketsPanel } = require("./packets-panel");
+const { SearchBox } = require("./search-box");
 
 // Constants
 const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);

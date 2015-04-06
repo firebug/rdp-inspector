@@ -9,10 +9,10 @@ const React = require("react");
 const { Reps } = require("reps/reps");
 
 // RDP Inspector
-const { Packet } = require("packet");
-const { PacketsSummary } = require("packets-summary");
+const { Packet } = require("./packet");
+const { PacketsSummary } = require("./packets-summary");
 
-// Constants
+// Shortcuts
 const { DIV } = Reps.DOM;
 
 /**
@@ -38,6 +38,7 @@ var PacketList = React.createClass({
       // Special treatment for 'summary' packets.
       if (packet.type == "summary") {
         output.push(PacketsSummary({
+          key: "summary-" + i,
           data: packet
         }));
         continue;
@@ -51,6 +52,7 @@ var PacketList = React.createClass({
       var selected = this.props.selectedPacket == packet.packet;
 
       output.push(Packet({
+        key: i,
         data: packet,
         actions: this.props.actions,
         selected: selected,

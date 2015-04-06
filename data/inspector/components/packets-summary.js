@@ -62,7 +62,7 @@ var PacketsSummary = React.createClass({
 /**
  * @template xxxHonza TODO docs
  */
-const TextWithTooltip = React.createClass({
+const TextWithTooltip = React.createFactory(React.createClass({
   render: function() {
     var tooltip = Tooltip({}, this.props.tooltip);
     return (
@@ -72,7 +72,7 @@ const TextWithTooltip = React.createClass({
       )
     );
   }
-});
+}));
 
 // Exports from this module
 exports.PacketsSummary = React.createFactory(PacketsSummary);

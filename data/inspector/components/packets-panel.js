@@ -9,9 +9,9 @@ const React = require("react");
 const { Reps } = require("reps/repository");
 
 // RDP Inspector
-const { PacketList } = require("packet-list");
-const { PacketsSidebar } = require("packets-sidebar");
-const { PacketsToolbar } = require("packets-toolbar");
+const { PacketList } = require("./packet-list");
+const { PacketsSidebar } = require("./packets-sidebar");
+const { PacketsToolbar } = require("./packets-toolbar");
 
 // Shortcuts
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;

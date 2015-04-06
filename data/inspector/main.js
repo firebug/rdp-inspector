@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 var React = require("react");
 
 // RDP Inspector
-var { MainTabbedArea } = require("main-tabbed-area");
+var { MainTabbedArea } = require("components/main-tabbed-area");
 var { PacketsStore } = require("packets-store");
 var { Resizer } = require("resizer");
 var { Search } = require("search");
@@ -40,8 +40,10 @@ var actions = {
  * at the top of the window. This component also represents ReacJT root.
  */
 var content = document.getElementById("content");
-var theApp = React.render(MainTabbedArea({packets: [],
-  actions: actions}), content);
+var theApp = React.render(MainTabbedArea({
+  packets: [],
+  actions: actions
+}), content);
 
 // Helper modules for handling application events.
 var store = new PacketsStore(window, theApp);

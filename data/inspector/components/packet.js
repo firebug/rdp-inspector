@@ -59,7 +59,7 @@ var Packet = React.createClass({
         DIV({className: classNames.join(" "), onClick: this.onClick},
           DIV({className: "body"},
             SPAN({className: "type"}, type),
-            IMG({className: imgClassNames.join(" "), src: "./arrow.svg"}),
+            IMG({className: imgClassNames.join(" "), src: "./res/arrow.svg"}),
             SPAN({className: "to"}, packet.to),
             SPAN({className: "info"}, timeText + ", " + size)
           )
@@ -71,7 +71,7 @@ var Packet = React.createClass({
           DIV({className: "body"},
             DIV({className: "from"},
               SPAN({}, packet.from),
-              IMG({className: imgClassNames.join(" "), src: "./arrow.svg"}),
+              IMG({className: imgClassNames.join(" "), src: "./res/arrow.svg"}),
               SPAN({}, type),
               SPAN({className: "info"}, timeText + ", " + size)
             ),

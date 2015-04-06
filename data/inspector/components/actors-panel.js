@@ -9,7 +9,7 @@ const React = require("react");
 const { Reps } = require("reps/repository");
 
 // RDP Inspector
-const { ActorsToolbar } = require("actors-toolbar");
+const { ActorsToolbar } = require("./actors-toolbar");
 
 // Shortcuts
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
