@@ -4,7 +4,12 @@ Remote debugger protocol inspector
 
 Instructions
 ------------
-TODO
+You should see a new RDP Inspector button at the top-right corner of your
+browser window after installation. Click the icon to open RDP Inspector
+console and operate developer tools Toolbox to generate some traffic
+over RDP. Sent and received packets are visible in the console window.
+
+[Learn more](https://github.com/firebug/rdp-inspector/wiki)
 
 Further Resources
 -----------------
