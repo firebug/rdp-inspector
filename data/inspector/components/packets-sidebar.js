@@ -27,9 +27,35 @@ var PacketsSidebar = React.createClass({
 
   displayName: "PacketsSidebar",
 
+  getInitialState: function() {
+    return {
+      activeKey: 1
+    }
+  },
+
+  onTabSelected: function(key) {
+    this.setState({
+      activeKey: key
+    })
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    // reset activeKey to the "Packet" Detail sidebar
+    // when the parent component pass a new selectedPacket
+    if (nextProps.selectedPacket !== this.selectedPacket) {
+      this.setState({
+        activeKey: 1
+      });
+    }
+  },
+
   render: function() {
     return (
-      TabbedArea({className: "sideBarTabbedArea", animation: false},
+      TabbedArea({
+        className: "sideBarTabbedArea", animation: false,
+        activeKey: this.state.activeKey,
+        onSelect: this.onTabSelected
+      },
         TabPane({eventKey: 1, tab: "Packet Details"},
           PacketDetails({selectedPacket: this.props.selectedPacket})
         ),
