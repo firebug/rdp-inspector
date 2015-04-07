@@ -23,6 +23,16 @@ var Packet = React.createClass({
 
   displayName: "Packet",
 
+  /**
+   * Packet needs to be re-rendered only if the selection or
+   * 'show inline details' option changes. This is an optimization
+   * the makes the packet-list rendering a lot faster.
+   */
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return (this.props.selected != nextProps.selected ||
+      this.props.showInlineDetails != nextProps.showInlineDetails);
+  },
+
   render: function() {
     var packet = this.props.data.packet;
     var type = packet.type ? "\"" + packet.type + "\"" : "";
