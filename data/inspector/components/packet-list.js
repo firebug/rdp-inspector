@@ -48,12 +48,11 @@ var PacketList = React.createClass({
     var packets = this.props.data;
     for (var i in packets) {
       var packet = packets[i];
-      packets[i].key = i;
 
       // Special treatment for 'summary' packets.
       if (packet.type == "summary") {
         output.push(PacketsSummary({
-          key: "summary-" + i,
+          key: packet.id,
           data: packet
         }));
         continue;
@@ -67,7 +66,7 @@ var PacketList = React.createClass({
       var selected = this.props.selectedPacket == packet.packet;
 
       output.push(Packet({
-        key: i,
+        key: packet.id,
         data: packet,
         actions: this.props.actions,
         selected: selected,

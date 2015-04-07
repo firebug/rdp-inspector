@@ -60,6 +60,8 @@ PacketsStore.prototype =
   appendPacket: function(packet, now) {
     this.packets.push(packet);
 
+    packet.id = ++this.uniqueId;
+
     // Collect statistics data.
     if (packet.type == "send") {
       this.summary.data.sent += packet.size;
@@ -116,6 +118,7 @@ PacketsStore.prototype =
 
   clear: function() {
     this.packets = [];
+    this.uniqueId = 0;
 
     this.summary = {
       data: {
