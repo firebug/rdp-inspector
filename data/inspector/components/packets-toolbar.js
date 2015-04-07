@@ -26,13 +26,16 @@ var PacketsToolbar = React.createClass({
 
   render: function() {
     var showInlineDetails = this.props.showInlineDetails;
+    var label = showInlineDetails ?
+      Locale.$STR("rdpInspector.option.hideInlineDetails") :
+      Locale.$STR("rdpInspector.option.showInlineDetails");
 
     return (
       ButtonToolbar({className: "toolbar"},
         DropdownButton({bsSize: "xsmall", title: "Options", ref: "options"},
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails,
             checked: showInlineDetails},
-            Locale.$STR("rdpInspector.option.inlineDetails")
+            label
           )/*,
           MenuItem({key: "cachePackets", onClick: this.onCachePackets},
             Locale.$STR("rdpInspector.option.cachePackets")
