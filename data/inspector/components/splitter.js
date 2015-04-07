@@ -14,7 +14,10 @@ const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
- * @template xxxHonza TODO docs
+ * @template This template represents a simple splitter that
+ * is used to divide the side panel with packet details.
+ * It now supports 'vertical' mode only and 'horizontal' mode
+ * should be appended as needed
  */
 var Splitter = React.createClass({
 /** @lends Splitter */
@@ -32,9 +35,10 @@ var Splitter = React.createClass({
   },
 
   componentWillUnmount: function() {
-    var tabbedArea = this.refs.splitter.getDOMNode();
-    this.resizer.destroy();
-    this.resizer = null;
+    if (this.resizer) {
+      this.resizer.destroy();
+      this.resizer = null;
+    }
   },
 
   // Resizing
