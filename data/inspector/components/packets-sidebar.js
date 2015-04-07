@@ -27,12 +27,6 @@ var PacketsSidebar = React.createClass({
 
   displayName: "PacketsSidebar",
 
-  getInitialState: function() {
-    return {
-      selectedPacket: null
-    };
-  },
-
   render: function() {
     return (
       TabbedArea({className: "sideBarTabbedArea", animation: false},
