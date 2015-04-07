@@ -16,7 +16,11 @@ const Panel = React.createFactory(ReactBootstrap.Panel);
 const { DIV, SPAN, BR, IMG } = Reps.DOM;
 
 /**
- * TODO docs
+ * @template This template is responsible for rendering a packet.
+ * Packets are rendered within {@link PacketList} sorted by time.
+ *
+ * A packet displays basic information in the list and can also
+ * display inline preview of all inner fields.
  */
 var Packet = React.createClass({
 /** @lends Packet */
