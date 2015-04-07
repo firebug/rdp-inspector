@@ -12,6 +12,7 @@ const { Reps } = require("reps/repository");
 const { PacketList } = require("./packet-list");
 const { PacketsSidebar } = require("./packets-sidebar");
 const { PacketsToolbar } = require("./packets-toolbar");
+const { Splitter } = require("./splitter");
 
 // Shortcuts
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
@@ -32,28 +33,36 @@ var PacketsPanel = React.createClass({
   },
 
   render: function() {
+    var leftPanel = DIV({className: "mainPanel"},
+      PacketsToolbar({
+        actions: this.props.actions,
+        showInlineDetails: this.props.showInlineDetails
+      }),
+      PacketList({
+        data: this.props.packets,
+        actions: this.props.actions,
+        selectedPacket: this.props.selectedPacket,
+        searchFilter: this.props.searchFilter,
+        showInlineDetails: this.props.showInlineDetails
+      })
+    );
+
+    var rightPanel = DIV({className: "sidePanel"},
+      PacketsSidebar({
+        selectedPacket: this.props.selectedPacket,
+        actions: this.props.actions
+      })
+    );
+
     return (
       DIV({className: "packetsPanelBox"},
-        DIV({className: "mainPanel"},
-          PacketsToolbar({
-            actions: this.props.actions,
-            showInlineDetails: this.props.showInlineDetails
-          }),
-          PacketList({
-            data: this.props.packets,
-            actions: this.props.actions,
-            selectedPacket: this.props.selectedPacket,
-            searchFilter: this.props.searchFilter,
-            showInlineDetails: this.props.showInlineDetails
-          })
-        ),
-        DIV({className: "sidePanel"},
-          PacketsSidebar({
-            selectedPacket: this.props.selectedPacket,
-            actions: this.props.actions
-          })
-        ),
-        DIV({className: "panelFooter"})
+        Splitter({
+          mode: "vertical",
+          min: 200,
+          leftPanel: leftPanel,
+          rightPanel: rightPanel,
+          innerBox: DIV({className: "innerBox"})
+        })
       )
     )
   }

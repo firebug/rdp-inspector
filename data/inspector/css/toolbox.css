@@ -101,21 +101,12 @@
 
 .mainPanel {
   height: 100%;
-  float: left;
-  width: 60%;
 }
 
 .sidePanel {
   height: 100%;
-  float: right;
-  width: 40%;
 }
 
 .sidePanel > DIV {
   height: 100%;
 }
-
-.panelFooter {
-  clear: both;
-}
-
