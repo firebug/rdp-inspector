@@ -97,21 +97,32 @@ define(function(require, exports, module) {
       nextProps = nextProps || {};
       var data = nextProps.data;
 
-      // no data selected and no default data configured
-      if (!data) {
-        data = nextProps.defaultData || {};
+      var currentState, stateHistory;
+
+      // no previous state or new data set
+      if (!this.state || data) {
+        if (!data) {
+          data = nextProps.defaultData || {};
+        }
+
+        currentState = Immutable.fromJS({
+          data: data,
+          openedKeyPaths: {},
+          editingKeyPath: {}
+        });
+      } else {
+        currentState = this.state.currentState;
       }
 
-      var currentState = Immutable.fromJS({
-        data: data,
-        openedKeyPaths: {},
-        editingKeyPath: {}
-      });
-
-      var stateHistory = Immutable.fromJS({
-        history: [currentState],
-        index: 0
-      });
+      // no previous state or no stateHistory
+      if (!this.state || !this.state.stateHistory) {
+        stateHistory = Immutable.fromJS({
+          history: [currentState],
+          index: 0
+        });
+      } else {
+        stateHistory = this.state.stateHistory
+      }
 
       return {
         currentState: currentState,
