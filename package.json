@@ -9,7 +9,8 @@
   "forum": "https://groups.google.com/forum/#!forum/firebug",
   "contributors": [
     "Jan Odvarko (Mozilla Corp.)",
-    "Luca Greco"
+    "Luca Greco",
+    "Sebastian Zartner"
   ],
   "license": "BSD License",
   "version": "0.5.0-beta.2",
