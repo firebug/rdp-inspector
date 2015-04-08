@@ -42,7 +42,7 @@ var PacketsSidebar = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     // reset activeKey to the "Packet" Detail sidebar
     // when the parent component pass a new selectedPacket
-    if (nextProps.selectedPacket !== this.selectedPacket) {
+    if (nextProps.selected && (nextProps.selectedPacket !== this.selectedPacket)) {
       this.setState({
         activeKey: 1
       });
