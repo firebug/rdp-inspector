@@ -78,7 +78,10 @@ var Packet = React.createClass({
             SPAN({className: "type"}, type),
             IMG({className: imgClassNames.join(" "), src: "./res/arrow.svg"}),
             SPAN({className: "to"}, packet.to),
-            SPAN({className: "info"}, timeText + ", " + size)
+            SPAN({className: "info"}, timeText + ", " + size),
+            DIV({className: "preview"},
+              preview
+            )
           )
         )
       );
