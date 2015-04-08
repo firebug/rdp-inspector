@@ -4,11 +4,11 @@
 require.config({
   baseUrl: ".",
   paths: {
-    "jquery": "../lib/jquery/jquery.min",
+    "jquery": "../lib/jquery/jquery",
     "react": "../lib/react/react",
-    "bootstrap": "../lib/bootstrap/js/bootstrap.min",
-    "immutable": "../lib/immutable/immutable.min",
-    "react-bootstrap": "../lib/react-bootstrap/react-bootstrap.min",
+    "bootstrap": "../lib/bootstrap/js/bootstrap",
+    "immutable": "../lib/immutable/immutable",
+    "react-bootstrap": "../lib/react-bootstrap/react-bootstrap",
     "reps": "../../node_modules/firebug.sdk/lib/reps",
   }
 });
