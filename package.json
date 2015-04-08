@@ -24,6 +24,6 @@
   },
   "preferences-branch": "rdpinspector",
   "dependencies": {
-    "firebug.sdk": "0.5.5"
+    "firebug.sdk": "~0.5.5"
   }
 }
