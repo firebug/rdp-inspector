@@ -10,17 +10,19 @@ const ReactBootstrap = require("react-bootstrap");
 const { Reps } = require("reps/repository");
 const { TreeEditorView } = require("./tree-editor-view");
 
-// Shortcuts
+// Constants
 const { DIV } = Reps.DOM;
 
 const ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 const Button = React.createFactory(ReactBootstrap.Button);
 
 /**
- * TODO docs
+ * @template This template rapresents the Packet Editor toolbar
  */
 
 var PacketEditorToolbar = React.createFactory(React.createClass({
+/** @lends PacketEditrView */
+
   displayName: "PacketEditorToolbar",
 
   render: function() {
@@ -48,8 +50,7 @@ var PacketEditorToolbar = React.createFactory(React.createClass({
 }));
 
 /**
- * @template TODO
- *
+ * @template This template represents the PacketEditor sidebar
  */
 var PacketEditor = React.createClass({
   displayName: "PacketEditor",

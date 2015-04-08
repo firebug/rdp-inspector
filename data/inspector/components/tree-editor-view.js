@@ -1,6 +1,7 @@
 /* See license.txt for terms of usage */
 
 define(function(require, exports, module) {
+
 // Dependencies
 const React = require("react");
 const ReactBootstrap = require("react-bootstrap");
@@ -9,12 +10,18 @@ const Immutable = require("immutable");
 // Firebug SDK
 const { Reps } = require("reps/repository");
 
-// Shortcuts
+// Constants
 const { UL, LI, SPAN, DIV, I,
         TABLE, TBODY, THEAD, TFOOT, TR, TD,
         INPUT, TEXTAREA } = Reps.DOM;
 
+/**
+ * @template This template represents an editable
+ * tree view
+ */
 var TreeEditorView = React.createClass({
+/** @lends TreeEEditorView */
+
   displayName: "TreeEditorView",
 
   clearData: function() {
@@ -414,8 +421,15 @@ exports.TreeEditorView = React.createFactory(TreeEditorView);
 
 // non-exported React components
 
+/**
+ * @template This template represents a row which creates a new
+ * field in a defined key path
+ */
 var TableRowNewField = React.createFactory(React.createClass({
+/** @lends TableRowNewField */
+
   displayName: "TableRowNewField",
+
   getInitialState: function() {
     return {
       valid: true
@@ -470,7 +484,13 @@ var TableRowNewField = React.createFactory(React.createClass({
   }
 }));
 
+/**
+ * @template This template respesents a row for a field
+ * in a label editing state
+ */
 var TableRowEditingFieldLabel = React.createFactory(React.createClass({
+/** @lends TableRowEditingFieldLabel */
+
   displayName: "TableRowEditingFieldLabel",
 
   getInitialState: function() {
@@ -527,16 +547,25 @@ var TableRowEditingFieldLabel = React.createFactory(React.createClass({
   }
 }));
 
+/**
+ * @template This template respesents a row for a field
+ * in a value editing state
+ */
 var TableRowEditingFieldValue = React.createFactory(React.createClass({
+/** @lends TableRowEditingfieldValue */
+
   displayName: "TableRowEditingFieldValue",
+
   getInitialState: function() {
     return  {
       valid: true
     }
   },
+
   componentDidMount: function() {
     React.findDOMNode(this.refs.input).focus();
   },
+
   render: function() {
     var { level, label, value } = this.props;
 
@@ -549,6 +578,7 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
 
     return TR({ className: rowClassName }, rowContent);
   },
+
   renderRowLabel: function() {
     var { keyPath, label, level } = this.props;
 
@@ -558,6 +588,7 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
       style: { paddingLeft: 8 * level }
     }, SPAN({ className: 'memberLabel domLabel' }, label));
   },
+
   renderRowValue: function() {
     var { hasChildren, value, keyPath } = this.props;
     var { valid } = this.state;
@@ -600,7 +631,12 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
   }
 }));
 
+/**
+ * @template This template respesenta a row for a field
+ * in non-editing state
+ */
 var TableRow = React.createFactory(React.createClass({
+/** @lends TableRow */
   displayName: "TableRow",
 
   render: function() {
