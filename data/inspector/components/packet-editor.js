@@ -2,116 +2,116 @@
 
 define(function(require, exports, module) {
 
-  // Dependencies
-  const React = require("react");
-  const ReactBootstrap = require("react-bootstrap");
+// Dependencies
+const React = require("react");
+const ReactBootstrap = require("react-bootstrap");
 
-  // Firebug SDK
-  const { Reps } = require("reps/repository");
-  const { TreeEditorView } = require("./tree-editor-view");
+// Firebug SDK
+const { Reps } = require("reps/repository");
+const { TreeEditorView } = require("./tree-editor-view");
 
-  // Shortcuts
-  const { DIV } = Reps.DOM;
+// Constants
+const { DIV } = Reps.DOM;
 
-  const ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
-  const Button = React.createFactory(ReactBootstrap.Button);
+const ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
+const Button = React.createFactory(ReactBootstrap.Button);
 
-  /**
-   * TODO docs
-   */
+/**
+ * @template This template rapresents the Packet Editor toolbar
+ */
 
-  var PacketEditorToolbar = React.createFactory(React.createClass({
-    displayName: "PacketEditorToolbar",
+var PacketEditorToolbar = React.createFactory(React.createClass({
+/** @lends PacketEditrView */
 
-    render: function() {
-      return ButtonToolbar({className: "toolbar"}, [
-        Button({ onClick: this.props.onSend, key: "send",
-                 bsStyle: "primary", bsSize: "xsmall",
-                 style: { marginLeft: 12, color: 'white' } }, "Send"),
+  displayName: "PacketEditorToolbar",
 
-        Button({ onClick: this.props.onRedo, key: "redo",
-                 className: "pull-right",
-                 disabled: !this.props.isRedoEnabled,
-                 bsStyle: "default", bsSize: "xsmall",
-                 style: { marginRight: 6 } }, "Redo"),
-        Button({ onClick: this.props.onUndo, key: "undo",
-                 className: "pull-right",
-                 disabled: !this.props.isUndoEnabled,
-                 bsStyle: "default", bsSize: "xsmall",
-                 style: { marginRight: 6 } }, "Undo"),
-        Button({ onClick: this.props.onClear, key: "clear",
-                 className: "pull-right",
-                 bsStyle: "danger", bsSize: "xsmall",
-                 style: { marginRight: 6, color: 'white' } }, "Clear")
-      ]);
-    }
-  }));
+  render: function() {
+    return ButtonToolbar({className: "toolbar"}, [
+      Button({ onClick: this.props.onSend, key: "send",
+               bsStyle: "primary", bsSize: "xsmall",
+               style: { marginLeft: 12, color: 'white' } }, "Send"),
 
-  /**
-   * @template TODO
-   *
-   */
-  var PacketEditor = React.createClass({
-    displayName: "PacketEditor",
+      Button({ onClick: this.props.onRedo, key: "redo",
+               className: "pull-right",
+               disabled: !this.props.isRedoEnabled,
+               bsStyle: "default", bsSize: "xsmall",
+               style: { marginRight: 6 } }, "Redo"),
+      Button({ onClick: this.props.onUndo, key: "undo",
+               className: "pull-right",
+               disabled: !this.props.isUndoEnabled,
+               bsStyle: "default", bsSize: "xsmall",
+               style: { marginRight: 6 } }, "Undo"),
+      Button({ onClick: this.props.onClear, key: "clear",
+               className: "pull-right",
+               bsStyle: "danger", bsSize: "xsmall",
+               style: { marginRight: 6, color: 'white' } }, "Clear")
+    ]);
+  }
+}));
 
-    getInitialState: function() {
-      return {
-        selectedPacket: null,
-        defaultData: {
-          to: "root",
-          type: "requestTypes"
-        }
-      };
-    },
+/**
+ * @template This template represents the PacketEditor sidebar
+ */
+var PacketEditor = React.createClass({
+  displayName: "PacketEditor",
 
-    componentWillReceiveProps: function(nextProps) {
-      this.setState({
-        selectedPacket: this.props.selectedPacket
-      });
-    },
+  getInitialState: function() {
+    return {
+      selectedPacket: null,
+      defaultData: {
+        to: "root",
+        type: "requestTypes"
+      }
+    };
+  },
 
-    render: function() {
-      var selectedPacket = this.state.selectedPacket || this.props.selectedPacket;
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+      selectedPacket: this.props.selectedPacket
+    });
+  },
 
-      return (
-        DIV({className: "details editor"},
-            PacketEditorToolbar({
-              onClear: this.onClear,
-              onSend: this.onSend,
-              onUndo: this.onUndo,
-              onRedo: this.onRedo,
-              isUndoEnabled: true,
-              isRedoEnabled: true
-            }),
-            TreeEditorView({
-              ref: "editor",
-              key: "packet-editor",
-              data: selectedPacket && selectedPacket.to ? selectedPacket : null,
-              defaultData: this.state.defaultData
-            })
-           )
-      );
-    },
+  render: function() {
+    var selectedPacket = this.state.selectedPacket || this.props.selectedPacket;
 
-    onUndo: function() {
-      this.refs.editor.undo();
-    },
+    return (
+      DIV({className: "details editor"},
+          PacketEditorToolbar({
+            onClear: this.onClear,
+            onSend: this.onSend,
+            onUndo: this.onUndo,
+            onRedo: this.onRedo,
+            isUndoEnabled: true,
+            isRedoEnabled: true
+          }),
+          TreeEditorView({
+            ref: "editor",
+            key: "packet-editor",
+            data: selectedPacket && selectedPacket.to ? selectedPacket : null,
+            defaultData: this.state.defaultData
+          })
+         )
+    );
+  },
 
-    onRedo: function() {
-      this.refs.editor.redo();
-    },
+  onUndo: function() {
+    this.refs.editor.undo();
+  },
 
-    onClear: function() {
-      this.refs.editor.clearData();
-    },
+  onRedo: function() {
+    this.refs.editor.redo();
+  },
 
-    onSend: function() {
-      this.props.actions.send(this.refs.editor.getData());
-    }
-  });
+  onClear: function() {
+    this.refs.editor.clearData();
+  },
 
-  // Exports from this module
-  exports.PacketEditor = React.createFactory(PacketEditor);
+  onSend: function() {
+    this.props.actions.send(this.refs.editor.getData());
+  }
+});
 
+// Exports from this module
+exports.PacketEditor = React.createFactory(PacketEditor);
 
 });
