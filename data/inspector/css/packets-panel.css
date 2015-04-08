@@ -9,6 +9,46 @@
   font-size: 11px;
   font-family: Lucida Grande, Tahoma, sans-serif;
   line-height: 15px;
+  display: flex;
+  min-width: 290px;
+}
+
+.packetPanel.send {
+  padding-right: 40px;
+}
+
+.packetPanel.receive {
+  padding-left: 40px;
+}
+
+.packetPanel.send .boxArrow {
+  background-image: url("../res/sent-arrow.png");
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  margin-right: -1px;
+  order: 1;
+  width: 8px;
+  z-index: 2;
+  min-width: 8px;
+}
+
+.packetPanel.send.selected .boxArrow {
+  background-image: url("../res/sent-arrow-selected.png");
+}
+
+.packetPanel.receive .boxArrow {
+  background-image: url("../res/received-arrow.png");
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  margin-left: -1px;
+  order: 3;
+  width: 9px;
+  min-width: 9px;
+  z-index: 2;
+}
+
+.packetPanel.receive.selected .boxArrow {
+  background-image: url("../res/received-arrow-selected.png");
 }
 
 .packetPanel .body {
@@ -17,9 +57,10 @@
   border: 1px solid #bfccd1;
   border-radius: 3px;
   white-space: pre-wrap !important;
-  max-width: 90%;
   min-width: 270px;
   background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.0));
+  order: 2;
+  z-index: 1;
 }
 
 .packetPanel.send .body {

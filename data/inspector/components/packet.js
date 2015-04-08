@@ -73,6 +73,7 @@ var Packet = React.createClass({
     if (this.props.data.type == "send") {
       return (
         DIV({className: classNames.join(" "), onClick: this.onClick},
+          DIV({className: "boxArrow"}),
           DIV({className: "body"},
             SPAN({className: "type"}, type),
             IMG({className: imgClassNames.join(" "), src: "./res/arrow.svg"}),
@@ -98,7 +99,8 @@ var Packet = React.createClass({
             DIV({className: "preview"},
               preview
             )
-          )
+          ),
+          DIV({className: "boxArrow"})
         )
       );
     }
