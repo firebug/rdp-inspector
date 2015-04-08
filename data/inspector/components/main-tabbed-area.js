@@ -53,7 +53,7 @@ var MainTabbedArea = React.createClass({
             searchFilter: this.state.searchFilter,
             showInlineDetails: this.state.showInlineDetails
           })
-        ),
+        )
         /* TODO: Actors tab disabled (needs to be completed)
         TabPane({eventKey: 2, tab: "Actors"},
           ActorsPanel()
