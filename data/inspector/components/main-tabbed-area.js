@@ -54,17 +54,9 @@ var MainTabbedArea = React.createClass({
             showInlineDetails: this.state.showInlineDetails
           })
         ),
+        /* TODO: Actors tab disabled (needs to be completed)
         TabPane({eventKey: 2, tab: "Actors"},
           ActorsPanel()
-        )
-        /*TabPane({eventKey: 2, tab: "Global Actors"},
-          DIV({className: "tabPane", id: "globalActorsPane"})
-        ),
-        TabPane({eventKey: 3, tab: "Tab Actors"},
-          DIV({className: "tabPane", id: "tabActorsPane"})
-        ),
-        TabPane({eventKey: 4, tab: "Actor Factories"},
-          DIV({className: "tabPane", id: "actorFactoriesPane"})
         )*/
       )
     )
