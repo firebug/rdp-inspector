@@ -13,7 +13,10 @@
     "Sebastian Zartner"
   ],
   "license": "BSD License",
-  "version": "0.5.0-beta.2",
+  "version": "1.0.0",
+  "engines": {
+    "firefox": ">=38.0 <=40.0"
+  },
   "main": "index.js",
   "repository": {
     "type": "git",
