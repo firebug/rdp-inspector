@@ -68,19 +68,23 @@ var Packet = React.createClass({
     if (this.props.data.type == "send") {
       return (
         DIV({className: classNames.join(" "), onClick: this.onClick},
-          DIV({className: "boxArrow"}),
-          DIV({className: "body"},
-            SPAN({className: "text"},
-              Locale.$STR("rdpInspector.label.sent") + " "
-            ),
-            SPAN({className: "type"}, type),
-            SPAN({className: "text"},
-                " " + Locale.$STR("rdpInspector.label.to") + " "
-            ),
-            SPAN({className: "to"}, packet.to),
-            SPAN({className: "info"}, timeText + ", " + size),
-            DIV({className: "preview"},
-              preview
+          DIV({className: "packetBox"},
+            DIV({className: "packetContent"},
+              DIV({className: "body"},
+                SPAN({className: "text"},
+                  Locale.$STR("rdpInspector.label.sent") + " "
+                ),
+                SPAN({className: "type"}, type),
+                SPAN({className: "text"},
+                    " " + Locale.$STR("rdpInspector.label.to") + " "
+                ),
+                SPAN({className: "to"}, packet.to),
+                SPAN({className: "info"}, timeText + ", " + size),
+                DIV({className: "preview"},
+                  preview
+                )
+              ),
+              DIV({className: "boxArrow"})
             )
           )
         )
@@ -88,26 +92,30 @@ var Packet = React.createClass({
     } else {
       return (
         DIV({className: classNames.join(" "), onClick: this.onClick},
-          DIV({className: "body"},
-            DIV({className: "from"},
-              SPAN({className: "text"},
-                Locale.$STR("rdpInspector.label.received") + " "
-              ),
-              SPAN({}, type),
-              SPAN({className: "text"},
-                " " + Locale.$STR("rdpInspector.label.from") + " "),
-              SPAN({}, packet.from),
-              SPAN({className: "info"}, timeText + ", " + size)
-            ),
-            DIV({className: "errorMessage"},
-              DIV({}, packet.error),
-              DIV({}, packet.message)
-            ),
-            DIV({className: "preview"},
-              preview
+          DIV({className: "packetBox"},
+            DIV({className: "packetContent"},
+              DIV({className: "boxArrow"}),
+              DIV({className: "body"},
+                DIV({className: "from"},
+                  SPAN({className: "text"},
+                    Locale.$STR("rdpInspector.label.received") + " "
+                  ),
+                  SPAN({}, type),
+                  SPAN({className: "text"},
+                    " " + Locale.$STR("rdpInspector.label.from") + " "),
+                  SPAN({}, packet.from),
+                  SPAN({className: "info"}, timeText + ", " + size)
+                ),
+                DIV({className: "errorMessage"},
+                  DIV({}, packet.error),
+                  DIV({}, packet.message)
+                ),
+                DIV({className: "preview"},
+                  preview
+                )
+              )
             )
-          ),
-          DIV({className: "boxArrow"})
+          )
         )
       );
     }
