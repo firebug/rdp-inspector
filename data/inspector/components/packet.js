@@ -39,11 +39,9 @@ var Packet = React.createClass({
 
   render: function() {
     var packet = this.props.data.packet;
-    var type = packet.type ? "\"" + packet.type + "\"" : "";
+    var type = packet.type ? packet.type : "";
     var mode = "tiny";
     var classNames = ["packetPanel", this.props.data.type];
-
-    // xxxHonza TODO: HACK, FIXME
     var size = Str.formatSize(this.props.data.size);
     var time = this.props.data.time;
 
@@ -53,30 +51,32 @@ var Packet = React.createClass({
       packet: packet
     }
 
+    // Error packets have its own styling
     if (packet.error) {
       classNames.push("error");
     }
 
+    // Selected packets are highlighted
     if (this.props.selected) {
       classNames.push("selected");
     }
 
-    var imgClassNames = ["arrow"];
-    if (!type) {
-      imgClassNames.push("hide");
-    }
-
+    // Inline preview component
     var preview = this.props.showInlineDetails ? TreeView(
       {data: previewData, mode: mode}) : null;
 
-    // xxxHonza: localization
     if (this.props.data.type == "send") {
       return (
         DIV({className: classNames.join(" "), onClick: this.onClick},
           DIV({className: "boxArrow"}),
           DIV({className: "body"},
+            SPAN({className: "text"},
+              Locale.$STR("rdpInspector.label.sent") + " "
+            ),
             SPAN({className: "type"}, type),
-            IMG({className: imgClassNames.join(" "), src: "./res/arrow.svg"}),
+            SPAN({className: "text"},
+                " " + Locale.$STR("rdpInspector.label.to") + " "
+            ),
             SPAN({className: "to"}, packet.to),
             SPAN({className: "info"}, timeText + ", " + size),
             DIV({className: "preview"},
@@ -90,9 +90,13 @@ var Packet = React.createClass({
         DIV({className: classNames.join(" "), onClick: this.onClick},
           DIV({className: "body"},
             DIV({className: "from"},
-              SPAN({}, packet.from),
-              IMG({className: imgClassNames.join(" "), src: "./res/arrow.svg"}),
+              SPAN({className: "text"},
+                Locale.$STR("rdpInspector.label.received") + " "
+              ),
               SPAN({}, type),
+              SPAN({className: "text"},
+                " " + Locale.$STR("rdpInspector.label.from") + " "),
+              SPAN({}, packet.from),
               SPAN({className: "info"}, timeText + ", " + size)
             ),
             DIV({className: "errorMessage"},
