@@ -45,7 +45,7 @@ var actions = {
 
 /**
  * Render the main application component. It's the main tab bar displayed
- * at the top of the window. This component also represents ReacJT root.
+ * at the top of the window. This component also represents ReactJS root.
  */
 var content = document.getElementById("content");
 var theApp = React.render(MainTabbedArea({
