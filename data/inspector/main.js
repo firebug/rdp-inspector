@@ -61,5 +61,5 @@ var search = new Search(window, theApp);
 // Send notification about initialization being done.
 postChromeMessage("initialized");
 
-// End of inspector.js
+// End of main.js
 });
