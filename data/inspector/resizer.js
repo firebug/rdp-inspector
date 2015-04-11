@@ -3,7 +3,8 @@
 define(function(require, exports, module) {
 
 /**
- * TODO docs
+ * This object is responsible for setting proper body height
+ * when the window changes its size.
  */
 function Resizer(win, app) {
   this.win = win;

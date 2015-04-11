@@ -6,7 +6,8 @@ define(function(require, exports, module) {
 const refreshTimeout = 200;
 
 /**
- * TODO docs
+ * This object contains all collected packets. It's also responsible
+ * for refreshing the UI if new packets appears.
  */
 function PacketsStore(win, app) {
   this.win = win;
