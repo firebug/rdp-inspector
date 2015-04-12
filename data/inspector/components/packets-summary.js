@@ -17,7 +17,10 @@ const OverlayTrigger = React.createFactory(ReactBootstrap.OverlayTrigger);
 const { DIV } = Reps.DOM;
 
 /**
- * xxxHonza TODO docs
+ * @template This template is responsible for rendering packet summary
+ * information. The summary can be inserted into the list by clicking
+ * on 'Summary' button. It displays number of sent and received packets
+ * and total amount of sent and received data.
  */
 var PacketsSummary = React.createClass({
 /** @lends PacketsSummary */
@@ -62,7 +65,7 @@ var PacketsSummary = React.createClass({
 });
 
 /**
- * @template xxxHonza TODO docs
+ * @template Helper template responsible for rendering a tooltip.
  */
 const TextWithTooltip = React.createFactory(React.createClass({
   render: function() {
