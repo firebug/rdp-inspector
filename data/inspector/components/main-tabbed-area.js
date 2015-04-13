@@ -20,7 +20,10 @@ const TabPane = React.createFactory(ReactBootstrap.TabPane);
 const { DIV } = Reps.DOM;
 
 /**
- * @template xxxHonza: TODO: localization
+ * @template This template is responsible for rendering the main
+ * application UI. The UI consist from set of tabs (Packets and Actors)
+ * displaying list of sent/received packets and list of registered
+ * actors.
  */
 var MainTabbedArea = React.createClass({
 /** @lends MainTabbedArea */
@@ -42,10 +45,13 @@ var MainTabbedArea = React.createClass({
   },
 
   render: function() {
+    var packets = Locale.$STR("rdpInspector.tab.Packets");
+    var actors = Locale.$STR("rdpInspector.tab.Actors");
+
     return (
       TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1,
         animation: false, ref: "tabbedArea"},
-        TabPane({eventKey: 1, tab: "Packets"},
+        TabPane({eventKey: 1, tab: packets},
           PacketsPanel({
             packets: this.state.data,
             actions: this.props.actions,
@@ -57,7 +63,7 @@ var MainTabbedArea = React.createClass({
           })
         )
         /* TODO: Actors tab disabled (needs to be completed)
-        TabPane({eventKey: 2, tab: "Actors"},
+        TabPane({eventKey: 2, tab: actors},
           ActorsPanel()
         )*/
       )
