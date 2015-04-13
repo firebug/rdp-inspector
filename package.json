@@ -13,7 +13,7 @@
     "Sebastian Zartner"
   ],
   "license": "BSD License",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "engines": {
     "firefox": ">=38.0 <=40.0"
   },
