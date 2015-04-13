@@ -13,7 +13,8 @@ const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
- * @template xxxHonza TODO docs
+ * @template This template renders a generic message within the
+ * packet list.
  */
 var PacketsMessage = React.createClass({
 /** @lends PacketsMessage */

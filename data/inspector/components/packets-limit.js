@@ -13,7 +13,10 @@ const { Reps } = require("reps/reps");
 const { DIV, SPAN } = Reps.DOM;
 
 /**
- * @template xxxHonza TODO docs
+ * @template This template is responsible for rendering a message
+ * at the top of the packet list that informs the user about reaching
+ * the maximum limit of displayed packets. The message also displays
+ * number of packets removed from the list.
  */
 var PacketsLimit = React.createClass({
 /** @lends PacketsLimit */
