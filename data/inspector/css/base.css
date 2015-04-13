@@ -10,8 +10,8 @@ body {
   height: 100%;
 }
 
-a:focus {
-  outline: none;
+*:focus {
+  outline: none !important;
 }
 
 #content {

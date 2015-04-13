@@ -13,7 +13,7 @@ const { Reps } = require("reps/reps");
 const { DIV, SPAN } = Reps.DOM;
 
 /**
- * @template 
+ * @template xxxHonza TODO docs
  */
 var PacketsLimit = React.createClass({
 /** @lends PacketsLimit */
@@ -27,7 +27,7 @@ var PacketsLimit = React.createClass({
     // Render summary info
     return (
       DIV({className: "packetsLimit"},
-        SPAN({className: "text"}, label + " " + removedPackets)
+        SPAN({className: "text"}, removedPackets + " " + label)
       )
     )
   }

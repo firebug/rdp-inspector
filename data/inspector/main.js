@@ -17,18 +17,39 @@ var { Search } = require("search");
  * application can execute them.
  */
 var actions = {
+  /**
+   * Select packet and display its properties in the side bar.
+   */
   selectPacket: function(packet) {
     theApp.setState({selectedPacket: packet});
   },
+
+  /**
+   * Remove all packets from the packet list.
+   */
   clear: function() {
     store.clear();
   },
+
+  /**
+   * Open standard Firefox Find bar.
+   */
   find: function() {
     postChromeMessage("find");
   },
+
+  /**
+   * Send a test packet to the debugger server.
+   */
   send: function(packet) {
     postChromeMessage("injectRDPPacket", packet);
   },
+
+  /**
+   * Appends an info summary at the end of the list. The info
+   * shows number of sent/received packets and total sent/received
+   * amount of data.
+   */
   appendSummary: function() {
     store.appendSummary();
 
@@ -37,9 +58,30 @@ var actions = {
     var node = document.querySelector(".packetsPanelBox .list");
     node.scrollTop = node.scrollHeight;
   },
+
+  /**
+   * Show packet properties inline - directly within the packet
+   * box in the packet list.
+   */
   onShowInlineDetails: function() {
     var show = !theApp.state.showInlineDetails;
     theApp.setState({showInlineDetails: show});
+  },
+
+  /**
+   * Pause/unpause collecting packets
+   */
+  onPause: function() {
+    var paused = !(theApp.state.paused || false);
+    theApp.setState({paused: paused});
+
+    postChromeMessage("pause", paused);
+
+    if (paused) {
+      store.appendMessage(Locale.$STR("rdpInspector.label.Paused"));
+    } else {
+      store.appendMessage(Locale.$STR("rdpInspector.label.Unpaused"));
+    }
   }
 };
 

@@ -221,3 +221,27 @@
   background-color: rgb(219, 234, 249) !important;
   background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
 }
+
+/******************************************************************************/
+/* Packets Message */
+
+.packetsMessage {
+  color: gray;
+  font-size: 10px;
+  border-top: 1px dotted #EFEFEF;
+  margin: 10px 0 20px 0;
+  padding: 2px 0 2px 0;
+}
+
+.packetsMessage DIV {
+  display: inline-block;
+}
+
+.packetsMessage .time {
+  float: right;
+  font-family: monospace;
+}
+
+.packetsMessage .text {
+  padding-right: 3px;
+}

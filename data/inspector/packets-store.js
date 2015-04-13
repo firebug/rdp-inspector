@@ -153,6 +153,14 @@ PacketsStore.prototype =
         received: this.summary.packets.received
       }
     }, true);
+  },
+
+  appendMessage: function(message) {
+    this.appendPacket({
+      type: "message",
+      time: new Date(),
+      message: message
+    }, true);
   }
 }
 

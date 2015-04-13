@@ -13,7 +13,7 @@ var DropdownButton = React.createFactory(ReactBootstrap.DropdownButton);
 var MenuItem = React.createFactory(ReactBootstrap.MenuItem);
 
 const { Reps } = require("reps/reps");
-const { DIV } = Reps.DOM;
+const { SPAN } = Reps.DOM;
 
 /**
  * @template This object represents a template for a toolbar displayed
@@ -29,6 +29,9 @@ var PacketsToolbar = React.createClass({
     var label = showInlineDetails ?
       Locale.$STR("rdpInspector.option.hideInlineDetails") :
       Locale.$STR("rdpInspector.option.showInlineDetails");
+
+    var paused = this.props.paused;
+    var pauseClassName = paused ? "btn-warning" : "";
 
     return (
       ButtonToolbar({className: "toolbar"},
@@ -49,6 +52,10 @@ var PacketsToolbar = React.createClass({
         ),
         Button({bsSize: "xsmall", onClick: this.onSummary},
           Locale.$STR("rdpInspector.cmd.summary")
+        ),
+        Button({bsSize: "xsmall", className: pauseClassName,
+          onClick: this.onPause},
+          SPAN({className: "glyphicon glyphicon-pause", "aria-hidden": true})
         )
       )
     )
@@ -75,7 +82,11 @@ var PacketsToolbar = React.createClass({
 
   onCachePackets: function() {
     // xxxHonza: TODO
-  }
+  },
+
+  onPause: function(event) {
+    this.props.actions.onPause();
+  },
 });
 
 // Exports from this module

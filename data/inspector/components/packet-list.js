@@ -12,6 +12,7 @@ const { Reps } = require("reps/reps");
 const { Packet } = require("./packet");
 const { PacketsSummary } = require("./packets-summary");
 const { PacketsLimit } = require("./packets-limit");
+const { PacketsMessage } = require("./packets-message");
 
 // Shortcuts
 const { DIV } = Reps.DOM;
@@ -47,7 +48,6 @@ var PacketList = React.createClass({
     var filter = this.props.searchFilter;
     var removedPackets = this.props.removedPackets;
 
-    console.log("removedPackets " + removedPackets)
     if (removedPackets > 0) {
       output.push(PacketsLimit({
         removedPackets: removedPackets
@@ -58,11 +58,20 @@ var PacketList = React.createClass({
     for (var i in packets) {
       var packet = packets[i];
 
-      // Special treatment for 'summary' packets.
+      // Render 'summary' packets.
       if (packet.type == "summary") {
         output.push(PacketsSummary({
           key: packet.id,
           data: packet
+        }));
+        continue;
+      }
+
+      // Render 'message' packets.
+      if (packet.type == "message") {
+        output.push(PacketsMessage({
+          key: packet.id,
+          data: packet,
         }));
         continue;
       }
