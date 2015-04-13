@@ -17,7 +17,7 @@ const ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 const Button = React.createFactory(ReactBootstrap.Button);
 
 /**
- * @template This template rapresents the Packet Editor toolbar
+ * @template This template represents the Packet Editor toolbar
  */
 
 var PacketEditorToolbar = React.createFactory(React.createClass({
