@@ -11,6 +11,7 @@ const { Reps } = require("reps/reps");
 // RDP Inspector
 const { Packet } = require("./packet");
 const { PacketsSummary } = require("./packets-summary");
+const { PacketsLimit } = require("./packets-limit");
 
 // Shortcuts
 const { DIV } = Reps.DOM;
@@ -44,6 +45,14 @@ var PacketList = React.createClass({
   render: function() {
     var output = [];
     var filter = this.props.searchFilter;
+    var removedPackets = this.props.removedPackets;
+
+    console.log("removedPackets " + removedPackets)
+    if (removedPackets > 0) {
+      output.push(PacketsLimit({
+        removedPackets: removedPackets
+      }));
+    }
 
     var packets = this.props.data;
     for (var i in packets) {

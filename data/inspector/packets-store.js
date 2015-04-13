@@ -72,9 +72,10 @@ PacketsStore.prototype =
       this.summary.packets.received += 1;
     }
 
-    // xxxHonza: limit for now.
-    if (this.packets.length > 500) {
+    var limit = Options.getPref("extensions.rdpinspector.packetLimit");
+    if (this.packets.length > limit) {
       this.packets.shift();
+      this.removedPackets++;
     }
 
     this.refreshPackets(now);
@@ -100,7 +101,8 @@ PacketsStore.prototype =
 
   doRefreshPackets: function() {
     var newState = {
-      data: this.packets
+      data: this.packets,
+      removedPackets: this.removedPackets
     }
 
     // Default selection
@@ -120,6 +122,9 @@ PacketsStore.prototype =
   clear: function() {
     this.packets = [];
     this.uniqueId = 0;
+
+    // Number of removed packets that are out of limit.
+    this.removedPackets = 0;
 
     this.summary = {
       data: {

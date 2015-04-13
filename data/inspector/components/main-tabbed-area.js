@@ -51,7 +51,8 @@ var MainTabbedArea = React.createClass({
             actions: this.props.actions,
             selectedPacket: this.state.selectedPacket,
             searchFilter: this.state.searchFilter,
-            showInlineDetails: this.state.showInlineDetails
+            showInlineDetails: this.state.showInlineDetails,
+            removedPackets: this.state.removedPackets
           })
         )
         /* TODO: Actors tab disabled (needs to be completed)

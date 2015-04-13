@@ -43,7 +43,8 @@ var PacketsPanel = React.createClass({
         actions: this.props.actions,
         selectedPacket: this.props.selectedPacket,
         searchFilter: this.props.searchFilter,
-        showInlineDetails: this.props.showInlineDetails
+        showInlineDetails: this.props.showInlineDetails,
+        removedPackets: this.props.removedPackets
       })
     );
 
