@@ -10,6 +10,7 @@ console and operate developer tools Toolbox to generate some traffic
 over RDP. Sent and received packets are visible in the console window.
 
 [Learn more](https://github.com/firebug/rdp-inspector/wiki)
+[Download](https://github.com/firebug/rdp-inspector/releases)
 
 Further Resources
 -----------------
