@@ -12,6 +12,10 @@
     "Luca Greco",
     "Sebastian Zartner"
   ],
+  "translators": [
+    "YFdyh000 (zh-CN)",
+    "Markh van BabelZilla.org (nl)"
+  ],
   "license": "BSD License",
   "version": "1.0.3",
   "engines": {
