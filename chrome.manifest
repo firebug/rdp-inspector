@@ -4,5 +4,6 @@ skin    rdpinspector-firebug.sdk  classic/1.0    node_modules/firebug.sdk/skin/c
 
 locale  rdpinspector en-US          chrome/locale/en-US/
 locale  rdpinspector zh-CN          chrome/locale/zh-CN/
+locale  rdpinspector nl             chrome/locale/nl/
 
 locale  rdpinspector-firebug.sdk  en-US          node_modules/firebug.sdk/locale/en-US/
