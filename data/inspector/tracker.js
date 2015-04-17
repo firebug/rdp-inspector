@@ -3,7 +3,10 @@
 define(function(require, exports, module) {
 
 /**
- * xxxHonza: TODO docs
+ * Helper object for drag-and-drop. It's used e.g. by the {@Splitter}
+ * template. This object registers mouse event listeners and executes
+ * provided callbacks - typically an object/component that implements
+ * drag and drop features.
  */
 function Tracker(handle, callbacks) {
   this.element = handle;
