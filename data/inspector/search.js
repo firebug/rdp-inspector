@@ -3,7 +3,8 @@
 define(function(require, exports, module) {
 
 /**
- * TODO docs
+ * This object is responsible for listening search events
+ * and updating application state (the root RJS component).
  */
 function Search(win, app) {
   this.win = win;
