@@ -11,7 +11,8 @@ function ActorsStore(win, app) {
   this.win = win;
   this.app = app;
 
-  this.win.addEventListener("got-rdp-actors", this.onGotRDPActors.bind(this));
+  this.onGotRDPActors = this.onGotRDPActors.bind(this);
+  this.win.addEventListener("got-rdp-actors", this.onGotRDPActors);
 
   this.clear();
 }
@@ -20,15 +21,22 @@ ActorsStore.prototype =
 /** @lends ActorsStore */
 {
   onGotRDPActors: function(event) {
-    console.log("DATA: GOT RDP ACTORS", event);
-    var actors = JSON.parse(event.data);
-  },
+    var data = JSON.parse(event.data);
+    this.actors.tab = data.tab;
+    this.actors.global = data.global;
 
+    this.refreshActors();
+  },
 
   clear: function() {
     this.actors = {};
-    this.factoris = {};
   },
+
+  refreshActors: function() {
+    this.app.setState({
+      actors: this.actors
+    })
+  }
 }
 
 // Exports from this module

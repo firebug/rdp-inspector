@@ -96,14 +96,12 @@ var actions = {
  */
 var content = document.getElementById("content");
 var theApp = React.render(MainTabbedArea({
-  packets: [],
-  actors: {},
   actions: actions
 }), content);
 
 // Helper modules for handling application events.
 var packetsStore = new PacketsStore(window, theApp);
-var actorsStore = new ActorsStore(window, theApp);
+var actorsStore = window.actorsStore = new ActorsStore(window, theApp);
 var resizer = new Resizer(window, theApp);
 var search = new Search(window, theApp);
 

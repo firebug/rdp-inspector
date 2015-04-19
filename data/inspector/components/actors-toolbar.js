@@ -34,7 +34,7 @@ var ActorsToolbar = React.createClass({
   // Commands
 
   onRefresh: function(event) {
-    // xxxHonza: TODO
+    this.props.actions.getActors();
   },
 });
 

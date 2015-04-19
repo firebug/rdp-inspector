@@ -31,7 +31,7 @@ var MainTabbedArea = React.createClass({
   displayName: "MainTabbedArea",
 
   getInitialState: function() {
-    return { data: [] };
+    return { packets: [] };
   },
 
   componentDidMount: function() {
@@ -53,7 +53,7 @@ var MainTabbedArea = React.createClass({
         animation: false, ref: "tabbedArea"},
         TabPane({eventKey: 1, tab: packets},
           PacketsPanel({
-            packets: this.state.data,
+            packets: this.state.packets,
             actions: this.props.actions,
             selectedPacket: this.state.selectedPacket,
             searchFilter: this.state.searchFilter,
@@ -61,11 +61,14 @@ var MainTabbedArea = React.createClass({
             removedPackets: this.state.removedPackets,
             paused: this.state.paused
           })
-        )
-        /* TODO: Actors tab disabled (needs to be completed)
+        ),
         TabPane({eventKey: 2, tab: actors},
-          ActorsPanel()
-        )*/
+          ActorsPanel({
+            actions: this.props.actions,
+            actors: this.state.actors,
+            searchFilter: this.state.searchFilter
+          })
+        )
       )
     )
   }
