@@ -40,7 +40,7 @@ Tracker.prototype =
     }
 
     this.dragging = true;
-    this.cursorStartPos = absoluteCursorPostion(event);
+    this.cursorStartPos = absoluteCursorPosition(event);
     this.cursorLastPos = this.cursorStartPos;
     //this.elementStartPos = new Position(
     //    parseInt(this.element.style.left),
@@ -62,7 +62,7 @@ Tracker.prototype =
 
     cancelEvent(event);
 
-    var newPos = absoluteCursorPostion(event);
+    var newPos = absoluteCursorPosition(event);
     //newPos = newPos.Add(this.elementStartPos);
     newPos = newPos.Subtract(this.cursorStartPos);
     //newPos = newPos.Bound(lowerBound, upperBound);
@@ -124,7 +124,8 @@ Tracker.prototype =
 };
 
 /**
- * xxxHonza: TODO docs
+ * This object is represents mouse position and provides
+ * related API for its manipulation.
  */
 function Position(x, y)
 /** @lends Position */
@@ -197,7 +198,7 @@ function Position(x, y)
   };
 }
 
-function absoluteCursorPostion(e) {
+function absoluteCursorPosition(e) {
   if (isNaN(window.scrollX)) {
     return new Position(e.clientX +
       document.documentElement.scrollLeft +
