@@ -19,6 +19,15 @@ const { TR, TD, SPAN, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
 const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
 const TabPane = React.createFactory(ReactBootstrap.TabPane);
 
+const GLOBAL_ACTORS_POOLS = "global-actors-pool";
+const TAB_ACTORS_POOLS = "tab-actors-pool";
+const ACTORS_FACTORIES = "actors-factories";
+
+var PanelTypesLabels = {};
+PanelTypesLabels[GLOBAL_ACTORS_POOLS] = "Global Actors";
+PanelTypesLabels[TAB_ACTORS_POOLS] = "Tab Actors";
+PanelTypesLabels[ACTORS_FACTORIES] = "Actors Factories";
+
 /**
  * @template This template renders 'Actors' tab body.
  */
@@ -29,45 +38,50 @@ var ActorsPanel = React.createClass({
 
   getInitialState: function() {
     return {
-      activeKey: 1
+      panelType: GLOBAL_ACTORS_POOLS
     }
   },
 
-  onTabSelected: function(key) {
-    this.setState({
-      activeKey: key
-    })
-  },
-
   render: function() {
+    var { actors } = this.props;
+    var { panelType } = this.state;
+
+    var el;
+
+    switch(panelType) {
+    case GLOBAL_ACTORS_POOLS:
+      el = ActorsPools({ data: (actors && actors.global), key: 'global' });
+      break;
+    case TAB_ACTORS_POOLS:
+      el = ActorsPools({data: (actors && actors.tab), key: 'tab' });
+      break;
+    case ACTORS_FACTORIES:
+      el = ActorsFactories({
+        key: 'factories',
+        data: {
+          global: actors && actors.global,
+          tab: actors && actors.tab
+        }
+      });
+      break;
+    }
+
     return (
-      DIV({className: "actorsPanelBox"},
-        ActorsToolbar({ actions: this.props.actions }),
-        TabbedArea({
-          className: "actorsPanelBox", animation: false,
-          activeKey: this.state.activeKey,
-          onSelect: this.onTabSelected
-        },
-          TabPane({eventKey: 1, tab: "Global Actors"},
-            ActorsPools({
-              data: this.props.actors && this.props.actors.global
-            })
-          ),
-          TabPane({eventKey: 2, tab: "Tab Actors"},
-            ActorsPools({
-              data: this.props.actors && this.props.actors.tab
-            })
-          ),
-          TabPane({eventKey: 3, tab: "Factories"},
-            ActorsFactories({
-              data: {
-                global: this.props.actors && this.props.actors.global,
-                tab: this.props.actors && this.props.actors.tab
-              }
-            }))
-        )
+      DIV({ className: "actorsPanelBox" },
+        ActorsToolbar({ actions: this.props.actions,
+          currentPanelType: panelType,
+          panelTypesLabels: PanelTypesLabels,
+          onPanelTypeSelected: this.onPanelTypeSelected,
+        }),
+        DIV({ className: "actorsScrollBox" }, el)
       )
     );
+  },
+
+  onPanelTypeSelected: function(panelType) {
+    this.setState({
+      panelType: panelType
+    })
   }
 });
 
