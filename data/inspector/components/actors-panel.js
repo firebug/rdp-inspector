@@ -24,8 +24,8 @@ const TAB_ACTORS_POOLS = "tab-actors-pool";
 const ACTORS_FACTORIES = "actors-factories";
 
 var PanelTypesLabels = {};
-PanelTypesLabels[GLOBAL_ACTORS_POOLS] = "Global Actors";
-PanelTypesLabels[TAB_ACTORS_POOLS] = "Tab Actors";
+PanelTypesLabels[GLOBAL_ACTORS_POOLS] = "Main Process";
+PanelTypesLabels[TAB_ACTORS_POOLS] = "Child Process";
 PanelTypesLabels[ACTORS_FACTORIES] = "Actors Factories";
 
 /**
@@ -105,14 +105,16 @@ var ActorsPools = React.createFactory(React.createClass({
         actorClass = true;
       }
 
-      return PoolTable({
-        pool: pool,
-        actorClass: actorClass,
-        id: poolId,
-        key: poolId,
-        searchFilter: this.state && this.state.searchFilter
-      });
-    });
+      if (pool.length > 0) {
+        return PoolTable({
+          pool: pool,
+          actorClass: actorClass,
+          id: poolId,
+          key: poolId,
+          searchFilter: this.state && this.state.searchFilter
+        });
+      }
+    }).filter((el) => el);
 
     return DIV({ className: "poolContainer" }, poolTables);
   }
@@ -167,10 +169,10 @@ var PoolRow = React.createFactory(React.createClass({
     var actor = this.props;
     return (
       TR({className: "poolRow"},
-        TD({}, actor.actorID),
+        TD({}, actor.actorID && actor.actorID.replace(/^server\d*./, "")),
         TD({}, actor.actorPrefix),
         TD({}, actor.typeName),
-        TD({}, actor.parentID),
+        TD({}, actor.parentID && actor.parentID.replace(/^server\d*./, "")),
         TD({}, actor.constructor)
       )
     );
