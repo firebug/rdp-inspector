@@ -2,10 +2,9 @@
 
 define(function(require, exports, module) {
 
-// Constants
 /**
  * This object contains all collected actors. It's also responsible
- * for refreshing the UI if new actors appears.
+ * for refreshing the UI if new actors list is received.
  */
 function ActorsStore(win, app) {
   this.win = win;

@@ -9,7 +9,6 @@ const ReactBootstrap = require("react-bootstrap");
 // Firebug SDK
 
 const { Reps } = require("reps/repository");
-const { TreeView } = require("reps/tree-view");
 
 // RDP Inspector
 const { ActorsToolbar } = require("./actors-toolbar");
@@ -85,8 +84,14 @@ var ActorsPanel = React.createClass({
   }
 });
 
+/**
+ * @template This template renders 'ActorsPools' list in the tab content.
+ */
 var ActorsPools = React.createFactory(React.createClass({
+  /** @lends ActorsPools */
+
   displayName: "ActorsPools",
+
   render: function() {
     var pool = [];
 
@@ -120,8 +125,15 @@ var ActorsPools = React.createFactory(React.createClass({
   }
 }));
 
+/**
+ * @template This template renders 'PoolTable' which render a table related
+ * to a single pool of actors.
+ */
 var PoolTable = React.createFactory(React.createClass({
+  /** @lends ActorsPanel */
+
   displayName: "PoolTable",
+
   render: function() {
     var rows = [];
 
@@ -163,8 +175,14 @@ var PoolTable = React.createFactory(React.createClass({
   }
 }));
 
+/**
+ * @template This template renders a single row of the 'PoolTable' .
+ */
 var PoolRow = React.createFactory(React.createClass({
+  /** @lends PoolRow */
+
   displayName: "PoolRow",
+
   render: function() {
     var actor = this.props;
     return (
@@ -179,8 +197,14 @@ var PoolRow = React.createFactory(React.createClass({
   }
 }));
 
+/**
+ * @template This template renders the 'ActorsFactories' list of tables.
+ */
 var ActorsFactories = React.createFactory(React.createClass({
+  /** @lends ActorsFactories */
+
   displayName: "ActorsFactories",
+
   render: function() {
     var main = this.props.data.global || { factories: {} };
     var child = this.props.data.tab || { factories: {} };
@@ -201,8 +225,14 @@ var ActorsFactories = React.createFactory(React.createClass({
   }
 }));
 
+/**
+ * @template This template renders a single 'FactoryTable' component.
+ */
 var FactoryTable = React.createFactory(React.createClass({
+  /** @lends FactoryTable */
+
   displayName: "FactoryTable",
+
   render: function() {
     var rows = [];
 
@@ -231,8 +261,14 @@ var FactoryTable = React.createFactory(React.createClass({
   }
 }));
 
+/**
+ * @template This template renders a single row of the 'FactoryTable'.
+ */
 var FactoryRow = React.createFactory(React.createClass({
+  /** @lends ActorsPanel */
+
   displayName: "FactoryRow",
+
   render: function() {
     var factory = this.props;
     return (
