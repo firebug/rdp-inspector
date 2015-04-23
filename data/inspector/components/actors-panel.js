@@ -23,9 +23,9 @@ const TAB_ACTORS_POOLS = "tab-actors-pool";
 const ACTORS_FACTORIES = "actors-factories";
 
 var PanelTypesLabels = {};
-PanelTypesLabels[GLOBAL_ACTORS_POOLS] = "Main Process";
-PanelTypesLabels[TAB_ACTORS_POOLS] = "Child Process";
-PanelTypesLabels[ACTORS_FACTORIES] = "Actors Factories";
+PanelTypesLabels[GLOBAL_ACTORS_POOLS] = Locale.$STR("rdpInspector.label.MainProcess");
+PanelTypesLabels[TAB_ACTORS_POOLS] = Locale.$STR("rdpInspector.label.ChildProcess");
+PanelTypesLabels[ACTORS_FACTORIES] = Locale.$STR("rdpInspector.label.ActorsFactories");
 
 /**
  * @template This template renders 'Actors' tab body.
