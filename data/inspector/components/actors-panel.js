@@ -49,10 +49,18 @@ var ActorsPanel = React.createClass({
 
     switch(panelType) {
     case GLOBAL_ACTORS_POOLS:
-      el = ActorsPools({ data: (actors && actors.global), key: 'global' });
+      el = ActorsPools({
+        data: (actors && actors.global),
+        key: 'global',
+        searchFilter: this.props.searchFilter
+      });
       break;
     case TAB_ACTORS_POOLS:
-      el = ActorsPools({data: (actors && actors.tab), key: 'tab' });
+      el = ActorsPools({
+        data: (actors && actors.tab),
+        key: 'tab',
+        searchFilter: this.props.searchFilter
+      });
       break;
     case ACTORS_FACTORIES:
       el = ActorsFactories({
@@ -60,7 +68,8 @@ var ActorsPanel = React.createClass({
         data: {
           global: actors && actors.global,
           tab: actors && actors.tab
-        }
+        },
+        searchFilter: this.props.searchFilter
       });
       break;
     }
@@ -116,7 +125,7 @@ var ActorsPools = React.createFactory(React.createClass({
           actorClass: actorClass,
           id: poolId,
           key: poolId,
-          searchFilter: this.state && this.state.searchFilter
+          searchFilter: this.props.searchFilter
         });
       }
     }).filter((el) => el);
