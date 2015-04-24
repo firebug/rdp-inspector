@@ -101,7 +101,7 @@ PacketsStore.prototype =
 
   doRefreshPackets: function() {
     var newState = {
-      data: this.packets,
+      packets: this.packets,
       removedPackets: this.removedPackets
     }
 
