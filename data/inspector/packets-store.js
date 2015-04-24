@@ -24,7 +24,16 @@ PacketsStore.prototype =
 /** @lends PacketsStore */
 {
   onInitialize: function(event) {
-    var packets = JSON.parse(event.data);
+    var cache = JSON.parse(event.data);
+
+    // Get number of packets removed from the cache.
+    this.removedPackets = cache.removedPackets || 0;
+
+    // Get list of cached packets and render if any.
+    var packets = cache.packets;
+    if (!packets || !packets.length) {
+      return;
+    }
 
     for (var i=0; i<packets.length; i++) {
       var packet = packets[i];
@@ -73,7 +82,7 @@ PacketsStore.prototype =
     }
 
     var limit = Options.getPref("extensions.rdpinspector.packetLimit");
-    if (this.packets.length > limit) {
+    while (this.packets.length > limit) {
       this.packets.shift();
       this.removedPackets++;
     }
