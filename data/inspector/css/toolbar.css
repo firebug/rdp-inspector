@@ -15,3 +15,9 @@
   border-radius: 2px;
   color: #141414;
 }
+
+.toolbar select {
+  margin-left: 3px;
+  line-height: 1.0;
+  font-size: 12px;
+}

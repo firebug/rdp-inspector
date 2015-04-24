@@ -110,3 +110,16 @@
 .sidePanel > DIV {
   height: 100%;
 }
+
+/******************************************************************************/
+/* Actors Panels */
+
+.actorsPanelBox {
+  height: calc(100% - 30px);
+}
+
+.actorsScrollBox {
+  height: 100%;
+  padding: 10px;
+  overflow: auto;
+}

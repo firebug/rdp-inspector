@@ -8,6 +8,7 @@ var React = require("react");
 // RDP Inspector
 var { MainTabbedArea } = require("components/main-tabbed-area");
 var { PacketsStore } = require("packets-store");
+var { ActorsStore } = require("actors-store");
 var { Resizer } = require("resizer");
 var { Search } = require("search");
 
@@ -28,7 +29,7 @@ var actions = {
    * Remove all packets from the packet list.
    */
   clear: function() {
-    store.clear();
+    packetsStore.clear();
   },
 
   /**
@@ -42,7 +43,11 @@ var actions = {
    * Send a test packet to the debugger server.
    */
   send: function(packet) {
-    postChromeMessage("injectRDPPacket", packet);
+    postChromeMessage("inject-rdp-packet", packet);
+  },
+
+  getActors: function() {
+    postChromeMessage("get-rdp-actors");
   },
 
   /**
@@ -51,7 +56,7 @@ var actions = {
    * amount of data.
    */
   appendSummary: function() {
-    store.appendSummary();
+    packetsStore.appendSummary();
 
     // Auto scroll to the bottom, so the new summary is
     // immediately visible.
@@ -78,9 +83,9 @@ var actions = {
     postChromeMessage("pause", paused);
 
     if (paused) {
-      store.appendMessage(Locale.$STR("rdpInspector.label.Paused"));
+      packetsStore.appendMessage(Locale.$STR("rdpInspector.label.Paused"));
     } else {
-      store.appendMessage(Locale.$STR("rdpInspector.label.Unpaused"));
+      packetsStore.appendMessage(Locale.$STR("rdpInspector.label.Unpaused"));
     }
   }
 };
@@ -91,12 +96,12 @@ var actions = {
  */
 var content = document.getElementById("content");
 var theApp = React.render(MainTabbedArea({
-  packets: [],
   actions: actions
 }), content);
 
 // Helper modules for handling application events.
-var store = new PacketsStore(window, theApp);
+var packetsStore = new PacketsStore(window, theApp);
+var actorsStore = new ActorsStore(window, theApp);
 var resizer = new Resizer(window, theApp);
 var search = new Search(window, theApp);
 
