@@ -14,7 +14,8 @@ const { Reps } = require("reps/reps");
 const { DIV, SELECT, OPTION } = Reps.DOM;
 
 /**
- * xxxHonza: TODO docs
+ * @template This object is responsible for rendering the toolbar
+ * in Actors tab
  */
 var ActorsToolbar = React.createClass({
 /** @lends ActorsToolbar */
