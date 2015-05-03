@@ -187,8 +187,10 @@ var TreeEditorView = React.createClass({
             return true;
           },
           autocompletion: (value) => {
-            // TODO: auto completion
-            return [];
+            var suggestions = this.props.handleAutocompletion ?
+              this.props.handleAutocompletion("value", keyPath, value) : [];
+
+            return suggestions;
           },
           onSubmit: (newKey, cancel) => {
             this.onStopEditingFieldLabel(keyPath, key, newKey, cancel);
@@ -218,7 +220,10 @@ var TreeEditorView = React.createClass({
           },
           autocompletion: (value) => {
             // TODO: auto completion
-            return [];
+            var suggestions = this.props.handleAutocompletion ?
+              this.props.handleAutocompletion("value", keyPath, value) : [];
+
+            return suggestions;
           },
           onSubmit: (newValue, cancel) => {
             this.onStopEditingFieldValue(keyPath, value, JSON.parse(newValue), cancel);
@@ -591,7 +596,7 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
 
   renderRowValue: function() {
     var { hasChildren, value, keyPath } = this.props;
-    var { valid } = this.state;
+    var { valid, suggestions } = this.state;
 
     var jsonValue = (value instanceof Immutable.Collection) ?
           value.toJSON() : value;
@@ -605,7 +610,7 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
     });
 
     return TD({ key: 'value', className: "memberValueCell" },
-              inputEl, I({}));
+              inputEl, I({}), DIV({}, JSON.stringify(suggestions)));
   },
 
   onChange: function(event) {
@@ -614,8 +619,11 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
     valid = this.props.validation ?
       this.props.validation(event.target.value) :
       true
+    suggestions = this.props.autocompletion ?
+      this.props.autocompletion(event.target.value) :
+      []
 
-    this.setState({valid: valid});
+    this.setState({valid: valid, suggestions: suggestions});
   },
 
   onKeyUp: function(event) {
