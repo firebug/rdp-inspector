@@ -98,13 +98,14 @@ var PacketEditor = React.createClass({
               try {
                 var parsedValue;
 
+                // remove starting and ending '"' if any
                 parsedValue = typeof value == "string" ?
-                  value.slice(1, value.length - 1) : "";
+                  value.replace(/^"|"$/g, '') : "";
 
                 if(keyPath.length == 1 && keyPath[0] == "to") {
                   // get a suggestion list by filtering actorIDs list
                   return actorIDs.filter((suggestion) => {
-                    return suggestion.indexOf(parsedValue) == 0
+                    return suggestion.indexOf(parsedValue) >= 0
                   })
                 }
               } catch(e) {
