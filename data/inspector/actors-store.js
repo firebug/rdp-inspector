@@ -47,8 +47,7 @@ ActorsStore.prototype =
       if (data.pool) {
         this.collectActorIDs(data.pool, res);
       } else if (data.actorID) {
-        // NOTE: remove the "serverNN." prefix from the actorID
-        var actorID = data.actorID.replace(/^server\d*\./, "");
+        var { actorID } = data
         if (res.indexOf(actorID) < 0) {
           res.push(actorID);
         }
