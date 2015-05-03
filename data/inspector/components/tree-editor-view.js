@@ -623,8 +623,10 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
       width: 195, // TODO: find better size calc
       maxHeight: 200
     }
-    var items = suggestions.map((suggestion) => {
-      return LI({}, suggestion);
+    var items = suggestions.map((suggestion, idx) => {
+      return LI({
+        onClick: () => this.props.onSubmit(JSON.stringify(suggestion))
+      }, suggestion);
     })
 
     return UL({ style: style, className: "suggestions" }, items);

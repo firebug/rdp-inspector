@@ -59,5 +59,10 @@
 }
 
 .domTable.editable ul.suggestions li {
-  margin: 2px;
+  padding: 2px;
+}
+
+.domTable.editable ul.suggestions li:hover {
+  background: yellow;
+  color: black;
 }
