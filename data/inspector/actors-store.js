@@ -23,6 +23,7 @@ ActorsStore.prototype =
     var data = JSON.parse(event.data);
     this.actors.tab = data.tab;
     this.actors.global = data.global;
+
     this.actorIDs = this.collectActorIDs([
       data.tab.actorPool,
       data.tab.extraPools,

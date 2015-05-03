@@ -98,11 +98,10 @@ var PacketEditor = React.createClass({
               try {
                 var parsedValue;
 
-                parsedValue = JSON.parse(value);
+                parsedValue = typeof value == "string" ?
+                  value.slice(1, value.length - 1) : "";
 
-                if(typeof parsedValue == "string" &&
-                   parsedValue.length > 0 &&
-                   keyPath.length == 1 && keyPath[0] == "to") {
+                if(keyPath.length == 1 && keyPath[0] == "to") {
                   // get a suggestion list by filtering actorIDs list
                   return actorIDs.filter((suggestion) => {
                     return suggestion.indexOf(parsedValue) == 0

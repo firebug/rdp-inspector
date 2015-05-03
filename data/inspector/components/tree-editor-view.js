@@ -563,7 +563,8 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
 
   getInitialState: function() {
     return  {
-      valid: true
+      valid: true,
+      suggestions: []
     }
   },
 
@@ -596,7 +597,7 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
 
   renderRowValue: function() {
     var { hasChildren, value, keyPath } = this.props;
-    var { valid, suggestions } = this.state;
+    var { valid } = this.state;
 
     var jsonValue = (value instanceof Immutable.Collection) ?
           value.toJSON() : value;
@@ -609,8 +610,24 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
       className: valid ? "valid" : "invalid"
     });
 
+    var suggestionsEl = this.renderSuggestions();
+
     return TD({ key: 'value', className: "memberValueCell" },
-              inputEl, I({}), DIV({}, JSON.stringify(suggestions)));
+              inputEl, I({}), suggestionsEl);
+  },
+
+  renderSuggestions: function() {
+    var { suggestions } = this.state;
+    var style = {
+      display: suggestions && suggestions.length > 0 ? "block" : "none",
+      width: 195, // TODO: find better size calc
+      maxHeight: 200
+    }
+    var items = suggestions.map((suggestion) => {
+      return LI({}, suggestion);
+    })
+
+    return UL({ style: style, className: "suggestions" }, items);
   },
 
   onChange: function(event) {
