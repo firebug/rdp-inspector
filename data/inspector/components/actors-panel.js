@@ -196,10 +196,10 @@ var PoolRow = React.createFactory(React.createClass({
     var actor = this.props;
     return (
       TR({className: "poolRow"},
-        TD({}, actor.actorID && actor.actorID.replace(/^server\d*./, "")),
+        TD({}, actor.actorID),
         TD({}, actor.actorPrefix),
         TD({}, actor.typeName),
-        TD({}, actor.parentID && actor.parentID.replace(/^server\d*./, "")),
+        TD({}, actor.parentID),
         TD({}, actor.constructor)
       )
     );

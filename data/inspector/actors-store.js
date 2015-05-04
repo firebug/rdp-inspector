@@ -24,6 +24,13 @@ ActorsStore.prototype =
     this.actors.tab = data.tab;
     this.actors.global = data.global;
 
+    this.actorIDs = this.collectActorIDs([
+      data.tab.actorPool,
+      data.tab.extraPools,
+      data.global.actorPool,
+      data.global.extraPools
+    ], []);
+
     this.refreshActors();
   },
 
@@ -31,9 +38,31 @@ ActorsStore.prototype =
     this.actors = {};
   },
 
+  collectActorIDs: function(data, res) {
+    if (data instanceof Array) {
+      data.forEach((item) => {
+        this.collectActorIDs(item, res);
+      })
+    } else if (data instanceof Object) {
+      if (data.pool) {
+        this.collectActorIDs(data.pool, res);
+      } else if (data.actorID) {
+        var { actorID } = data
+        if (res.indexOf(actorID) < 0) {
+          res.push(actorID);
+        }
+      }
+    }
+
+    return res;
+  },
+
   refreshActors: function() {
+    console.log("ACTOR IDS", this.actorIDs);
+
     this.app.setState({
-      actors: this.actors
+      actors: this.actors,
+      actorIDs: this.actorIDs
     })
   }
 }

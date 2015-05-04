@@ -187,8 +187,10 @@ var TreeEditorView = React.createClass({
             return true;
           },
           autocompletion: (value) => {
-            // TODO: auto completion
-            return [];
+            var suggestions = this.props.handleAutocompletion ?
+              this.props.handleAutocompletion("value", keyPath, value) : [];
+
+            return suggestions;
           },
           onSubmit: (newKey, cancel) => {
             this.onStopEditingFieldLabel(keyPath, key, newKey, cancel);
@@ -218,7 +220,10 @@ var TreeEditorView = React.createClass({
           },
           autocompletion: (value) => {
             // TODO: auto completion
-            return [];
+            var suggestions = this.props.handleAutocompletion ?
+              this.props.handleAutocompletion("value", keyPath, value) : [];
+
+            return suggestions;
           },
           onSubmit: (newValue, cancel) => {
             this.onStopEditingFieldValue(keyPath, value, JSON.parse(newValue), cancel);
@@ -558,7 +563,8 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
 
   getInitialState: function() {
     return  {
-      valid: true
+      valid: true,
+      suggestions: []
     }
   },
 
@@ -604,8 +610,26 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
       className: valid ? "valid" : "invalid"
     });
 
+    var suggestionsEl = this.renderSuggestions();
+
     return TD({ key: 'value', className: "memberValueCell" },
-              inputEl, I({}));
+              inputEl, I({}), suggestionsEl);
+  },
+
+  renderSuggestions: function() {
+    var { suggestions } = this.state;
+    var style = {
+      display: suggestions && suggestions.length > 0 ? "block" : "none",
+      width: 195, // TODO: find better size calc
+      maxHeight: 200
+    }
+    var items = suggestions.map((suggestion, idx) => {
+      return LI({
+        onClick: () => this.props.onSubmit(JSON.stringify(suggestion))
+      }, suggestion);
+    })
+
+    return UL({ style: style, className: "suggestions" }, items);
   },
 
   onChange: function(event) {
@@ -614,8 +638,11 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
     valid = this.props.validation ?
       this.props.validation(event.target.value) :
       true
+    suggestions = this.props.autocompletion ?
+      this.props.autocompletion(event.target.value) :
+      []
 
-    this.setState({valid: valid});
+    this.setState({valid: valid, suggestions: suggestions});
   },
 
   onKeyUp: function(event) {

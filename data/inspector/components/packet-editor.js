@@ -73,6 +73,7 @@ var PacketEditor = React.createClass({
 
   render: function() {
     var selectedPacket = this.state.selectedPacket || this.props.selectedPacket;
+    var { actorIDs } = this.props;
 
     return (
       DIV({className: "details editor"},
@@ -88,7 +89,31 @@ var PacketEditor = React.createClass({
             ref: "editor",
             key: "packet-editor",
             data: selectedPacket && selectedPacket.to ? selectedPacket : null,
-            defaultData: this.state.defaultData
+            defaultData: this.state.defaultData,
+            handleAutocompletion: (suggestionType, keyPath, value) => {
+              if (!actorIDs && suggestionType != "value") {
+                return [];
+              }
+
+              try {
+                var parsedValue;
+
+                // remove starting and ending '"' if any
+                parsedValue = typeof value == "string" ?
+                  value.replace(/^"|"$/g, '') : "";
+
+                if(keyPath.length == 1 && keyPath[0] == "to") {
+                  // get a suggestion list by filtering actorIDs list
+                  return actorIDs.filter((suggestion) => {
+                    return suggestion.indexOf(parsedValue) >= 0
+                  })
+                }
+              } catch(e) {
+
+              }
+
+              return []
+            }
           })
          )
     );

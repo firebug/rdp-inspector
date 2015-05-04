@@ -59,7 +59,8 @@ var MainTabbedArea = React.createClass({
             searchFilter: this.state.searchFilter,
             showInlineDetails: this.state.showInlineDetails,
             removedPackets: this.state.removedPackets,
-            paused: this.state.paused
+            paused: this.state.paused,
+            actorIDs: this.state.actorIDs
           })
         ),
         TabPane({eventKey: 2, tab: actors},

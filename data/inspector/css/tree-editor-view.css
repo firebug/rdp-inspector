@@ -39,3 +39,30 @@
   border-color: red;
   background-color: rgba(210,0,0,0.2);
 }
+
+.domTable.editable ul.suggestions {
+  position: absolute;
+  z-index: 9999;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  color: black;
+  border: 1px solid buttonshadow;
+  cursor: default;
+  text-align: left;
+  list-style-type: none;
+  overflow: hidden;
+}
+
+.domTable.editable ul.suggestions:hover {
+  overflow: auto;
+}
+
+.domTable.editable ul.suggestions li {
+  padding: 2px;
+}
+
+.domTable.editable ul.suggestions li:hover {
+  background: yellow;
+  color: black;
+}
