@@ -15,3 +15,6 @@
 
 # Existing packages
 *.xpi
+
+/node_modules/
+!/node_modules/firebug.sdk

@@ -30,20 +30,32 @@
     "url": "https://github.com/firebug/rdp-inspector/issues"
   },
   "preferences-branch": "rdpinspector",
-  "preferences": [{
-    "name": "packetLimit",
-    "title": "Maximum number of displayed packets",
-    "description": "Maximum number of packets displayed in the RDP Inspector console",
-    "type": "integer",
-    "value": 500
-  }, {
-    "name": "packetCacheSize",
-    "title": "Maximum number of packets in the cache",
-    "description": "Maximum number of packets stored in a cache that's holding packets before the console is opened.",
-    "type": "integer",
-    "value": 200
-  }],
+  "preferences": [
+    {
+      "name": "packetLimit",
+      "title": "Maximum number of displayed packets",
+      "description": "Maximum number of packets displayed in the RDP Inspector console",
+      "type": "integer",
+      "value": 500
+    },
+    {
+      "name": "packetCacheSize",
+      "title": "Maximum number of packets in the cache",
+      "description": "Maximum number of packets stored in a cache that's holding packets before the console is opened.",
+      "type": "integer",
+      "value": 200
+    }
+  ],
   "dependencies": {
     "firebug.sdk": "~0.5.5"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.3.2",
+    "karma": "^0.12.31",
+    "karma-coverage-es6": "^0.2.7",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-jasmine": "^0.3.5",
+    "karma-requirejs": "^0.2.2",
+    "requirejs": "^2.1.17"
   }
 }
