@@ -4,8 +4,6 @@
 /* eslint-env node */
 /* eslint quotes:0 */
 
-require('karma-coverage-es6');
-
 module.exports = function(config) {
   "use strict";
 
@@ -54,7 +52,10 @@ module.exports = function(config) {
 
     coverageReporter: {
       type: 'html',
-      dir: 'coverage/'
+      dir: 'coverage/',
+      instrumenters: {
+        istanbul: require("istanbul-harmony")
+      }
     },
 
     // web server port
