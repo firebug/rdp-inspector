@@ -7,7 +7,7 @@
 module.exports = function(config) {
   "use strict";
 
-  config.set({
+  var baseKarmaConfig = {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -37,26 +37,10 @@ module.exports = function(config) {
     exclude: [
     ],
 
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'data/inspector/**/*.js': ['coverage']
-    },
-
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
-
-    coverageReporter: {
-      type: 'html',
-      dir: 'coverage/',
-      instrumenters: {
-        istanbul: require("istanbul-harmony")
-      }
-    },
+    reporters: ['progress'],
 
     // web server port
     port: 9876,
@@ -73,5 +57,24 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Firefox']
-  });
+  };
+
+  config.set(baseKarmaConfig);
+
+  // optionally enable code coverage
+  if (process.env.CODE_COVERAGE) {
+    config.set({
+      coverageReporter: {
+        type: 'html',
+        dir: 'coverage/',
+        instrumenters: {
+          istanbul: require("istanbul-harmony")
+        }
+      },
+      preprocessors: {
+        'data/inspector/**/*.js': ['coverage']
+      },
+      reporters: baseKarmaConfig.reporters.concat('coverage')
+    });
+  }
 };
