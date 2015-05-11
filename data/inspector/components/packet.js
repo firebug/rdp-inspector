@@ -140,4 +140,5 @@ var Packet = React.createClass({
 
 // Exports from this module
 exports.Packet = React.createFactory(Packet);
+exports.PacketComponent = Packet;
 });
