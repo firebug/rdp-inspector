@@ -18,6 +18,11 @@
   ],
   "license": "BSD License",
   "version": "1.0.3",
+  "scripts": {
+    "test": "npm run karma-tests && npm run jpm-tests",
+    "karma-tests": "./node_modules/karma/bin/karma start --single-run",
+    "jpm-tests": "jpm test"
+  },
   "engines": {
     "firefox": ">=38.0 <=40.0"
   },
