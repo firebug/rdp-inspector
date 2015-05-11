@@ -55,6 +55,7 @@
     "firebug.sdk": "~0.5.5"
   },
   "devDependencies": {
+    "eslint": "^0.21.0",
     "istanbul-harmony": "git://github.com/fengmk2/istanbul#babel-core",
     "jasmine-core": "^2.3.2",
     "karma": "^0.12.31",

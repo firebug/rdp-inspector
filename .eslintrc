@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "indent": [1, 2],
+    "quotes": [2, "double"],
+    "linebreak-style": [1, "unix"],
+    "semi": [1, "always"]
+  },
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "globals": {
+    "define": true
+  }
+}
