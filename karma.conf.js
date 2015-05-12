@@ -28,6 +28,7 @@ module.exports = function(config) {
       {pattern: 'data/**/*.woff', included: false},
       {pattern: 'data/**/*.woff2', included: false},
       {pattern: 'data/**/*.ttf', included: false},
+      {pattern: 'data/inspector/res/*', included: false},
       {pattern: 'karma-tests/**/*.js', included: false},
       {pattern: 'karma-tests/**/*Spec.js', included: false}
     ],
