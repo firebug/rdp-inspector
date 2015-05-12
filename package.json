@@ -21,6 +21,7 @@
   "scripts": {
     "test": "npm run karma-tests && npm run jpm-tests",
     "karma-tests": "./node_modules/karma/bin/karma start --single-run",
+    "travis-ci": "npm run karma-tests -- --reporters spec && npm run jpm-tests -- -v",
     "watch-karma-tests": "./node_modules/karma/bin/karma start --no-single-run --auto-watch",
     "jpm-tests": "jpm test"
   },

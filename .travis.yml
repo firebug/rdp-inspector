@@ -9,6 +9,7 @@ before_install:
 - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16 -extension RANDR"
 
 before_script:
+- npm install karma-spec-reporter
 - npm install jpm -g
 - npm install mozilla-download -g
 - cd ..
@@ -18,4 +19,4 @@ before_script:
 script:
 - export JPM_FIREFOX_BINARY=$TRAVIS_BUILD_DIR/../firefox/firefox
 - export FIREFOX_BIN=$JPM_FIREFOX_BINARY
-- npm run test
+- npm run travis-ci
