@@ -55,7 +55,7 @@ require.config({
     "reps": "../../node_modules/firebug.sdk/lib/reps",
 
     "squire": "../../karma-tests/lib/squire",
-    "test-mocks": "../../karma-tests/mocks"
+    "karma-tests": "../../karma-tests"
   },
 
   map: {

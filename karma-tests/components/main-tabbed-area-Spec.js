@@ -1,6 +1,4 @@
 /* eslint-env jasmine */
-/* global console, define */
-/* eslint no-console:0 */
 
 define(function (require) {
   "use strict";
@@ -8,55 +6,8 @@ define(function (require) {
   var React = require("react");
   var { TestUtils } = React.addons;
 
-  var actions = {
-    /**
-     * Select packet and display its properties in the side bar.
-     */
-    selectPacket: function(packet) {
-    },
-
-    /**
-     * Remove all packets from the packet list.
-     */
-    clear: function() {
-    },
-
-    /**
-     * Open standard Firefox Find bar.
-     */
-    find: function() {
-    },
-
-    /**
-     * Send a test packet to the debugger server.
-     */
-    send: function(packet) {
-    },
-
-    getActors: function() {
-    },
-
-    /**
-     * Appends an info summary at the end of the list. The info
-     * shows number of sent/received packets and total sent/received
-     * amount of data.
-     */
-    appendSummary: function() {
-    },
-
-    /**
-     * Show packet properties inline - directly within the packet
-     * box in the packet list.
-     */
-    onShowInlineDetails: function() {
-    },
-
-    /**
-     * Pause/unpause collecting packets
-     */
-    onPause: function() {
-    }
-  };
+  // Fake actions singleton
+  var actions = {};
 
   var { MainTabbedArea: mainTabbedArea } = require("components/main-tabbed-area");
   var { PacketsSummaryComponent } = require("components/packets-summary");
@@ -71,6 +22,10 @@ define(function (require) {
   packetsStore = new PacketsStore(window, theApp);
 
   describe("MainTabbedArea React Component", function() {
+    beforeAll(function () {
+      jasmine.addMatchers(require("karma-tests/custom-react-matchers"));
+    });
+
     beforeEach(function () {
       packetsStore.clear();
     });
@@ -87,24 +42,18 @@ define(function (require) {
     });
 
     it("is composed by a PacketsPanel and an ActorsPanel", function () {
-      var packetsPanels = TestUtils.scryRenderedComponentsWithType(
-        theApp, PacketsPanelComponent
-      );
-      expect(packetsPanels.length).toBe(1);
-
-      var actorsPanels = TestUtils.scryRenderedComponentsWithType(
-        theApp, ActorsPanelComponent
-      );
-      expect(actorsPanels.length).toBe(1);
+      [
+        PacketsPanelComponent,
+        ActorsPanelComponent
+      ].forEach((Component) => {
+        expect(Component).toBeFoundInReactTree(theApp, 1);
+      });
     });
 
     it("renders a PacketsSummary on PacketsStore.appendSummary", function () {
       packetsStore.appendSummary();
 
-      var summaries = TestUtils.scryRenderedComponentsWithType(
-        theApp, PacketsSummaryComponent
-      );
-      expect(summaries.length).toBe(1);
+      expect(PacketsSummaryComponent).toBeFoundInReactTree(theApp, 1);
     });
 
     it("renders a Packet on PacketsStore.sendPacket", function () {
@@ -118,10 +67,7 @@ define(function (require) {
       // NOTE: packets-store refresh the app every 200 ms
       packetsStore.refreshPackets(true);
 
-      var packets = TestUtils.scryRenderedComponentsWithType(
-        theApp, PacketComponent
-      );
-      expect(packets.length).toBe(1);
+      expect(PacketComponent).toBeFoundInReactTree(theApp, 1);
     });
   });
 });

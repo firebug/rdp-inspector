@@ -91,4 +91,5 @@ var PacketsToolbar = React.createClass({
 
 // Exports from this module
 exports.PacketsToolbar = React.createFactory(PacketsToolbar);
+exports.PacketsToolbarComponent = PacketsToolbar;
 });
