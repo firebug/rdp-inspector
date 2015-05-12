@@ -73,5 +73,6 @@ var PacketsPanel = React.createClass({
 
 // Exports from this module
 exports.PacketsPanel = React.createFactory(PacketsPanel);
+exports.PacketsPanelComponent = PacketsPanel;
 
 });

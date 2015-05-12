@@ -292,5 +292,6 @@ var FactoryRow = React.createFactory(React.createClass({
 
 // Exports from this module
 exports.ActorsPanel = React.createFactory(ActorsPanel);
+exports.ActorsPanelComponent = ActorsPanel;
 
 });

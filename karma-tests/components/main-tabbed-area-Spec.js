@@ -61,6 +61,8 @@ define(function (require) {
   var { MainTabbedArea: mainTabbedArea } = require("components/main-tabbed-area");
   var { PacketsSummaryComponent } = require("components/packets-summary");
   var { PacketComponent } = require("components/packet");
+  var { PacketsPanelComponent } = require("components/packets-panel");
+  var { ActorsPanelComponent } = require("components/actors-panel");
 
   var { PacketsStore } = require("packets-store");
 
@@ -82,6 +84,18 @@ define(function (require) {
       expect(theApp).toBeDefined();
 
       expect(theApp.getDOMNode()).toEqual(document.body.firstChild);
+    });
+
+    it("is composed by a PacketsPanel and an ActorsPanel", function () {
+      var packetsPanels = TestUtils.scryRenderedComponentsWithType(
+        theApp, PacketsPanelComponent
+      );
+      expect(packetsPanels.length).toBe(1);
+
+      var actorsPanels = TestUtils.scryRenderedComponentsWithType(
+        theApp, ActorsPanelComponent
+      );
+      expect(actorsPanels.length).toBe(1);
     });
 
     it("renders a PacketsSummary on PacketsStore.appendSummary", function () {
