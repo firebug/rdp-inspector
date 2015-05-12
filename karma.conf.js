@@ -32,7 +32,6 @@ module.exports = function(config) {
       {pattern: 'karma-tests/**/*Spec.js', included: false}
     ],
 
-
     // list of files to exclude
     exclude: [
     ],
@@ -63,6 +62,7 @@ module.exports = function(config) {
 
   // optionally enable code coverage
   if (process.env.CODE_COVERAGE) {
+    console.log("CODE COVERAGE ENABLED");
     config.set({
       coverageReporter: {
         type: 'html',
