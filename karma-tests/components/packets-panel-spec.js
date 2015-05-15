@@ -11,9 +11,7 @@ define(function (require) {
   var { PacketListComponent } = require("components/packet-list");
   var { PacketsSidebarComponent } = require("components/packets-sidebar");
 
-  var packetsPanel = TestUtils.renderIntoDocument(PacketsPanel({
-
-  }));
+  var packetsPanel = TestUtils.renderIntoDocument(PacketsPanel({}));
 
   var ReactMatchers = require("karma-tests/custom-react-matchers");
 
@@ -29,12 +27,14 @@ define(function (require) {
     });
 
     it("contains a PacketsToolbar, a PacketsList and a PacketsSidebar", () => {
-      [
+      var components = [
         PacketsToolbarComponent,
         PacketListComponent,
         PacketsSidebarComponent
-      ].forEach((Component) => {
-        expect(Component).toBeFoundInReactTree(packetsPanel, 1);
+      ];
+
+      components.forEach((component) => {
+        expect(component).toBeFoundInReactTree(packetsPanel, 1);
       });
     });
 

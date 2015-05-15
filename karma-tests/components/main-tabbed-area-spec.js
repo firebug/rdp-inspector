@@ -42,10 +42,12 @@ define(function (require) {
     });
 
     it("is composed by a PacketsPanel and an ActorsPanel", function () {
-      [
+      var components = [
         PacketsPanelComponent,
         ActorsPanelComponent
-      ].forEach((Component) => {
+      ];
+
+      components.forEach((Component) => {
         expect(Component).toBeFoundInReactTree(theApp, 1);
       });
     });
