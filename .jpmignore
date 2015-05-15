@@ -1,20 +1,30 @@
 # Doc Files
 /docs/
+README.md
 
 # Test Files
 /test/
 
+karma.conf.js
+/karma-tests/
+
 # GIT
 /.git/
 
-# Other files
-.gitignore
-.jpmignore
-.jshintrc
-.project
+# exclude hidden files
+.*
 
 # Existing packages
 *.xpi
 
+# npm debug log file
+npm-debug.log
+
+# Excludes npm devDependecies
 /node_modules/
+
+# Includes firebug.sdk
 !/node_modules/firebug.sdk
+
+# Code Coverage logs & reports
+/coverage/
