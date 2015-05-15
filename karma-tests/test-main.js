@@ -18,27 +18,6 @@ Object.keys(window.__karma__.files).forEach(function(file) {
   }
 });
 
-window.Locale = {
-  $STR: function(s) { return s; }
-};
-
-window.Options = {
-  getPref: function(key) {
-    /* eslint no-console: 0 */
-    switch(key) {
-    case "extensions.rdpinspector.packetLimit":
-      return 100;
-    default:
-      console.log("UNKOWN Option.getPref: ", key);
-      return null;
-    }
-  }
-};
-
-window.Str = {
-  formatSize: function(str) { return str; }
-};
-
 require.config({
   // Karma serves files under /base, which is the basePath from your config file
   baseUrl: '/base/data/inspector/',
@@ -58,32 +37,6 @@ require.config({
     "karma-tests": "../../karma-tests"
   },
 
-  map: {
-    "components/main-tabbed-area": {
-      "./components/search-box": "test-mocks/components/search-box"
-    }
-  },
-
   // we have to kickoff jasmine, as it is asynchronous
   callback: window.__karma__.start
 });
-
-document.body.setAttribute("class", "theme-firebug");
-
-[
-  "../lib/bootstrap/css/bootstrap.css",
-  "css/base.css",
-  "css/toolbox.css",
-  "css/toolbar.css",
-  "css/packets-panel.css",
-  "css/actors-panel.css",
-  "css/search-box.css",
-  "css/tree-editor-view.css",
-  "css/splitter.css",
-  "../../node_modules/firebug.sdk/skin/classic/shared/domTree.css"
-].forEach(function(url) {
-  var linkEl = document.createElement("link");
-  linkEl.setAttribute("href", "/base/data/inspector/" + url);
-  linkEl.setAttribute("rel", "stylesheet");
-  document.head.appendChild(linkEl);
-})

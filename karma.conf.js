@@ -20,6 +20,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'karma-tests/lib/firebug-sdk-shims.js',
       'karma-tests/test-main.js',
       {pattern: 'node_modules/firebug.sdk/lib/reps/*.js', included: false },
       {pattern: 'node_modules/firebug.sdk/skin/**/*', included: false},
