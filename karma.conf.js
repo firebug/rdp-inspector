@@ -31,7 +31,7 @@ module.exports = function(config) {
       {pattern: 'data/**/*.ttf', included: false},
       {pattern: 'data/inspector/res/*', included: false},
       {pattern: 'karma-tests/**/*.js', included: false},
-      {pattern: 'karma-tests/**/*Spec.js', included: false}
+      {pattern: 'karma-tests/**/*spec.js', included: false}
     ],
 
     // list of files to exclude

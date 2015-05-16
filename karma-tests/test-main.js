@@ -7,14 +7,10 @@
 var allTestFiles = [];
 var TEST_REGEXP = /(spec|test)\.js$/i;
 
-var pathToModule = function(path) {
-  return path; //.replace(/^\/base\//, '').replace(/\.js$/, '');
-};
-
+// filter test files
 Object.keys(window.__karma__.files).forEach(function(file) {
   if (TEST_REGEXP.test(file)) {
-    // Normalize paths to RequireJS module names.
-    allTestFiles.push(pathToModule(file));
+    allTestFiles.push(file);
   }
 });
 
@@ -26,14 +22,17 @@ require.config({
   deps: allTestFiles,
 
   paths: {
+    // rdp-inspector requirejs paths
     "jquery": "../lib/jquery/jquery",
-    "react": "../../karma-tests/lib/react-with-addons",
     "bootstrap": "../lib/bootstrap/js/bootstrap",
     "immutable": "../lib/immutable/immutable",
     "react-bootstrap": "../lib/react-bootstrap/react-bootstrap",
     "reps": "../../node_modules/firebug.sdk/lib/reps",
 
-    "squire": "../../karma-tests/lib/squire",
+    // use react-with-addons during testing
+    "react": "../../karma-tests/lib/react-with-addons",
+
+    // include jasmine custom matchers
     "karma-tests": "../../karma-tests"
   },
 
