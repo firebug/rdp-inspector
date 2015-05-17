@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
+/* globals Options */
 
 define(function(require, exports, module) {
+"use strict";
 
 // Constants
 const refreshTimeout = 200;
@@ -20,6 +22,12 @@ function PacketsStore(win, app) {
   this.clear();
 }
 
+const DUMP_FORMAT_VERSION = "rdp-inspector/packets-store/v1";
+const DUMP_FORMAT_KEYS = [
+  "packets", "summary",
+  "uniqueId", "removedPackets"
+];
+
 PacketsStore.prototype =
 /** @lends PacketsStore */
 {
@@ -35,7 +43,7 @@ PacketsStore.prototype =
       return;
     }
 
-    for (var i=0; i<packets.length; i++) {
+    for (var i = 0; i < packets.length; i++) {
       var packet = packets[i];
       this.appendPacket({
         type: packet.type,
@@ -73,10 +81,10 @@ PacketsStore.prototype =
     packet.id = ++this.uniqueId;
 
     // Collect statistics data.
-    if (packet.type == "send") {
+    if (packet.type === "send") {
       this.summary.data.sent += packet.size;
       this.summary.packets.sent += 1;
-    } else if (packet.type == "receive") {
+    } else if (packet.type === "receive") {
       this.summary.data.received += packet.size;
       this.summary.packets.received += 1;
     }
@@ -112,7 +120,7 @@ PacketsStore.prototype =
     var newState = {
       packets: this.packets,
       removedPackets: this.removedPackets
-    }
+    };
 
     // Default selection
     if (!this.app.state.selectedPacket) {
@@ -142,7 +150,7 @@ PacketsStore.prototype =
       },
       packets: {
         sent: 0,
-        received: 0,
+        received: 0
       }
     };
 
@@ -170,8 +178,40 @@ PacketsStore.prototype =
       time: new Date(),
       message: message
     }, true);
+  },
+
+  serialize: function() {
+    var data = {
+      "!format!": DUMP_FORMAT_VERSION
+    };
+    DUMP_FORMAT_KEYS.forEach((key) => {
+      data[key] = this[key];
+    });
+    return JSON.stringify(data);
+  },
+
+  deserialize: function(rawdata) {
+    var data = JSON.parse(rawdata, (k, v) => {
+      switch (k) {
+      case "time":
+        return new Date(v);
+      default:
+        return v;
+      }
+    });
+
+    if (data["!format!"] &&
+        data["!format!"] === DUMP_FORMAT_VERSION) {
+      DUMP_FORMAT_KEYS.forEach((key) => {
+        this[key] = data[key];
+      });
+    } else {
+      throw Error("Dump file format unrecognized");
+    }
+
+    this.refreshPackets(true);
   }
-}
+};
 
 // Exports from this module
 exports.PacketsStore = PacketsStore;

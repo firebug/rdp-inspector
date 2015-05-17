@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
+/* globals Locale */
 
 define(function(require, exports, module) {
+"use strict";
 
 // ReactJS
 var React = require("react");
@@ -35,7 +37,14 @@ var PacketsToolbar = React.createClass({
 
     return (
       ButtonToolbar({className: "toolbar"},
-        DropdownButton({bsSize: "xsmall", title: "Options", ref: "options"},
+        DropdownButton({bsSize: "xsmall", title: "File"},
+          MenuItem({key: "fileLoad", onClick: this.onLoadPacketsFromFile }, "Load"),
+          MenuItem({key: "fileSave", onClick: this.onSavePacketsFromFile }, "Save")
+        ),
+        DropdownButton({
+          bsSize: "xsmall", title: "Options",
+          className: "pull-right", ref: "options"
+        },
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails,
             checked: showInlineDetails},
             label
@@ -87,6 +96,14 @@ var PacketsToolbar = React.createClass({
   onPause: function(event) {
     this.props.actions.onPause();
   },
+
+  onLoadPacketsFromFile: function(event) {
+    this.props.actions.loadPacketsFromFile();
+  },
+
+  onSavePacketsFromFile: function(event) {
+    this.props.actions.savePacketsToFile();
+  }
 });
 
 // Exports from this module

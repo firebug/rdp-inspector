@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
+/* globals Locale, postChromeMessage */
 
 define(function(require, exports, module) {
+"use strict";
 
 // ReactJS
 var React = require("react");
@@ -87,6 +89,36 @@ var actions = {
     } else {
       packetsStore.appendMessage(Locale.$STR("rdpInspector.label.Unpaused"));
     }
+  },
+  loadPacketsFromFile: function() {
+    var input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.onchange = () => {
+      var reader = new FileReader();
+      reader.onload = () => {
+        try {
+          packetsStore.deserialize(reader.result);
+        } catch(e) {
+          console.log("ERROR", e);
+          throw e;
+        }
+      };
+      reader.readAsText(input.files[0]);
+    };
+    document.body.appendChild(input);
+    input.click();
+    document.body.removeChild(input);
+  },
+  savePacketsToFile: function() {
+    var contentType = "application/json";
+    var a = document.createElement("a");
+    var blob = new Blob([packetsStore.serialize()],
+                        { type: contentType });
+    a.setAttribute("href", window.URL.createObjectURL(blob));
+    a.setAttribute("download", "RDP-packets-dump.json");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 };
 
