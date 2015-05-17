@@ -17,6 +17,7 @@ const { SearchBox } = require("./search-box");
 // Constants
 const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
 const TabPane = React.createFactory(ReactBootstrap.TabPane);
+const Alert = React.createFactory(ReactBootstrap.Alert);
 const { DIV } = Reps.DOM;
 
 /**
@@ -44,11 +45,28 @@ var MainTabbedArea = React.createClass({
     SearchBox.destroy(tabbedArea.querySelector(".nav-tabs"));
   },
 
+  onErrorDismiss: function() {
+    this.setState({
+      error: null
+    })
+  },
+
   render: function() {
     var packets = Locale.$STR("rdpInspector.tab.Packets");
     var actors = Locale.$STR("rdpInspector.tab.Actors");
+    var { error } = this.state;
 
-    return (
+    return (DIV({},
+      error ? Alert({
+        bsStyle: "warning",
+        onDismiss: this.onErrorDismiss,
+        dismissAfter: 2000,
+        style: {
+          position: "absolute",
+          width: "100%",
+          zIndex: 999999
+        }
+      }, error.message) : null,
       TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1,
         animation: false, ref: "tabbedArea"},
         TabPane({eventKey: 1, tab: packets},
@@ -71,7 +89,7 @@ var MainTabbedArea = React.createClass({
           })
         )
       )
-    )
+    ));
   }
 });
 
