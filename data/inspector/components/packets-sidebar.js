@@ -67,4 +67,5 @@ var PacketsSidebar = React.createClass({
 
 // Exports from this module
 exports.PacketsSidebar = React.createFactory(PacketsSidebar);
+exports.PacketsSidebarComponent = PacketsSidebar;
 });

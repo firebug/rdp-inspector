@@ -37,3 +37,6 @@
 # Bash
 *.sh
 *.bat
+
+# code coverage logs & reports
+/coverage/

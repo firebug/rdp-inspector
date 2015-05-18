@@ -81,4 +81,5 @@ const TextWithTooltip = React.createFactory(React.createClass({
 
 // Exports from this module
 exports.PacketsSummary = React.createFactory(PacketsSummary);
+exports.PacketsSummaryComponent = PacketsSummary;
 });

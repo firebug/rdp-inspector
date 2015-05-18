@@ -102,4 +102,5 @@ var PacketList = React.createClass({
 
 // Exports from this module
 exports.PacketList = React.createFactory(PacketList);
+exports.PacketListComponent = PacketList;
 });
