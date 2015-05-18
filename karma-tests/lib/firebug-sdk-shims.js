@@ -13,7 +13,7 @@ window.Options = {
     case "extensions.rdpinspector.packetLimit":
       return 100;
     default:
-      throw Error("UNKOWN Option.getPref: " + key);
+      throw Error("UNKNOWN Option.getPref: " + key);
     }
   }
 };
