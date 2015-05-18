@@ -1,3 +1,4 @@
+/* See license.txt for terms of usage */
 /* eslint-env jasmine */
 
 define(function (require) {

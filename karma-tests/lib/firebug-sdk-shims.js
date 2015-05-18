@@ -1,4 +1,7 @@
+/* See license.txt for terms of usage */
+
 (function (window, document) {
+
 "use strict";
 
 // inject firebug.sdk APIs shims

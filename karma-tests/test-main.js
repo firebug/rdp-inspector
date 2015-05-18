@@ -1,3 +1,4 @@
+/* See license.txt for terms of usage */
 /* eslint global-strict:0,quotes:0,no-underscore-dangle:0 */
 /* eslint-env browser */
 /* global require */
