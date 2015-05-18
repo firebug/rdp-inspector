@@ -1,6 +1,8 @@
+/* See license.txt for terms of usage */
 /* eslint-env jasmine */
 
 define(function (require) {
+
 "use strict";
 
 var React = require("react");
