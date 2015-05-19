@@ -56,19 +56,19 @@ var MainTabbedArea = React.createClass({
     var actors = Locale.$STR("rdpInspector.tab.Actors");
     var { error } = this.state;
 
-    return (DIV({},
-      error ? Alert({
-        bsStyle: "warning",
-        onDismiss: this.onErrorDismiss,
-        dismissAfter: 2000,
-        style: {
-          position: "absolute",
-          width: "100%",
-          zIndex: 999999
-        }
-      }, error.message) : null,
+    return (
       TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1,
         animation: false, ref: "tabbedArea"},
+        error ? Alert({
+          bsStyle: "warning",
+          onDismiss: this.onErrorDismiss,
+          dismissAfter: 2000,
+          style: {
+            position: "absolute",
+            width: "100%",
+            zIndex: 999999
+          }
+        }, error.message) : null,
         TabPane({eventKey: 1, tab: packets},
           PacketsPanel({
             packets: this.state.packets,
@@ -89,7 +89,7 @@ var MainTabbedArea = React.createClass({
           })
         )
       )
-    ));
+    );
   }
 });
 
