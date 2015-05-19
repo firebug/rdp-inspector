@@ -92,32 +92,11 @@ var actions = {
     }
   },
   loadPacketsFromFile: function() {
-    var input = document.createElement("input");
-    input.setAttribute("type", "file");
-    input.onchange = () => {
-      var reader = new FileReader();
-      reader.onload = () => {
-        try {
-          packetsStore.deserialize(reader.result);
-        } catch(e) {
-          theApp.setState({
-            error: {
-              message: "Error loading packets from file",
-              details: e
-            }
-          });
-        }
-      };
-      reader.readAsText(input.files[0]);
-    };
-    document.body.appendChild(input);
-    input.click();
-    document.body.removeChild(input);
+    postChromeMessage("load-from-file");
   },
   savePacketsToFile: function() {
     try {
-      var blob = new Blob([packetsStore.serialize()],
-                          { type: contentType });
+      var json = packetsStore.serialize();
     } catch(e) {
       theApp.setState({
         error: {
@@ -127,14 +106,12 @@ var actions = {
       });
       return;
     }
-
-    var contentType = "application/json";
-    var a = document.createElement("a");
-    a.setAttribute("href", window.URL.createObjectURL(blob));
-    a.setAttribute("download", "RDP-packets-dump.json");
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    
+    postChromeMessage("save-to-file", {
+      data: json,
+      contentType: "application/json",
+      filename: "RDP-packets-dump.json"
+    });
   }
 };
 

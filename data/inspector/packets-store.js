@@ -19,6 +19,7 @@ function PacketsStore(win, app) {
   this.win.addEventListener("init-packet-list", this.onInitialize.bind(this));
   this.win.addEventListener("send-packet", this.onSendPacket.bind(this));
   this.win.addEventListener("receive-packet", this.onReceivePacket.bind(this));
+  this.win.addEventListener("loaded-packet-list-file", this.onLoadedPacketListFile.bind(this));
 
   this.clear();
 }
@@ -32,6 +33,18 @@ const DUMP_FORMAT_KEYS = [
 PacketsStore.prototype =
 /** @lends PacketsStore */
 {
+  onLoadedPacketListFile: function(event) {
+    try {
+      this.deserialize(event.data);
+    } catch(e) {
+      this.app.setState({
+        error: {
+          message: "Error loading packets from file",
+          details: e
+        }
+      });
+    }
+  },
   onInitialize: function(event) {
     var cache = JSON.parse(event.data);
 
