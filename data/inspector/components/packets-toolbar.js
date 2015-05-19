@@ -102,10 +102,13 @@ var PacketsToolbar = React.createClass({
 
   onLoadPacketsFromFile: function(event) {
     this.props.actions.loadPacketsFromFile();
+    this.refs.fileMenu.setDropdownState(false);
+
   },
 
   onSavePacketsFromFile: function(event) {
     this.props.actions.savePacketsToFile();
+    this.refs.fileMenu.setDropdownState(false);
   }
 });
 
