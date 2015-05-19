@@ -2,6 +2,7 @@
 /* globals Locale */
 
 define(function(require, exports, module) {
+
 "use strict";
 
 // ReactJS
