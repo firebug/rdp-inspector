@@ -38,12 +38,14 @@ var PacketsToolbar = React.createClass({
 
     return (
       ButtonToolbar({className: "toolbar"},
-        DropdownButton({bsSize: "xsmall", title: "File"},
-          MenuItem({key: "fileLoad", onClick: this.onLoadPacketsFromFile }, "Load"),
-          MenuItem({key: "fileSave", onClick: this.onSavePacketsFromFile }, "Save")
+        DropdownButton({bsSize: "xsmall", ref: "fileMenu", title: Locale.$STR("rdpInspector.menu.File")},
+          MenuItem({key: "fileLoad", ref: "fileLoad", onClick: this.onLoadPacketsFromFile },
+            Locale.$STR("rdpInspector.cmd.load")),
+          MenuItem({key: "fileSave", ref: "fileSave", onClick: this.onSavePacketsFromFile },
+            Locale.$STR("rdpInspector.cmd.save"))
         ),
         DropdownButton({
-          bsSize: "xsmall", title: "Options",
+          bsSize: "xsmall", title: Locale.$STR("rdpInspector.menu.Options"),
           className: "pull-right", ref: "options"
         },
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails,
