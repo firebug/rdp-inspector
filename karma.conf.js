@@ -5,6 +5,7 @@
 /* eslint quotes:0 */
 
 module.exports = function(config) {
+  
   "use strict";
 
   var baseKarmaConfig = {

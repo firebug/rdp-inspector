@@ -1,6 +1,9 @@
 /* See license.txt for terms of usage */
+/* globals Locale */
 
 define(function(require, exports, module) {
+
+"use strict";
 
 // ReactJS
 var React = require("react");
@@ -35,7 +38,16 @@ var PacketsToolbar = React.createClass({
 
     return (
       ButtonToolbar({className: "toolbar"},
-        DropdownButton({bsSize: "xsmall", title: "Options", ref: "options"},
+        DropdownButton({bsSize: "xsmall", ref: "fileMenu", title: Locale.$STR("rdpInspector.menu.File")},
+          MenuItem({key: "fileLoad", ref: "fileLoad", onClick: this.onLoadPacketsFromFile },
+            Locale.$STR("rdpInspector.cmd.load")),
+          MenuItem({key: "fileSave", ref: "fileSave", onClick: this.onSavePacketsFromFile },
+            Locale.$STR("rdpInspector.cmd.save"))
+        ),
+        DropdownButton({
+          bsSize: "xsmall", title: Locale.$STR("rdpInspector.menu.Options"),
+          className: "pull-right", ref: "options"
+        },
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails,
             checked: showInlineDetails},
             label
@@ -87,6 +99,17 @@ var PacketsToolbar = React.createClass({
   onPause: function(event) {
     this.props.actions.onPause();
   },
+
+  onLoadPacketsFromFile: function(event) {
+    this.props.actions.loadPacketsFromFile();
+    this.refs.fileMenu.setDropdownState(false);
+
+  },
+
+  onSavePacketsFromFile: function(event) {
+    this.props.actions.savePacketsToFile();
+    this.refs.fileMenu.setDropdownState(false);
+  }
 });
 
 // Exports from this module

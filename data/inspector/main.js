@@ -1,6 +1,9 @@
 /* See license.txt for terms of usage */
+/* globals Locale, postChromeMessage */
 
 define(function(require, exports, module) {
+
+"use strict";
 
 // ReactJS
 var React = require("react");
@@ -87,6 +90,28 @@ var actions = {
     } else {
       packetsStore.appendMessage(Locale.$STR("rdpInspector.label.Unpaused"));
     }
+  },
+  loadPacketsFromFile: function() {
+    postChromeMessage("load-from-file");
+  },
+  savePacketsToFile: function() {
+    try {
+      var json = packetsStore.serialize();
+    } catch(e) {
+      theApp.setState({
+        error: {
+          message: "Error saving packets to file",
+          details: e
+        }
+      });
+      return;
+    }
+    
+    postChromeMessage("save-to-file", {
+      data: json,
+      contentType: "application/json",
+      filename: "RDP-packets-dump.json"
+    });
   }
 };
 
