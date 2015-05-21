@@ -58,8 +58,6 @@ ActorsStore.prototype =
   },
 
   refreshActors: function() {
-    console.log("ACTOR IDS", this.actorIDs);
-
     this.app.setState({
       actors: this.actors,
       actorIDs: this.actorIDs
