@@ -17,7 +17,7 @@
     "Markh van BabelZilla.org (nl)"
   ],
   "license": "BSD License",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "test": "npm run karma-tests && npm run jpm-tests",
     "karma-tests": "./node_modules/karma/bin/karma start --single-run",
