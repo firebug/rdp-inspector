@@ -23,6 +23,7 @@
     "karma-tests": "karma start --single-run --reporters spec",
     "travis-ci": "npm run karma-tests && npm run jpm-tests -- -v",
     "watch-karma-tests": "karma start --no-single-run --reporters spec --auto-watch",
+    "watch-karma-coverage": "COVERAGE=true npm run watch-karma-tests",
     "jpm-tests": "jpm test"
   },
   "engines": {
@@ -44,6 +45,12 @@
       "description": "Maximum number of packets displayed in the RDP Inspector console",
       "type": "integer",
       "value": 500
+    },
+    {
+      "name": "packetCache",
+      "title": "Enable packets caching",
+      "type": "bool",
+      "value": false
     },
     {
       "name": "packetCacheSize",
