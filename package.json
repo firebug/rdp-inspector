@@ -40,6 +40,13 @@
   "preferences-branch": "rdpinspector",
   "preferences": [
     {
+      "name": "showInlineDetails",
+      "title": "Show Packet Details Inline",
+      "description": "Show a detailed tree view of the Packet content",
+      "type": "bool",
+      "value": false
+    },
+    {
       "name": "packetLimit",
       "title": "Maximum number of displayed packets",
       "description": "Maximum number of packets displayed in the RDP Inspector console",

@@ -37,6 +37,7 @@ var PacketsPanel = React.createClass({
       PacketsToolbar({
         actions: this.props.actions,
         showInlineDetails: this.props.showInlineDetails,
+        packetCacheEnabled: this.props.packetCacheEnabled,
         paused: this.props.paused
       }),
       PacketList({

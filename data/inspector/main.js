@@ -74,7 +74,17 @@ var actions = {
   onShowInlineDetails: function() {
     var show = !theApp.state.showInlineDetails;
     theApp.setState({showInlineDetails: show});
+    postChromeMessage("options-toggle", { name: "showInlineDetails"});
   },
+
+  /**
+   * Enable/Disable packet caching when the inspector panel is still closed.
+   */
+   onPacketCacheEnabled: function() {
+     var cache = !theApp.state.packetCacheEnabled;
+     theApp.setState({packetCacheEnabled: cache});
+     postChromeMessage("options-toggle", { name: "packetCacheEnabled"});
+   },
 
   /**
    * Pause/unpause collecting packets
@@ -106,7 +116,7 @@ var actions = {
       });
       return;
     }
-    
+
     postChromeMessage("save-to-file", {
       data: json,
       contentType: "application/json",
