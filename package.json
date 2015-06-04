@@ -20,9 +20,9 @@
   "version": "1.0.4",
   "scripts": {
     "test": "npm run karma-tests && npm run jpm-tests",
-    "karma-tests": "./node_modules/karma/bin/karma start --single-run",
-    "travis-ci": "npm run karma-tests -- --reporters spec && npm run jpm-tests -- -v",
-    "watch-karma-tests": "./node_modules/karma/bin/karma start --no-single-run --auto-watch",
+    "karma-tests": "karma start --single-run --reporters spec",
+    "travis-ci": "npm run karma-tests && npm run jpm-tests -- -v",
+    "watch-karma-tests": "karma start --no-single-run --reporters spec --auto-watch",
     "jpm-tests": "jpm test"
   },
   "engines": {
@@ -61,10 +61,12 @@
     "istanbul-harmony": "git://github.com/fengmk2/istanbul#harmony-0.3.x",
     "jasmine-core": "^2.3.2",
     "karma": "^0.12.31",
+    "karma-cli": "0.0.4",
     "karma-coverage": "^0.3.1",
     "karma-firefox-launcher": "^0.1.4",
     "karma-jasmine": "^0.3.5",
     "karma-requirejs": "^0.2.2",
+    "karma-spec-reporter": "0.0.19",
     "requirejs": "^2.1.17"
   }
 }
