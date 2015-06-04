@@ -28,9 +28,9 @@ var Splitter = React.createClass({
     var splitter = this.refs.splitter.getDOMNode();
 
     this.resizer = new Tracker(splitter, {
-      onDragStart: this.onDragStart.bind(this),
-      onDragOver: this.onDragOver.bind(this),
-      onDrop: this.onDrop.bind(this)
+      onDragStart: this.onDragStart,
+      onDragOver: this.onDragOver,
+      onDrop: this.onDrop
     });
   },
 
