@@ -76,6 +76,7 @@ var MainTabbedArea = React.createClass({
             selectedPacket: this.state.selectedPacket,
             searchFilter: this.state.searchFilter,
             showInlineDetails: this.state.showInlineDetails,
+            packetCacheEnabled: this.state.packetCacheEnabled,
             removedPackets: this.state.removedPackets,
             paused: this.state.paused,
             actorIDs: this.state.actorIDs

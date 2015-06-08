@@ -16,6 +16,7 @@ function PacketsStore(win, app) {
   this.win = win;
   this.app = app;
 
+  this.win.addEventListener("init-options", this.onInitOptions.bind(this));
   this.win.addEventListener("init-packet-list", this.onInitialize.bind(this));
   this.win.addEventListener("send-packet", this.onSendPacket.bind(this));
   this.win.addEventListener("receive-packet", this.onReceivePacket.bind(this));
@@ -69,6 +70,15 @@ PacketsStore.prototype =
 
     // Default summary info appended into the list.
     this.appendSummary();
+  },
+
+  onInitOptions: function(event) {
+    var { showInlineDetails, packetCacheEnabled } = JSON.parse(event.data);
+
+    this.app.setState({
+      showInlineDetails: showInlineDetails,
+      packetCacheEnabled: packetCacheEnabled
+    });
   },
 
   onSendPacket: function(event) {

@@ -28,10 +28,16 @@ var PacketsToolbar = React.createClass({
   displayName: "PacketsToolbar",
 
   render: function() {
-    var showInlineDetails = this.props.showInlineDetails;
-    var label = showInlineDetails ?
+    var { showInlineDetails, packetCacheEnabled } = this.props;
+
+    var labels = {};
+    labels.inlineDetails = showInlineDetails ?
       Locale.$STR("rdpInspector.option.hideInlineDetails") :
       Locale.$STR("rdpInspector.option.showInlineDetails");
+
+    labels.cachePackets = packetCacheEnabled ?
+      Locale.$STR("rdpInspector.option.packetCacheDisabled") :
+      Locale.$STR("rdpInspector.option.packetCacheEnabled");
 
     var paused = this.props.paused;
     var pauseClassName = paused ? "btn-warning" : "";
@@ -50,11 +56,12 @@ var PacketsToolbar = React.createClass({
         },
           MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails,
             checked: showInlineDetails},
-            label
-          )/*,
-          MenuItem({key: "cachePackets", onClick: this.onCachePackets},
-            Locale.$STR("rdpInspector.option.cachePackets")
-          )*/
+            labels.inlineDetails
+          ),
+          MenuItem({key: "cachePackets", onClick: this.onCachePackets,
+            checked: packetCacheEnabled},
+            labels.cachePackets
+          )
         ),
         Button({bsSize: "xsmall", onClick: this.onClear},
           Locale.$STR("rdpInspector.cmd.clear")
@@ -93,7 +100,8 @@ var PacketsToolbar = React.createClass({
   },
 
   onCachePackets: function() {
-    // xxxHonza: TODO
+    this.props.actions.onPacketCacheEnabled();
+    this.refs.options.setDropdownState(false);
   },
 
   onPause: function(event) {
