@@ -27,7 +27,7 @@ var ActorsToolbar = React.createClass({
 
     var options = Object.keys(panelTypesLabels).map((value) => {
       var label = panelTypesLabels[value];
-      return OPTION({ value: value }, label);
+      return OPTION({ value: value, key: value }, label);
     })
 
     return (
