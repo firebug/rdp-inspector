@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 /**
  * This object is responsible for listening search events
@@ -19,8 +21,8 @@ Search.prototype =
   onSearch: function(event) {
     var value = event.data;
     this.app.setState({searchFilter: value});
-  },
-}
+  }
+};
 
 // Exports from this module
 exports.Search = Search;

@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // Dependencies
 var React = require("react");
@@ -11,7 +13,7 @@ var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 var Button = React.createFactory(ReactBootstrap.Button);
 
 const { Reps } = require("reps/reps");
-const { DIV, SELECT, OPTION } = Reps.DOM;
+const { SELECT, OPTION } = Reps.DOM;
 
 /**
  * @template This object is responsible for rendering the toolbar
@@ -28,7 +30,7 @@ var ActorsToolbar = React.createClass({
     var options = Object.keys(panelTypesLabels).map((value) => {
       var label = panelTypesLabels[value];
       return OPTION({ value: value, key: value }, label);
-    })
+    });
 
     return (
       ButtonToolbar({className: "toolbar"},
@@ -39,12 +41,12 @@ var ActorsToolbar = React.createClass({
           options
         )
       )
-    )
+    );
   },
 
   // Commands
 
-  onRefresh: function(event) {
+  onRefresh: function(/*event*/) {
     this.props.actions.getActors();
   },
 

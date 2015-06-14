@@ -1,7 +1,7 @@
 /* See license.txt for terms of usage */
 /* globals Options */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
 
 "use strict";
 

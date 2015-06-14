@@ -1,19 +1,78 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // Dependencies
 const React = require("react");
-const ReactBootstrap = require("react-bootstrap");
 const Immutable = require("immutable");
 
 // Firebug SDK
 const { Reps } = require("reps/repository");
 
 // Constants
-const { UL, LI, SPAN, DIV, I,
-        TABLE, TBODY, THEAD, TFOOT, TR, TD,
-        INPUT, TEXTAREA } = Reps.DOM;
+const { UL, LI, SPAN, I,
+        TABLE, TBODY, TR, TD,
+        INPUT } = Reps.DOM;
+
+/**
+ * @template This template respesenta a row for a field
+ * in non-editing state
+ */
+var TableRow = React.createFactory(React.createClass({
+/** @lends TableRow */
+  displayName: "TableRow",
+
+  render: function() {
+    var { hasChildren, opened } = this.props;
+
+    var rowClassName = "memberRow domRow";
+
+    if (hasChildren) {
+      rowClassName += " hasChildren";
+    }
+
+    if (opened) {
+      rowClassName += " opened";
+    }
+
+    var rowContent = [
+      this.renderRowLabel(),
+      this.renderRowValue()
+    ];
+
+    return TR({ className: rowClassName }, rowContent);
+  },
+
+  renderRowLabel: function() {
+    var { keyPath, label, level } = this.props;
+
+    return TD({
+      key: "label",
+      className: "memberLabelCell",
+      style: { paddingLeft: 8 * level },
+      onDoubleClick: () => this.props.onRowLabelDblClick(keyPath, label),
+      onClick: () => this.props.onRowLabelClick(keyPath, label)
+    }, SPAN({ className: "memberLabel domLabel" }, label));
+  },
+
+  renderRowValue: function() {
+    var { hasChildren, value, keyPath } = this.props;
+
+    var jsonValue = hasChildren ? value.toJSON() : value;
+
+    var valueSummary = Reps.getRep(jsonValue)({ object: jsonValue });
+
+    return TD({ key: "value", className: "memberValueCell" },
+              SPAN({
+                onClick: () => this.props.onRowValueClick(keyPath, value)
+              }, valueSummary),
+              I({ className: "closeButton",
+                  onClick: () => this.props.onRowRemoveClick(keyPath) })
+             );
+  }
+}));
 
 /**
  * @template This template represents an editable
@@ -50,7 +109,7 @@ var TreeEditorView = React.createClass({
       this.setState({
         currentState: newState,
         stateHistory: newHistory
-      })
+      });
     }
   },
   redo: function() {
@@ -62,7 +121,7 @@ var TreeEditorView = React.createClass({
       this.setState({
         currentState: newState,
         stateHistory: newHistory
-      })
+      });
     }
   },
   hasUndo: function() {
@@ -88,7 +147,7 @@ var TreeEditorView = React.createClass({
 
   generateUpdatedHistory: function(newState) {
     return this.state.stateHistory.withMutations(function(v) {
-      v.update('history', (history) => {
+      v.update("history", (history) => {
         // TODO: configurable history size
         if (history.size >= 16) {
           return history.skip(1).push(newState);
@@ -96,8 +155,8 @@ var TreeEditorView = React.createClass({
           return history.push(newState);
         }
       });
-      v.set('index', v.get('history').size - 1);
-    })
+      v.set("index", v.get("history").size - 1);
+    });
   },
 
   propsToState: function(nextProps) {
@@ -128,7 +187,7 @@ var TreeEditorView = React.createClass({
         index: 0
       });
     } else {
-      stateHistory = this.state.stateHistory
+      stateHistory = this.state.stateHistory;
     }
 
     return {
@@ -168,7 +227,7 @@ var TreeEditorView = React.createClass({
       if (newField) {
         acc.push(TableRowNewField({
           level: level,
-          key: keyPath.join("-") +"_newField",
+          key: keyPath.join("-") + "_newField",
           onSubmit: (newKey, cancel) => {
             this.onNewField(keyPath, newKey, cancel);
           }
@@ -182,13 +241,13 @@ var TreeEditorView = React.createClass({
           key: keyPath.join("-") + "_editingLabel",
           level: level, label: key, keyPath: keyPath,
           hasChildren: hasChildren, value: value,
-          validation: (value) => {
+          validation: (/*value*/) => {
             // TODO: validator
             return true;
           },
-          autocompletion: (value) => {
+          autocompletion: (suggvalue) => {
             var suggestions = this.props.handleAutocompletion ?
-              this.props.handleAutocompletion("value", keyPath, value) : [];
+              this.props.handleAutocompletion("value", keyPath, suggvalue) : [];
 
             return suggestions;
           },
@@ -205,12 +264,12 @@ var TreeEditorView = React.createClass({
           key: keyPath.join("-") + "_editingValue",
           level: level, label: key, keyPath: keyPath,
           hasChildren: hasChildren, value: value,
-          validation: (value) => {
+          validation: (valvalue) => {
             // TODO: add support to custom validators
             var valid;
 
             try {
-              JSON.parse(value);
+              JSON.parse(valvalue);
               valid = true;
             } catch(e) {
               valid = false;
@@ -218,10 +277,10 @@ var TreeEditorView = React.createClass({
 
             return valid;
           },
-          autocompletion: (value) => {
+          autocompletion: (suggvalue) => {
             // TODO: auto completion
             var suggestions = this.props.handleAutocompletion ?
-              this.props.handleAutocompletion("value", keyPath, value) : [];
+              this.props.handleAutocompletion("value", keyPath, suggvalue) : [];
 
             return suggestions;
           },
@@ -244,7 +303,7 @@ var TreeEditorView = React.createClass({
       }));
 
       return acc;
-    }, [])
+    }, []);
   },
 
   onNewField: function(keyPath, key, cancel) {
@@ -287,7 +346,7 @@ var TreeEditorView = React.createClass({
     });
   },
 
-  onToggleOpenField: function(keyPath, label) {
+  onToggleOpenField: function(keyPath/*, label*/) {
     // toggle open/close tree view level
     var newState = this.state.currentState.updateIn(
       ["openedKeyPaths"].concat(keyPath),
@@ -304,7 +363,7 @@ var TreeEditorView = React.createClass({
     });
   },
 
-  onStartEditingFieldLabel: function(keyPath, label) {
+  onStartEditingFieldLabel: function(keyPath/*, label*/) {
     if (this.state.currentState.get("editingKeyPath").size > 0) {
       // nop if there's aleady an editing key path active
       return;
@@ -345,7 +404,7 @@ var TreeEditorView = React.createClass({
 
   },
 
-  onStartEditingFieldValue: function(keyPath, value) {
+  onStartEditingFieldValue: function(keyPath/*, value*/) {
     if (this.state.currentState.get("editingKeyPath").size > 0) {
       // nop if there's aleady an editing key path active
       return;
@@ -363,7 +422,6 @@ var TreeEditorView = React.createClass({
 
   onStopEditingFieldValue: function(keyPath, oldValue, newValue, cancel) {
     // stop editing value on key path
-    var parentKeyPath = keyPath.slice(0, -1);
     var value = Immutable.fromJS(newValue);
     var changed = !Immutable.is(oldValue, value);
 
@@ -409,9 +467,9 @@ var TreeEditorView = React.createClass({
     if (level == -1 || (opened && !editing) || (editing && editing.size > 0)) {
       res.push({ newField: true, level: level + 1, keyPath: keyPath });
 
-      value.forEach((value, subkey) => {
+      value.forEach((currvalue, subkey) => {
         res = res.concat(
-          this.flattenTreeValue(level + 1, subkey, value,
+          this.flattenTreeValue(level + 1, subkey, currvalue,
                                 keyPath.concat(subkey))
         );
       });
@@ -438,7 +496,7 @@ var TableRowNewField = React.createFactory(React.createClass({
   getInitialState: function() {
     return {
       valid: true
-    }
+    };
   },
 
   render: function() {
@@ -453,7 +511,7 @@ var TableRowNewField = React.createFactory(React.createClass({
 
     return TR({ className: rowClassName }, [
       TD({
-        key: 'new-label',
+        key: "new-label",
         className: "memberLabelCell",
         colSpan: 2,
         style: { paddingLeft: 18 + (8 * level) }
@@ -466,7 +524,7 @@ var TableRowNewField = React.createFactory(React.createClass({
 
     valid = this.props.validation ?
       this.props.validation(event.target.value) :
-      true
+      true;
 
     this.setState({valid: valid});
   },
@@ -501,7 +559,7 @@ var TableRowEditingFieldLabel = React.createFactory(React.createClass({
   getInitialState: function() {
     return {
       valid: true
-    }
+    };
   },
 
   componentDidMount: function() {
@@ -514,14 +572,14 @@ var TableRowEditingFieldLabel = React.createFactory(React.createClass({
     var rowClassName = "memberRow newRow";
 
     var inputEl = INPUT({
-      ref: 'input',
+      ref: "input",
       defaultValue: label,
       onKeyUp: this.onKeyUp
     });
 
     return TR({ className: rowClassName }, [
       TD({
-        key: 'new-label',
+        key: "new-label",
         className: "memberLabelCell",
         colSpan: 2,
         style: { paddingLeft: 18 + (8 * level) }
@@ -534,7 +592,7 @@ var TableRowEditingFieldLabel = React.createFactory(React.createClass({
 
     valid = this.props.validation ?
       this.props.validation(event.target.value) :
-      true
+      true;
 
     this.setState({valid: valid});
   },
@@ -562,10 +620,10 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
   displayName: "TableRowEditingFieldValue",
 
   getInitialState: function() {
-    return  {
+    return {
       valid: true,
       suggestions: []
-    }
+    };
   },
 
   componentDidMount: function() {
@@ -573,37 +631,35 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
   },
 
   render: function() {
-    var { level, label, value } = this.props;
-
     var rowClassName = "memberRow domRow editRow";
 
     var rowContent = [
       this.renderRowLabel(),
       this.renderRowValue()
-    ]
+    ];
 
     return TR({ className: rowClassName }, rowContent);
   },
 
   renderRowLabel: function() {
-    var { keyPath, label, level } = this.props;
+    var { label, level } = this.props;
 
     return TD({
-      key: 'label',
+      key: "label",
       className: "memberLabelCell",
       style: { paddingLeft: 8 * level }
-    }, SPAN({ className: 'memberLabel domLabel' }, label));
+    }, SPAN({ className: "memberLabel domLabel" }, label));
   },
 
   renderRowValue: function() {
-    var { hasChildren, value, keyPath } = this.props;
+    var { value } = this.props;
     var { valid } = this.state;
 
     var jsonValue = (value instanceof Immutable.Collection) ?
           value.toJSON() : value;
 
     var inputEl = INPUT({
-      ref: 'input',
+      ref: "input",
       defaultValue: JSON.stringify(jsonValue),
       onKeyUp: this.onKeyUp,
       onChange: this.onChange,
@@ -612,7 +668,7 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
 
     var suggestionsEl = this.renderSuggestions();
 
-    return TD({ key: 'value', className: "memberValueCell" },
+    return TD({ key: "value", className: "memberValueCell" },
               inputEl, I({}), suggestionsEl);
   },
 
@@ -622,12 +678,12 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
       display: suggestions && suggestions.length > 0 ? "block" : "none",
       width: 195, // TODO: find better size calc
       maxHeight: 200
-    }
-    var items = suggestions.map((suggestion, idx) => {
+    };
+    var items = suggestions.map((suggestion/*, idx*/) => {
       return LI({
         onClick: () => this.props.onSubmit(JSON.stringify(suggestion))
       }, suggestion);
-    })
+    });
 
     return UL({ style: style, className: "suggestions" }, items);
   },
@@ -637,10 +693,10 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
 
     valid = this.props.validation ?
       this.props.validation(event.target.value) :
-      true
-    suggestions = this.props.autocompletion ?
+      true;
+    var suggestions = this.props.autocompletion ?
       this.props.autocompletion(event.target.value) :
-      []
+      [];
 
     this.setState({valid: valid, suggestions: suggestions});
   },
@@ -655,64 +711,6 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
       // cancel
       this.props.onSubmit(event.target.value, true);
     }
-  }
-}));
-
-/**
- * @template This template respesenta a row for a field
- * in non-editing state
- */
-var TableRow = React.createFactory(React.createClass({
-/** @lends TableRow */
-  displayName: "TableRow",
-
-  render: function() {
-    var { hasChildren, opened } = this.props;
-
-    var rowClassName = "memberRow domRow";
-
-    if (hasChildren) {
-      rowClassName += " hasChildren";
-    }
-
-    if (opened) {
-      rowClassName += " opened";
-    }
-
-    var rowContent = [
-      this.renderRowLabel(),
-      this.renderRowValue()
-    ]
-
-    return TR({ className: rowClassName }, rowContent);
-  },
-
-  renderRowLabel: function() {
-    var { keyPath, label, level } = this.props;
-
-    return TD({
-      key: 'label',
-      className: "memberLabelCell",
-      style: { paddingLeft: 8 * level },
-      onDoubleClick: () => this.props.onRowLabelDblClick(keyPath, label),
-      onClick: () => this.props.onRowLabelClick(keyPath, label)
-    }, SPAN({ className: 'memberLabel domLabel' }, label));
-  },
-
-  renderRowValue: function() {
-    var { hasChildren, value, keyPath } = this.props;
-
-    var jsonValue = hasChildren ? value.toJSON() : value;
-
-    var valueSummary = Reps.getRep(jsonValue)({ object: jsonValue });
-
-    return TD({ key: 'value', className: "memberValueCell" },
-              SPAN({
-                onClick: () => this.props.onRowValueClick(keyPath, value)
-              }, valueSummary),
-              I({ className: "closeButton",
-                  onClick: () => this.props.onRowRemoveClick(keyPath) })
-             );
   }
 }));
 

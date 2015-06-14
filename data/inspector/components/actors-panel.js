@@ -1,10 +1,11 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // Dependencies
 const React = require("react");
-const ReactBootstrap = require("react-bootstrap");
 
 // Firebug SDK
 
@@ -14,9 +15,7 @@ const { Reps } = require("reps/repository");
 const { ActorsToolbar } = require("./actors-toolbar");
 
 // Shortcuts
-const { TR, TD, SPAN, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
-const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
-const TabPane = React.createFactory(ReactBootstrap.TabPane);
+const { TR, TD, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
 
 const GLOBAL_ACTORS_POOLS = "global-actors-pool";
 const TAB_ACTORS_POOLS = "tab-actors-pool";
@@ -38,7 +37,7 @@ var ActorsPanel = React.createClass({
   getInitialState: function() {
     return {
       panelType: GLOBAL_ACTORS_POOLS
-    }
+    };
   },
 
   render: function() {
@@ -51,20 +50,20 @@ var ActorsPanel = React.createClass({
     case GLOBAL_ACTORS_POOLS:
       el = ActorsPools({
         data: (actors && actors.global),
-        key: 'global',
+        key: "global",
         searchFilter: this.props.searchFilter
       });
       break;
     case TAB_ACTORS_POOLS:
       el = ActorsPools({
         data: (actors && actors.tab),
-        key: 'tab',
+        key: "tab",
         searchFilter: this.props.searchFilter
       });
       break;
     case ACTORS_FACTORIES:
       el = ActorsFactories({
-        key: 'factories',
+        key: "factories",
         data: {
           global: actors && actors.global,
           tab: actors && actors.tab
@@ -79,7 +78,7 @@ var ActorsPanel = React.createClass({
         ActorsToolbar({ actions: this.props.actions,
           currentPanelType: panelType,
           panelTypesLabels: PanelTypesLabels,
-          onPanelTypeSelected: this.onPanelTypeSelected,
+          onPanelTypeSelected: this.onPanelTypeSelected
         }),
         DIV({ className: "actorsScrollBox" }, el)
       )
@@ -89,7 +88,7 @@ var ActorsPanel = React.createClass({
   onPanelTypeSelected: function(panelType) {
     this.setState({
       panelType: panelType
-    })
+    });
   }
 });
 
@@ -102,14 +101,14 @@ var ActorsPools = React.createFactory(React.createClass({
   displayName: "ActorsPools",
 
   render: function() {
-    var pool = [];
+    var pools = [];
 
     if (this.props.data) {
       var { actorPool, extraPools } = this.props.data;
-      pool = pool.concat(actorPool, extraPools);
+      pools = pools.concat(actorPool, extraPools);
     }
 
-    var poolTables = pool.map((poolData) => {
+    var poolTables = pools.map((poolData) => {
       var pool = poolData.pool;
       var poolId = poolData.id;
       var actorClass = false;
@@ -156,7 +155,7 @@ var PoolTable = React.createFactory(React.createClass({
       }
       actors[i].key = actors[i].actorID;
       rows.push(PoolRow(actors[i]));
-    };
+    }
 
     // Pools are mixed with Actor objects (created using CreateClass).
     var className = "poolTable";
@@ -207,6 +206,42 @@ var PoolRow = React.createFactory(React.createClass({
 }));
 
 /**
+ * @template This template renders a single 'FactoryTable' component.
+ */
+var FactoryTable = React.createFactory(React.createClass({
+  /** @lends FactoryTable */
+
+  displayName: "FactoryTable",
+
+  render: function() {
+    var rows = [];
+
+    var factories = this.props.factories;
+    for (var i in factories) {
+      if (this.props.searchFilter &&
+          JSON.stringify(factories[i]).indexOf(this.props.searchFilter) < 0) {
+        // filter out packets which don't match the filter
+        continue;
+      }
+
+      factories[i].key = factories[i].prefix + factories[i].name;
+      rows.push(FactoryRow(factories[i]));
+    }
+
+    return (
+      TABLE({className: "poolTable"},
+        THEAD({className: "poolRow"},
+          TH({width: "33%"}, "Name"),
+          TH({width: "33%"}, "Prefix"),
+          TH({width: "33%"}, "Constructor")
+        ),
+        TBODY(null, rows)
+      )
+    );
+  }
+}));
+
+/**
  * @template This template renders the 'ActorsFactories' list of tables.
  */
 var ActorsFactories = React.createFactory(React.createClass({
@@ -229,42 +264,6 @@ var ActorsFactories = React.createFactory(React.createClass({
         FactoryTable({ factories: child.factories.global, searchFilter: searchFilter }),
         H4(null, "Child Process - Tab Factories"),
         FactoryTable({ factories: child.factories.tab, searchFilter: searchFilter })
-      )
-    );
-  }
-}));
-
-/**
- * @template This template renders a single 'FactoryTable' component.
- */
-var FactoryTable = React.createFactory(React.createClass({
-  /** @lends FactoryTable */
-
-  displayName: "FactoryTable",
-
-  render: function() {
-    var rows = [];
-
-    var factories = this.props.factories;
-    for (var i in factories) {
-      if (this.props.searchFilter &&
-          JSON.stringify(factories[i]).indexOf(this.props.searchFilter) < 0) {
-        // filter out packets which don't match the filter
-        continue;
-      }
-
-      factories[i].key = factories[i].prefix + factories[i].name;
-      rows.push(FactoryRow(factories[i]));
-    };
-
-    return (
-      TABLE({className: "poolTable"},
-        THEAD({className: "poolRow"},
-          TH({width: "33%"}, "Name"),
-          TH({width: "33%"}, "Prefix"),
-          TH({width: "33%"}, "Constructor")
-        ),
-        TBODY(null, rows)
       )
     );
   }

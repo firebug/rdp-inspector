@@ -1,10 +1,11 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // ReactJS
 const React = require("react");
-const ReactBootstrap = require("react-bootstrap");
 
 // Firebug SDK
 const { Reps } = require("reps/reps");
@@ -32,7 +33,7 @@ var PacketsLimit = React.createClass({
       DIV({className: "packetsLimit"},
         SPAN({className: "text"}, removedPackets + " " + label)
       )
-    )
+    );
   }
 });
 

@@ -1,7 +1,7 @@
 /* See license.txt for terms of usage */
-/* globals Locale, postChromeMessage */
+/* globals postChromeMessage */
 
-define(function(require, exports, module) {
+define(function(require/*, exports, module*/) {
 
 "use strict";
 
@@ -14,6 +14,9 @@ var { PacketsStore } = require("packets-store");
 var { ActorsStore } = require("actors-store");
 var { Resizer } = require("resizer");
 var { Search } = require("search");
+
+var packetsStore;
+var theApp;
 
 /**
  * List of all application commands. The list is passed into
@@ -130,12 +133,12 @@ var actions = {
  * at the top of the window. This component also represents ReactJS root.
  */
 var content = document.getElementById("content");
-var theApp = React.render(MainTabbedArea({
+theApp = React.render(MainTabbedArea({
   actions: actions
 }), content);
 
 // Helper modules for handling application events.
-var packetsStore = new PacketsStore(window, theApp);
+packetsStore = new PacketsStore(window, theApp);
 var actorsStore = new ActorsStore(window, theApp);
 var resizer = new Resizer(window, theApp);
 var search = new Search(window, theApp);

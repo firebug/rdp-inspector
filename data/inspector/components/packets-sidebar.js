@@ -1,20 +1,18 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // ReactJS
 const React = require("react");
 const ReactBootstrap = require("react-bootstrap");
-
-// Firebug SDK
-const { Reps } = require("reps/reps");
 
 // RDP Inspector
 const { PacketDetails } = require("./packet-details");
 const { PacketEditor } = require("./packet-editor");
 
 // Constants
-const { DIV } = Reps.DOM;
 const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
 const TabPane = React.createFactory(ReactBootstrap.TabPane);
 
@@ -30,16 +28,16 @@ var PacketsSidebar = React.createClass({
   getInitialState: function() {
     return {
       activeKey: 1
-    }
+    };
   },
 
   onTabSelected: function(key) {
     this.setState({
       activeKey: key
-    })
+    });
   },
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps: function(/*nextProps*/) {
     // TODO: it would be nice reset activeKey to the "Packet" Detail sidebar
     // but only when the parent component pass a new selectedPacket
   },

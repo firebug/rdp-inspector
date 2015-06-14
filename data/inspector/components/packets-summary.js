@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // ReactJS
 const React = require("react");
@@ -8,13 +10,26 @@ const ReactBootstrap = require("react-bootstrap");
 
 // Firebug SDK
 const { Reps } = require("reps/reps");
-const { TreeView } = require("reps/tree-view");
-const { Obj } = require("reps/object");
 
 // Constants
 const Tooltip = React.createFactory(ReactBootstrap.Tooltip);
 const OverlayTrigger = React.createFactory(ReactBootstrap.OverlayTrigger);
 const { DIV } = Reps.DOM;
+
+/**
+ * @template Helper template responsible for rendering a tooltip.
+ */
+const TextWithTooltip = React.createFactory(React.createClass({
+  render: function() {
+    var tooltip = Tooltip({}, this.props.tooltip);
+    return (
+      OverlayTrigger({placement: "top", overlay: tooltip, delayShow: 200,
+        delayHide: 150},
+        DIV({}, this.props.children)
+      )
+    );
+  }
+}));
 
 /**
  * @template This template is responsible for rendering packet summary
@@ -60,24 +75,9 @@ var PacketsSummary = React.createClass({
         DIV({className: "separator"}),
         DIV({className: "time"}, timeText)
       )
-    )
-  }
-});
-
-/**
- * @template Helper template responsible for rendering a tooltip.
- */
-const TextWithTooltip = React.createFactory(React.createClass({
-  render: function() {
-    var tooltip = Tooltip({}, this.props.tooltip);
-    return (
-      OverlayTrigger({placement: "top", overlay: tooltip, delayShow: 200,
-        delayHide: 150},
-        DIV({}, this.props.children)
-      )
     );
   }
-}));
+});
 
 // Exports from this module
 exports.PacketsSummary = React.createFactory(PacketsSummary);

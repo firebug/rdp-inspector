@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 /**
  * This object is responsible for setting proper body height
@@ -22,8 +24,8 @@ Resizer.prototype =
     var doc = this.win.document;
     doc.body.style.height = this.win.innerHeight + "px";
     doc.body.style.width = this.win.innerWidth + "px";
-  },
-}
+  }
+};
 
 // Exports from this module
 exports.Resizer = Resizer;

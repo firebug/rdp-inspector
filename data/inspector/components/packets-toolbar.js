@@ -1,7 +1,7 @@
 /* See license.txt for terms of usage */
 /* globals Locale */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
 
 "use strict";
 
@@ -77,20 +77,20 @@ var PacketsToolbar = React.createClass({
           SPAN({className: "glyphicon glyphicon-pause", "aria-hidden": true})
         )
       )
-    )
+    );
   },
 
   // Commands
 
-  onClear: function(event) {
+  onClear: function(/*event*/) {
     this.props.actions.clear();
   },
 
-  onFind: function(event) {
+  onFind: function(/*event*/) {
     this.props.actions.find();
   },
 
-  onSummary: function(event) {
+  onSummary: function(/*event*/) {
     this.props.actions.appendSummary();
   },
 
@@ -104,17 +104,17 @@ var PacketsToolbar = React.createClass({
     this.refs.options.setDropdownState(false);
   },
 
-  onPause: function(event) {
+  onPause: function(/*event*/) {
     this.props.actions.onPause();
   },
 
-  onLoadPacketsFromFile: function(event) {
+  onLoadPacketsFromFile: function(/*event*/) {
     this.props.actions.loadPacketsFromFile();
     this.refs.fileMenu.setDropdownState(false);
 
   },
 
-  onSavePacketsFromFile: function(event) {
+  onSavePacketsFromFile: function(/*event*/) {
     this.props.actions.savePacketsToFile();
     this.refs.fileMenu.setDropdownState(false);
   }

@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // Dependencies
 const React = require("react");
@@ -15,7 +17,7 @@ const { PacketsToolbar } = require("./packets-toolbar");
 const { Splitter } = require("./splitter");
 
 // Shortcuts
-const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
+const { DIV } = Reps.DOM;
 
 /**
  * @template This template renders 'Packets' tab body.
@@ -68,7 +70,7 @@ var PacketsPanel = React.createClass({
           innerBox: DIV({className: "innerBox"})
         })
       )
-    )
+    );
   }
 });
 

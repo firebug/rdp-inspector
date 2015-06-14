@@ -1,11 +1,13 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // Dependencies
 const { Reps } = require("reps/reps");
 const React = require("react");
-const { TR, TD, SPAN, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
+const { TR, TD, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
 
 // Templates
 
@@ -53,7 +55,7 @@ var PoolTable = React.createFactory(React.createClass({
       }
       actors[i].key = actors[i].actorID;
       rows.push(PoolRow(actors[i]));
-    };
+    }
 
     // Pools are mixed with Actor objects (created using CreateClass).
     var className = "poolTable";
@@ -119,7 +121,7 @@ var PoolList = React.createFactory(React.createClass({
         key: i,
         searchFilter: this.state.searchFilter
       }));
-    };
+    }
 
     return (
       DIV({className: "poolContainer"},
@@ -133,7 +135,7 @@ var Pools = {
   render: function(parentNode) {
     return React.render(PoolList(), parentNode);
   }
-}
+};
 
 // Exports from this module
 exports.Pools = Pools;

@@ -1,19 +1,22 @@
 /* See license.txt for terms of usage */
 
+(function({
+  Components,
+  content,
+  addEventListener,
+  sendAsyncMessage,
+  addMessageListener,
+  /*removeMessageListener*/
+}) {
+
 "use strict";
 
-(function({
-  content,
-  addMessageListener,
-  sendAsyncMessage,
-  removeMessageListener,
-  addEventListener}) {
 
 const Cu = Components.utils;
-const Cc = Components.classes;
-const Ci = Components.interfaces;
+/*const Cc = Components.classes;
+const Ci = Components.interfaces;*/
 
-const document = content.document;
+/*const document = content.document;*/
 const window = content;
 
 /**
@@ -29,11 +32,11 @@ function messageListener(message) {
     data: data,
     origin: origin,
     target: window,
-    source: window,
+    source: window
   });
 
   window.dispatchEvent(event);
-};
+}
 
 addMessageListener("rdpinspector/event/message", messageListener);
 
@@ -43,7 +46,7 @@ addMessageListener("rdpinspector/event/message", messageListener);
 function postChromeMessage(type, args, objects) {
   let data = {
     type: type,
-    args: args,
+    args: args
   };
 
   sendAsyncMessage("message", data, objects);
@@ -54,7 +57,7 @@ function postChromeMessage(type, args, objects) {
  * as it's loaded. This function allows sending messages from the
  * frame's content directly to the chrome scope.
  */
-addEventListener("DOMContentLoaded", function onContentLoaded(event) {
+addEventListener("DOMContentLoaded", function onContentLoaded(/*event*/) {
   removeEventListener("DOMContentLoaded", onContentLoaded, true);
 
   Cu.exportFunction(postChromeMessage, window, {
