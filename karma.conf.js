@@ -5,7 +5,7 @@
 /* eslint quotes:0 */
 
 module.exports = function(config) {
-  
+
   "use strict";
 
   var baseKarmaConfig = {
@@ -68,10 +68,13 @@ module.exports = function(config) {
     console.log("CODE COVERAGE ENABLED");
     config.set({
       coverageReporter: {
-        type: 'html',
-        dir: 'coverage/',
+        reporters: [
+          { type: "html", subdir: "html/" },
+          { type: "text" },
+          { type: "text-summary" }
+        ],
         instrumenters: {
-          istanbul: require("istanbul-harmony")
+          istanbul: require("isparta")
         }
       },
       preprocessors: {

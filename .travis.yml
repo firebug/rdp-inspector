@@ -11,7 +11,6 @@ before_install:
 - npm --version
 
 before_script:
-- npm install karma-spec-reporter
 - npm install jpm -g
 - npm install mozilla-download -g
 - cd ..
