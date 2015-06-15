@@ -139,9 +139,9 @@ theApp = React.render(MainTabbedArea({
 
 // Helper modules for handling application events.
 packetsStore = new PacketsStore(window, theApp);
-var actorsStore = new ActorsStore(window, theApp);
-var resizer = new Resizer(window, theApp);
-var search = new Search(window, theApp);
+new ActorsStore(window, theApp);
+new Resizer(window, theApp);
+new Search(window, theApp);
 
 // Send notification about initialization being done.
 postChromeMessage("initialized");
