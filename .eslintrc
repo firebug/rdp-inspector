@@ -1,5 +1,6 @@
 {
   "rules": {
+    "no-mixed-spaces-and-tabs": [2],
     "quotes": [2, "double"],
     "semi": [1, "always"],
 

@@ -6,7 +6,7 @@ define(function (require) {
 "use strict";
 
 var React = require("react");
-var { TestUtils } = React.addons;
+/*var { TestUtils } = React.addons;*/
 
 // Fake actions singleton
 var actions = {};
