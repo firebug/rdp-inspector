@@ -3,7 +3,9 @@
     "indent": [0, 2],
     "quotes": [2, "double"],
     "linebreak-style": [1, "unix"],
-    "semi": [1, "always"]
+    "semi": [1, "always"],
+    "new-cap": [1],
+    "eqeqeq": [1]
   },
   "env": {
     "es6": true,
@@ -11,6 +13,10 @@
     "amd": true
   },
   "globals": {
-    "define": true
+    "define": true,
+
+    "Str": true,
+    "Locale": true,
+    "Options": true
   }
 }

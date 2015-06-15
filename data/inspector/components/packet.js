@@ -1,19 +1,18 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports /*, module */) {
+
+"use strict";
 
 // ReactJS
 const React = require("react");
-const ReactBootstrap = require("react-bootstrap");
 
 // Firebug SDK
 const { Reps } = require("reps/reps");
 const { TreeView } = require("reps/tree-view");
-const { Obj } = require("reps/object");
 
 // Constants
-const Panel = React.createFactory(ReactBootstrap.Panel);
-const { DIV, SPAN, BR, IMG } = Reps.DOM;
+const { DIV, SPAN } = Reps.DOM;
 
 /**
  * @template This template is responsible for rendering a packet.
@@ -32,7 +31,7 @@ var Packet = React.createClass({
    * 'show inline details' option changes. This is an optimization
    * the makes the packet-list rendering a lot faster.
    */
-  shouldComponentUpdate: function(nextProps, nextState) {
+  shouldComponentUpdate: function(nextProps /*, nextState*/) {
     return (this.props.selected != nextProps.selected ||
       this.props.showInlineDetails != nextProps.showInlineDetails);
   },
@@ -49,7 +48,7 @@ var Packet = React.createClass({
     var timeText = time.toLocaleTimeString() + "." + time.getMilliseconds();
     var previewData = {
       packet: packet
-    }
+    };
 
     // Error packets have its own styling
     if (packet.error) {
@@ -106,10 +105,12 @@ var Packet = React.createClass({
                   SPAN({}, packet.from),
                   SPAN({className: "info"}, timeText + ", " + size)
                 ),
-                DIV({className: "errorMessage"},
+                // NOTE: on issue #44, a long "consoleAPICall" received packet
+          			// was wrongly turned into a "div.errorMessage"
+                packet.error ? DIV({className: "errorMessage"},
                   DIV({}, packet.error),
                   DIV({}, packet.message)
-                ),
+                ) : null,
                 DIV({className: "preview"},
                   preview
                 )
