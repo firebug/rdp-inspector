@@ -1,13 +1,12 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // ReactJS
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
-
-// Firebug SDK
-const { Reps } = require("reps/reps");
 
 // RDP Inspector
 const { ActorsPanel } = require("./actors-panel");
@@ -18,7 +17,6 @@ const { SearchBox } = require("./search-box");
 const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
 const TabPane = React.createFactory(ReactBootstrap.TabPane);
 const Alert = React.createFactory(ReactBootstrap.Alert);
-const { DIV } = Reps.DOM;
 
 /**
  * @template This template is responsible for rendering the main
@@ -48,7 +46,7 @@ var MainTabbedArea = React.createClass({
   onErrorDismiss: function() {
     this.setState({
       error: null
-    })
+    });
   },
 
   render: function() {

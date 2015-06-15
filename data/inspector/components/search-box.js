@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 /**
  * TODO docs xxxHonza: can we use ReactJS?
@@ -32,22 +34,22 @@ var SearchBox =
     searchBox.remove();
   },
 
-  onKeyPress: function(searchBox, event) {
+  onKeyPress: function(searchBox/*, event*/) {
     this.onSearch(searchBox);
   },
 
-  onChange: function(searchBox, event) {
+  onChange: function(searchBox/*, event*/) {
     this.onSearch(searchBox);
   },
 
   onSearch: function(searchBox) {
     var win = searchBox.ownerDocument.defaultView;
     var event = new win.MessageEvent("search", {
-      data: searchBox.value,
+      data: searchBox.value
     });
     win.dispatchEvent(event);
   }
-}
+};
 
 // Exports from this module
 exports.SearchBox = SearchBox;

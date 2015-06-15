@@ -1,12 +1,14 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // Dependencies
 const { Reps } = require("reps/reps");
 
 var React = require("react");
-const { TR, TD, SPAN, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
+const { TR, TD, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
 
 // Templates
 
@@ -52,7 +54,7 @@ var FactoryTable = React.createFactory(React.createClass({
 
       factories[i].key = factories[i].prefix + factories[i].name;
       rows.push(FactoryRow(factories[i]));
-    };
+    }
 
     return (
       TABLE({className: "poolTable"},
@@ -83,7 +85,6 @@ var FactoryList = React.createFactory(React.createClass({
     };
   },
   render: function() {
-    var mainGlobal = [];
     var main = this.state.main;
     var child = this.state.child;
     var searchFilter = this.state.searchFilter;
@@ -108,7 +109,7 @@ var Factories = {
   render: function(parentNode) {
     return React.render(FactoryList(), parentNode);
   }
-}
+};
 
 // Exports from this module
 exports.Factories = Factories;

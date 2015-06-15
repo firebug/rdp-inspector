@@ -1,10 +1,11 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // ReactJS
 const React = require("react");
-const ReactBootstrap = require("react-bootstrap");
 
 // RDP Inspector
 const { Tracker } = require("../tracker");
@@ -43,7 +44,7 @@ var Splitter = React.createClass({
 
   // Resizing
 
-  onDragStart: function(tracker) {
+  onDragStart: function(/*tracker*/) {
     var splitter = this.refs.splitter.getDOMNode();
     var body = splitter.ownerDocument.body;
     body.setAttribute("resizing", "true");
@@ -52,7 +53,7 @@ var Splitter = React.createClass({
     this.rightWidth = rightPanel.clientWidth;
   },
 
-  onDragOver: function(newPos, tracker) {
+  onDragOver: function(newPos/*, tracker*/) {
     var rightPanel = this.refs.rightPanel.getDOMNode();
     var newWidth = (this.rightWidth - newPos.x);
     if (newWidth < this.props.min) {
@@ -62,7 +63,7 @@ var Splitter = React.createClass({
     rightPanel.style.width = newWidth + "px";
   },
 
-  onDrop: function(tracker) {
+  onDrop: function(/*tracker*/) {
     var splitter = this.refs.splitter.getDOMNode();
     var body = splitter.ownerDocument.body;
     body.removeAttribute("resizing");
@@ -87,8 +88,8 @@ var Splitter = React.createClass({
           rightPanel
         )
       )
-    )
-  },
+    );
+  }
 });
 
 // Exports from this module

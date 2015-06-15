@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // Dependencies
 const React = require("react");
@@ -71,7 +73,7 @@ var PacketList = React.createClass({
       if (packet.type == "message") {
         output.push(PacketsMessage({
           key: packet.id,
-          data: packet,
+          data: packet
         }));
         continue;
       }
@@ -90,7 +92,7 @@ var PacketList = React.createClass({
         selected: selected,
         showInlineDetails: this.props.showInlineDetails
       }));
-    };
+    }
 
     return (
       DIV({className: "list"},

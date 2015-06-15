@@ -1,11 +1,14 @@
 {
   "rules": {
-    "indent": [0, 2],
+    "no-mixed-spaces-and-tabs": [2],
     "quotes": [2, "double"],
-    "linebreak-style": [1, "unix"],
     "semi": [1, "always"],
-    "new-cap": [1],
-    "eqeqeq": [1]
+
+    "indent": [0, 2],
+    "linebreak-style": [0],
+    "eqeqeq": [0],
+    "new-cap": [0],
+    "no-new": [0]
   },
   "env": {
     "es6": true,
@@ -14,6 +17,8 @@
   },
   "globals": {
     "define": true,
+    "require": true,
+    "requirejs": true,
 
     "Str": true,
     "Locale": true,

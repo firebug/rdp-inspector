@@ -1,6 +1,27 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
+
+function absoluteCursorPosition(e) {
+  if (isNaN(window.scrollX)) {
+    return new Position(e.clientX +
+      document.documentElement.scrollLeft +
+      document.body.scrollLeft, e.clientY +
+      document.documentElement.scrollTop +
+      document.body.scrollTop);
+  }
+  else {
+    return new Position(e.clientX + window.scrollX,
+      e.clientY + window.scrollY);
+  }
+}
+
+function cancelEvent(event) {
+  event.stopPropagation();
+  event.preventDefault();
+}
 
 /**
  * Helper object for drag-and-drop. It's used e.g. by the {@Splitter}
@@ -180,7 +201,7 @@ function Position(x, y)
   };
 
   this.Apply = function(element) {
-    if (typeof(element) == "string") {
+    if (typeof element == "string") {
       element = document.getElementById(element);
     }
 
@@ -196,25 +217,6 @@ function Position(x, y)
       element.style.top = this.y + "px";
     }
   };
-}
-
-function absoluteCursorPosition(e) {
-  if (isNaN(window.scrollX)) {
-    return new Position(e.clientX +
-      document.documentElement.scrollLeft +
-      document.body.scrollLeft, e.clientY +
-      document.documentElement.scrollTop +
-      document.body.scrollTop);
-  }
-  else {
-    return new Position(e.clientX + window.scrollX,
-      e.clientY + window.scrollY);
-  }
-}
-
-function cancelEvent(event) {
-  event.stopPropagation();
-  event.preventDefault();
 }
 
 // Exports from this module

@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // Dependencies
 const React = require("react");
@@ -29,7 +31,7 @@ var PacketEditorToolbar = React.createFactory(React.createClass({
     return ButtonToolbar({className: "toolbar"}, [
       Button({ onClick: this.props.onSend, key: "send",
                bsStyle: "primary", bsSize: "xsmall",
-               style: { marginLeft: 12, color: 'white' } }, "Send"),
+               style: { marginLeft: 12, color: "white" } }, "Send"),
 
       Button({ onClick: this.props.onRedo, key: "redo",
                className: "pull-right",
@@ -44,7 +46,7 @@ var PacketEditorToolbar = React.createFactory(React.createClass({
       Button({ onClick: this.props.onClear, key: "clear",
                className: "pull-right",
                bsStyle: "danger", bsSize: "xsmall",
-               style: { marginRight: 6, color: 'white' } }, "Clear")
+               style: { marginRight: 6, color: "white" } }, "Clear")
     ]);
   }
 }));
@@ -67,7 +69,7 @@ var PacketEditor = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     this.setState({
-      selectedPacket: this.props.selectedPacket
+      selectedPacket: nextProps.selectedPacket
     });
   },
 
@@ -100,19 +102,19 @@ var PacketEditor = React.createClass({
 
                 // remove starting and ending '"' if any
                 parsedValue = typeof value == "string" ?
-                  value.replace(/^"|"$/g, '') : "";
+                  value.replace(/^"|"$/g, "") : "";
 
                 if(keyPath.length == 1 && keyPath[0] == "to") {
                   // get a suggestion list by filtering actorIDs list
                   return actorIDs.filter((suggestion) => {
-                    return suggestion.indexOf(parsedValue) >= 0
-                  })
+                    return suggestion.indexOf(parsedValue) >= 0;
+                  });
                 }
               } catch(e) {
-
+                //console.debug("exception on parsing autocompletion", e);
               }
 
-              return []
+              return [];
             }
           })
          )

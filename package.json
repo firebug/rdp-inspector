@@ -25,7 +25,10 @@
     "watch-karma-tests": "karma start --no-single-run --reporters spec --auto-watch",
     "watch-karma-coverage": "CODE_COVERAGE=true npm run watch-karma-tests",
     "jpm-tests": "jpm test",
-    "travis-ci": "npm run jpm-tests -- -v && npm run karma-coverage"
+    "travis-ci": "npm run jpm-tests -- -v && npm run karma-coverage && npm run lint",
+    "lint-content": "eslint data/inspector && eslint karma-tests/",
+    "lint-addon": "eslint --env node lib",
+    "lint": "npm run lint-content && npm run lint-addon"
   },
   "engines": {
     "firefox": ">=38.0 <=40.0"

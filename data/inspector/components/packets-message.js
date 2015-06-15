@@ -1,10 +1,11 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 // ReactJS
 const React = require("react");
-const ReactBootstrap = require("react-bootstrap");
 
 // Firebug SDK
 const { Reps } = require("reps/reps");
@@ -34,7 +35,7 @@ var PacketsMessage = React.createClass({
         DIV({className: "text"}, message),
         DIV({className: "time"}, timeText)
       )
-    )
+    );
   }
 });
 

@@ -106,7 +106,7 @@ var Packet = React.createClass({
                   SPAN({className: "info"}, timeText + ", " + size)
                 ),
                 // NOTE: on issue #44, a long "consoleAPICall" received packet
-          			// was wrongly turned into a "div.errorMessage"
+                // was wrongly turned into a "div.errorMessage"
                 packet.error ? DIV({className: "errorMessage"},
                   DIV({}, packet.error),
                   DIV({}, packet.message)

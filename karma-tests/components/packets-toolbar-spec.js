@@ -8,10 +8,6 @@ var React = require("react");
 var { TestUtils } = React.addons;
 
 var { PacketsToolbar } = require("components/packets-toolbar");
-var {
-  DropdownButton,
-  MenuItem
-} = require("react-bootstrap");
 
 var packetsToolbar = TestUtils.renderIntoDocument(PacketsToolbar({}));
 

@@ -1,6 +1,8 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports, module) {
+define(function(require, exports/*, module*/) {
+
+"use strict";
 
 /**
  * This object contains all collected actors. It's also responsible
@@ -42,12 +44,12 @@ ActorsStore.prototype =
     if (data instanceof Array) {
       data.forEach((item) => {
         this.collectActorIDs(item, res);
-      })
+      });
     } else if (data instanceof Object) {
       if (data.pool) {
         this.collectActorIDs(data.pool, res);
       } else if (data.actorID) {
-        var { actorID } = data
+        var { actorID } = data;
         if (res.indexOf(actorID) < 0) {
           res.push(actorID);
         }
@@ -61,9 +63,9 @@ ActorsStore.prototype =
     this.app.setState({
       actors: this.actors,
       actorIDs: this.actorIDs
-    })
+    });
   }
-}
+};
 
 // Exports from this module
 exports.ActorsStore = ActorsStore;
