@@ -76,6 +76,8 @@
   },
   "devDependencies": {
     "eslint": "^0.21.0",
+    "eslint-plugin-no-tabs": "git://github.com/rpl/eslint-plugin-no-tabs",
+    "eslint-plugin-react": "git://github.com/rpl/eslint-plugin-react#fix/displayName-and-propTypes-on-jsx-false",
     "isparta": "^3.0.3",
     "jasmine-core": "^2.3.2",
     "karma": "^0.12.31",

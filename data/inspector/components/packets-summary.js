@@ -20,6 +20,8 @@ const { DIV } = Reps.DOM;
  * @template Helper template responsible for rendering a tooltip.
  */
 const TextWithTooltip = React.createFactory(React.createClass({
+  displayName: "TextWithTooltip",
+
   render: function() {
     var tooltip = Tooltip({}, this.props.tooltip);
     return (

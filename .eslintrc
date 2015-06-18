@@ -1,8 +1,17 @@
 {
+  "plugins": [
+    "no-tabs",
+    "react"
+  ],
   "rules": {
     "no-mixed-spaces-and-tabs": [2],
     "quotes": [2, "double"],
     "semi": [1, "always"],
+
+    "no-tabs/at-all": [2],
+
+    "react/display-name": 2,
+    "react/prop-types": 0,
 
     "indent": [0, 2],
     "linebreak-style": [0],
