@@ -92,14 +92,16 @@ var Packet = React.createClass({
             )
           ),
           this.state && this.state.contextMenu &&
-          UL({className: "dropdown-menu", role: "menu", ref: "dropdownMenu",
+          UL({className: "dropdown-menu", role: "menu", ref: "contextMenu",
             onMouseLeave: this.onContextMenuMouseLeave,
             style: {
               display: "block",
               top: this.state.contextMenuTop,
               left: this.state.contextMenuLeft
             }},
-            LI({role: "presentation"}, A({ onClick: this.onEditAndResendClick}, "Edit and Resend"))
+            LI({role: "presentation"},
+              A({ref: "editAndResendAction", onClick: this.onEditAndResendClick},
+                "Edit and Resend"))
           )
         )
       );
