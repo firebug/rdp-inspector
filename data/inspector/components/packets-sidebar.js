@@ -37,9 +37,14 @@ var PacketsSidebar = React.createClass({
     });
   },
 
-  componentWillReceiveProps: function(/*nextProps*/) {
-    // TODO: it would be nice reset activeKey to the "Packet" Detail sidebar
-    // but only when the parent component pass a new selectedPacket
+  componentWillReceiveProps: function(nextProps) {
+    var { editedPacket: prevEditedPacket } = this.props;
+    var { editedPacket } = nextProps;
+
+    // switch to the Packet Editor when then editedPacket changes
+    if (prevEditedPacket != editedPacket) {
+      this.onTabSelected(2);
+    }
   },
 
   render: function() {
@@ -55,7 +60,8 @@ var PacketsSidebar = React.createClass({
         TabPane({eventKey: 2, tab: "Send Packet"},
           PacketEditor({
             actions: this.props.actions,
-            actorIDs: this.props.actorIDs
+            actorIDs: this.props.actorIDs,
+            editedPacket: this.props.editedPacket
           })
         )
       )

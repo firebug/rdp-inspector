@@ -59,7 +59,7 @@ var PacketEditor = React.createClass({
 
   getInitialState: function() {
     return {
-      selectedPacket: null,
+      editedPacket: null,
       defaultData: {
         to: "root",
         type: "requestTypes"
@@ -69,12 +69,12 @@ var PacketEditor = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     this.setState({
-      selectedPacket: nextProps.selectedPacket
+      editedPacket: nextProps.editedPacket
     });
   },
 
   render: function() {
-    var selectedPacket = this.state.selectedPacket || this.props.selectedPacket;
+    var editedPacket = this.state.editedPacket || this.props.editedPacket;
     var { actorIDs } = this.props;
 
     return (
@@ -90,7 +90,7 @@ var PacketEditor = React.createClass({
           TreeEditorView({
             ref: "editor",
             key: "packet-editor",
-            data: selectedPacket && selectedPacket.to ? selectedPacket : null,
+            data: editedPacket,
             defaultData: this.state.defaultData,
             handleAutocompletion: (suggestionType, keyPath, value) => {
               if (!actorIDs && suggestionType != "value") {

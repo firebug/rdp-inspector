@@ -12,7 +12,7 @@ const { Reps } = require("reps/reps");
 const { TreeView } = require("reps/tree-view");
 
 // Constants
-const { DIV, SPAN } = Reps.DOM;
+const { DIV, SPAN, UL, LI, A } = Reps.DOM;
 
 /**
  * @template This template is responsible for rendering a packet.
@@ -31,9 +31,13 @@ var Packet = React.createClass({
    * 'show inline details' option changes. This is an optimization
    * the makes the packet-list rendering a lot faster.
    */
-  shouldComponentUpdate: function(nextProps /*, nextState*/) {
+  shouldComponentUpdate: function(nextProps, nextState) {
+    var { contextMenu: prevContextMenu } = this.state || {};
+    var { contextMenu: nextContextMenu } = nextState || {};
+
     return (this.props.selected != nextProps.selected ||
-      this.props.showInlineDetails != nextProps.showInlineDetails);
+      this.props.showInlineDetails != nextProps.showInlineDetails ||
+      prevContextMenu != nextContextMenu);
   },
 
   render: function() {
@@ -66,7 +70,8 @@ var Packet = React.createClass({
 
     if (this.props.data.type == "send") {
       return (
-        DIV({className: classNames.join(" "), onClick: this.onClick},
+        DIV({className: classNames.join(" "), onClick: this.onClick,
+             onContextMenu: this.onContextMenu},
           DIV({className: "packetBox"},
             DIV({className: "packetContent"},
               DIV({className: "body"},
@@ -85,6 +90,16 @@ var Packet = React.createClass({
               ),
               DIV({className: "boxArrow"})
             )
+          ),
+          this.state && this.state.contextMenu &&
+          UL({className: "dropdown-menu", role: "menu", ref: "dropdownMenu",
+            onMouseLeave: this.onContextMenuMouseLeave,
+            style: {
+              display: "block",
+              top: this.state.contextMenuTop,
+              left: this.state.contextMenuLeft
+            }},
+            LI({role: "presentation"}, A({ onClick: this.onEditAndResendClick}, "Edit and Resend"))
           )
         )
       );
@@ -123,7 +138,28 @@ var Packet = React.createClass({
   },
 
   // Event Handlers
+  onEditAndResendClick: function() {
+    this.setState({
+      contextMenu: false
+    });
+    this.props.actions.editPacket(this.props.data.packet);
+  },
+  onContextMenuMouseLeave: function() {
+    this.setState({
+      contextMenu: false
+    });
+  },
+  onContextMenu: function(event) {
+    event.stopPropagation();
+    event.preventDefault();
 
+    this.setState({
+      contextMenu: true,
+      contextMenuTop: event.clientY,
+      contextMenuLeft: event.clientX
+    });
+    this.props.actions.selectPacket(this.props.data.packet);
+  },
   onClick: function(event) {
     var target = event.target;
 
