@@ -21,3 +21,20 @@
   line-height: 1.0;
   font-size: 12px;
 }
+
+.toolbar input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/******************************************************************************/
+/* Tooltip */
+
+.tooltip .tooltip-inner {
+  background-color: #EEE1B3;
+  color: black;
+  max-width: 300px;
+}
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #EEE1B3;
+  color: black;
+}

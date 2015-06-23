@@ -14,9 +14,11 @@ var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 var Button = React.createFactory(ReactBootstrap.Button);
 var DropdownButton = React.createFactory(ReactBootstrap.DropdownButton);
 var MenuItem = React.createFactory(ReactBootstrap.MenuItem);
+var OverlayTrigger = React.createFactory(ReactBootstrap.OverlayTrigger);
+var Tooltip = React.createFactory(ReactBootstrap.Tooltip);
 
 const { Reps } = require("reps/reps");
-const { SPAN } = Reps.DOM;
+const { SPAN, INPUT } = Reps.DOM;
 
 /**
  * @template This object represents a template for a toolbar displayed
@@ -31,13 +33,12 @@ var PacketsToolbar = React.createClass({
     var { showInlineDetails, packetCacheEnabled } = this.props;
 
     var labels = {};
-    labels.inlineDetails = showInlineDetails ?
-      Locale.$STR("rdpInspector.option.hideInlineDetails") :
-      Locale.$STR("rdpInspector.option.showInlineDetails");
+    labels.inlineDetails = Locale.$STR("rdpInspector.option.showInlineDetails");
+    labels.cachePackets = Locale.$STR("rdpInspector.option.packetCacheEnabled");
 
-    labels.cachePackets = packetCacheEnabled ?
-      Locale.$STR("rdpInspector.option.packetCacheDisabled") :
-      Locale.$STR("rdpInspector.option.packetCacheEnabled");
+    var tooltips = {};
+    tooltips.inlineDetails = Locale.$STR("rdpInspector.option.showInlineDetails.tip");
+    tooltips.cachePackets = Locale.$STR("rdpInspector.option.packetCacheEnabled.tip");
 
     var paused = this.props.paused;
     var pauseClassName = paused ? "btn-warning" : "";
@@ -54,13 +55,15 @@ var PacketsToolbar = React.createClass({
           bsSize: "xsmall", title: Locale.$STR("rdpInspector.menu.Options"),
           className: "pull-right", ref: "options"
         },
-          MenuItem({key: "inlineDetails", onClick: this.onShowInlineDetails,
-            checked: showInlineDetails},
-            labels.inlineDetails
+          OverlayTrigger({placement: "bottom", overlay: Tooltip({}, tooltips.inlineDetails)},
+            MenuItem({key: "inlineDetails", ref: "optionShowInlineDetails", onClick: this.onShowInlineDetails},
+              INPUT({type: "checkbox", checked: showInlineDetails}), labels.inlineDetails
+            )
           ),
-          MenuItem({key: "cachePackets", onClick: this.onCachePackets,
-            checked: packetCacheEnabled},
-            labels.cachePackets
+          OverlayTrigger({placement: "bottom", overlay: Tooltip({}, tooltips.cachePackets)},
+            MenuItem({key: "cachePackets", ref: "optionCachePackets", onClick: this.onCachePackets},
+              INPUT({type: "checkbox", checked: packetCacheEnabled}), labels.cachePackets
+            )
           )
         ),
         Button({bsSize: "xsmall", onClick: this.onClear},
@@ -96,12 +99,10 @@ var PacketsToolbar = React.createClass({
 
   onShowInlineDetails: function() {
     this.props.actions.onShowInlineDetails();
-    this.refs.options.setDropdownState(false);
   },
 
   onCachePackets: function() {
     this.props.actions.onPacketCacheEnabled();
-    this.refs.options.setDropdownState(false);
   },
 
   onPause: function(/*event*/) {

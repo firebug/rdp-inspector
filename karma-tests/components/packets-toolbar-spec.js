@@ -28,7 +28,7 @@ describe("PacketsToolbar", () => {
     expect(packetsToolbar.refs.fileMenu).toBeDefined();
   });
 
-  describe("its File DropdownButton Menu", () => {
+  describe("File DropdownButton Menu", () => {
     // spy actions that should be called
     var actions = {
       loadPacketsFromFile: jasmine.createSpy("loadPacketsFromFile"),
@@ -60,5 +60,37 @@ describe("PacketsToolbar", () => {
     });
   });
 
+  describe("Options DropdownButton Menu", () => {
+    // spy actions that should be called
+    var actions = {
+      onShowInlineDetails: jasmine.createSpy("onShowInlineDetails"),
+      onPacketCacheEnabled: jasmine.createSpy("onPacketCacheEnabled")
+    };
+
+    beforeAll(() => {
+      packetsToolbar = TestUtils.renderIntoDocument(PacketsToolbar({
+        actions: actions
+      }));
+    });
+
+    it("contains a 'Show Inline Details' and 'Packets Cache' MenuItems", () => {
+      // load and save menuitems should be defined
+      expect(packetsToolbar.refs.optionShowInlineDetails).toBeDefined();
+      expect(packetsToolbar.refs.optionCachePackets).toBeDefined();
+    });
+
+    it("calls props.actions.onShowInlineDetails on 'Show Inline Details' clicks", () => {
+      var node = React.findDOMNode(packetsToolbar.refs.optionShowInlineDetails);
+      TestUtils.Simulate.click(node);
+      expect(actions.onShowInlineDetails).toHaveBeenCalled();
+    });
+
+    it("calls props.actions.onPacketCacheEnabled on 'Packet Cache' clicks", () => {
+      var node = React.findDOMNode(packetsToolbar.refs.optionCachePackets);
+      TestUtils.Simulate.click(node);
+      expect(actions.onPacketCacheEnabled).toHaveBeenCalled();
+    });
+  });
 });
+
 });
