@@ -37,14 +37,16 @@ var PacketsSidebar = React.createClass({
     });
   },
 
-  componentWillReceiveProps: function(nextProps) {
-    var { editedPacket: prevEditedPacket } = this.props;
-    var { editedPacket } = nextProps;
+  componentDidMount: function() {
+    window.addEventListener("rdpinspector:switchToPacketEditorTab", this.onSwitchToPacketEditorTab);
+  },
 
-    // switch to the Packet Editor when then editedPacket changes
-    if (prevEditedPacket != editedPacket) {
-      this.onTabSelected(2);
-    }
+  componentWillUnmount: function() {
+    window.removeEventListener(this.onSwitchToPacketEditorTab);
+  },
+
+  onSwitchToPacketEditorTab: function() {
+    this.setState({ activeKey: 2 });
   },
 
   render: function() {
