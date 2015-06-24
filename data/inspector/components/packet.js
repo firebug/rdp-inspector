@@ -157,8 +157,8 @@ var Packet = React.createClass({
 
     this.setState({
       contextMenu: true,
-      contextMenuTop: event.clientY,
-      contextMenuLeft: event.clientX
+      contextMenuTop: event.clientY - 16,
+      contextMenuLeft: event.clientX - 16
     });
     this.props.actions.selectPacket(this.props.data.packet);
   },
