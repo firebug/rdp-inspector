@@ -36,6 +36,7 @@ var actions = {
    */
   editPacket: function(packet) {
     theApp.setState({editedPacket: packet});
+    window.dispatchEvent(new CustomEvent("rdpinspector:switchToPacketEditorTab"));
   },
 
   /**

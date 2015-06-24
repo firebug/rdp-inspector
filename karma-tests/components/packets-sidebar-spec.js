@@ -17,7 +17,7 @@ describe("PacketsSidebar", () => {
   });
 
   describe("active sidebar auto switch", () => {
-    it("switch to the editor tab on new editedPacket in nextProps", () => {
+    it("switch to the editor tab on 'rdpinspector:switchToPacketEditorTab' DOM event", () => {
       var packetData = {
         "type": "fakeSentPacket",
         "to": "server1.conn1.child1/fakeActor2"
@@ -34,16 +34,13 @@ describe("PacketsSidebar", () => {
 
       var packetsSidebar = TestUtils.renderIntoDocument(PacketsSidebar({
         selectedPacket: null,
-        editedPacket: null,
+        editedPacket: data,
         actions: actions
       }));
 
       expect(packetsSidebar.state.activeKey).toEqual(1);
 
-      // re-render with an editedPacket selected
-      packetsSidebar = React.render(PacketsSidebar({
-        editedPacket: data
-      }), React.findDOMNode(packetsSidebar).parentNode);
+      window.dispatchEvent(new CustomEvent("rdpinspector:switchToPacketEditorTab"));
 
       expect(packetsSidebar.state.activeKey).toEqual(2);
     });
