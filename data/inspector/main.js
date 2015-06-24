@@ -32,6 +32,13 @@ var actions = {
   },
 
   /**
+   * Edit packet and resend it from the side bar.
+   */
+  editPacket: function(packet) {
+    theApp.setState({editedPacket: packet});
+  },
+
+  /**
    * Remove all packets from the packet list.
    */
   clear: function() {

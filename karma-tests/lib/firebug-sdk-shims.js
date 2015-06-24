@@ -25,6 +25,12 @@ window.Str = {
   formatSize: function(str) { return str; }
 };
 
+window.Trace = {
+  sysout: function(...args) {
+    console.log.apply(console, args);
+  }
+}
+
 // set the theme-firebug class on the body element
 document.body.setAttribute("class", "theme-firebug");
 
