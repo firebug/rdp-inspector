@@ -84,6 +84,7 @@ PacketsStore.prototype =
   onSendPacket: function(event) {
     this.appendPacket({
       type: "send",
+      rawPacket: event.data,
       packet: JSON.parse(event.data),
       size: event.data.length,
       time: new Date()
@@ -93,6 +94,7 @@ PacketsStore.prototype =
   onReceivePacket: function(event) {
     this.appendPacket({
       type: "receive",
+      rawPacket: event.data,
       packet: JSON.parse(event.data),
       size: event.data.length,
       time: new Date()

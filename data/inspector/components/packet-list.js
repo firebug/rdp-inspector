@@ -79,7 +79,7 @@ var PacketList = React.createClass({
       }
 
       // Filter out packets which don't match the search token.
-      if (filter && JSON.stringify(packet).toLowerCase().indexOf(filter.toLowerCase()) < 0) {
+      if (filter && packet.rawPacket.toLowerCase().indexOf(filter.toLowerCase()) < 0) {
         continue;
       }
 
