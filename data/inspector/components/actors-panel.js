@@ -149,7 +149,8 @@ var PoolTable = React.createFactory(React.createClass({
     var actors = this.props.pool;
     for (var i in actors) {
       if (this.props.searchFilter &&
-          JSON.stringify(actors[i]).indexOf(this.props.searchFilter) < 0) {
+          JSON.stringify(actors[i]).toLowerCase()
+              .indexOf(this.props.searchFilter.toLowerCase()) < 0) {
         // filter out packets which don't match the filter
         continue;
       }
@@ -219,7 +220,8 @@ var FactoryTable = React.createFactory(React.createClass({
     var factories = this.props.factories;
     for (var i in factories) {
       if (this.props.searchFilter &&
-          JSON.stringify(factories[i]).indexOf(this.props.searchFilter) < 0) {
+          JSON.stringify(factories[i]).toLowerCase()
+              .indexOf(this.props.searchFilter.toLowerCase()) < 0) {
         // filter out packets which don't match the filter
         continue;
       }
