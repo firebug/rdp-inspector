@@ -156,23 +156,64 @@ PacketsStore.prototype =
   },
 
   doRefreshPackets: function() {
+    var packets = this.doFilterPacketsList(this.packets);
+
     var newState = {
-      packets: this.packets,
+      packets: packets,
       removedPackets: this.removedPackets
     };
 
     // Default selection
     if (!this.app.state.selectedPacket) {
-      var selection = this.packets.length ? this.packets[0] : null;
+      var selection = packets.length ? packets[0] : null;
       newState.selectedPacket = selection;
     }
 
     // If there are no packets clear the details side panel.
-    if (!this.packets.length) {
+    if (!packets.length) {
       newState.selectedPacket = null;
     }
 
     this.app.setState(newState);
+  },
+
+  doFilterPacketsList: function() {
+    var filterFrom = {};
+
+    return this.packets.filter((packet) => {
+      var actorId = packet.packet ? (packet.packet.to || packet.packet.from) : null;
+
+      // filter our all the RDPi actorInspector actor
+      if (actorId && actorId.indexOf("actorInspector") > 0) {
+        return false;
+      }
+
+      if (packet.type == "send") {
+        // filter sent RDP packets needed to register the RDPi actorInspector actor
+        if (packet.packet.rdpInspectorInternals == true) {
+          filterFrom[packet.packet.to] = filterFrom[packet.packet.to] || 0;
+          filterFrom[packet.packet.to] += 1;
+
+          return false;
+        }
+
+        // filter sent RDP packets needed to register the RDPi actorInspector actor
+        if (packet.packet.type == "registerActor" &&
+            packet.packet.filename.indexOf("rdpinspector-at-getfirebug-dot-com") > 0) {
+          filterFrom[packet.packet.to] = filterFrom[packet.packet.to] || 0;
+          filterFrom[packet.packet.to] += 1;
+          return false;
+        }
+      }
+
+      // filter received RDP packets needed to register the RDPi actorInspector actor
+      if (packet.type == "receive" && filterFrom[packet.packet.from] > 0) {
+        filterFrom[packet.packet.from] -= 1;
+        return false;
+      }
+
+      return true;
+    });
   },
 
   clear: function() {
