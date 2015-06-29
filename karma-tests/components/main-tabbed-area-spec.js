@@ -61,10 +61,15 @@ describe("MainTabbedArea React Component", function() {
   });
 
   it("renders a Packet on PacketsStore.sendPacket", function () {
+    var packet = JSON.stringify({
+      to: "root",
+      type: "requestTypes"
+    });
+
     packetsStore.onSendPacket({
       data: JSON.stringify({
-        to: "root",
-        type: "requestTypes"
+        packet: packet,
+        stack: []
       })
     });
 
