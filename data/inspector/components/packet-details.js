@@ -34,7 +34,7 @@ var PacketDetails = React.createClass({
 
     return (
       DIV({className: "details"},
-        TreeView({key: "packet-detail", data: selectedPacket})
+        TreeView({key: "packet-detail", data: selectedPacket.packet})
       )
     );
   }

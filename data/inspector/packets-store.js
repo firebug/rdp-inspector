@@ -46,6 +46,7 @@ PacketsStore.prototype =
       });
     }
   },
+
   onInitialize: function(event) {
     var cache = JSON.parse(event.data);
 
@@ -60,11 +61,15 @@ PacketsStore.prototype =
 
     for (var i = 0; i < packets.length; i++) {
       var packet = packets[i];
+      var packetString = JSON.stringify(packet.packet);
+
       this.appendPacket({
         type: packet.type,
+        rawPacket: packetString,
         packet: packet.packet,
-        size: JSON.stringify(packet.packet).length,
-        time: new Date(packet.time)
+        size: packetString.length,
+        time: new Date(packet.time),
+        stack: new StackTrace(packet.stack, packet.type)
       });
     }
 
@@ -82,22 +87,30 @@ PacketsStore.prototype =
   },
 
   onSendPacket: function(event) {
+    var data = JSON.parse(event.data);
+    var packetString = JSON.stringify(data.packet);
+
     this.appendPacket({
       type: "send",
-      rawPacket: event.data,
-      packet: JSON.parse(event.data),
-      size: event.data.length,
-      time: new Date()
+      rawPacket: packetString,
+      packet: data.packet,
+      size: packetString.length,
+      time: new Date(data.time),
+      stack: new StackTrace(data.stack, "send")
     });
   },
 
   onReceivePacket: function(event) {
+    var data = JSON.parse(event.data);
+    var packetString = JSON.stringify(data.packet);
+
     this.appendPacket({
       type: "receive",
-      rawPacket: event.data,
-      packet: JSON.parse(event.data),
-      size: event.data.length,
-      time: new Date()
+      rawPacket: packetString,
+      packet: data.packet,
+      size: packetString.length,
+      time: new Date(data.time),
+      stack: new StackTrace(data.stack, "receive")
     });
   },
 
@@ -150,7 +163,7 @@ PacketsStore.prototype =
 
     // Default selection
     if (!this.app.state.selectedPacket) {
-      var selection = this.packets.length ? this.packets[0].packet : null;
+      var selection = this.packets.length ? this.packets[0] : null;
       newState.selectedPacket = selection;
     }
 
@@ -239,6 +252,103 @@ PacketsStore.prototype =
   }
 };
 
+// StackTrace
+
+// xxxHonza: revisit frame filtering should and find solid way.
+function StackTrace(frames, packetType) {
+  // Remove all frames before 'EventEmitter_emit()' frame.
+  // These are part of the infrastructure (always there).
+  if (packetType == "send") {
+    //frames = filterFrames(frames, "DebuggerClient.requester/<");
+    //frames = filterFrames(frames, "EventEmitter_emit");
+    //frames = filterFrames(frames, "makeInfallible/<", true);
+  }
+
+  // Filter out empty frames
+  frames = frames.filter(frame => !!frame.name);
+
+  // Create StackFrame instances, so the right rep is used for
+  // rendering (see {@StackFrameRep}.
+  this.frames = frames.map(frame => new StackFrame(frame));
+}
+
+StackTrace.prototype = {
+  hasFrames: function() {
+    return this.frames.length > 0;
+  },
+
+  getTopFrame: function(stack) {
+    return this.hasFrames() ? this.frames[0] : null;
+  },
+}
+
+// StackFrame
+
+function StackFrame(frame) {
+  this.url = frame.fileName;
+  this.lineNumber = frame.lineNumber;
+  this.columnNumber = frame.columnNumber;
+  this.name = frame.name;
+}
+
+StackFrame.prototype = {
+  getLabel: function() {
+    var path = this.url;
+    var index = path ? path.lastIndexOf("/") : -1;
+    var label = (index == -1) ? path : path.substr(index + 1);
+
+    if (this.lineNumber) {
+      label += ":" + this.lineNumber;
+    }
+
+    if (this.columnNumber) {
+      label += ":" + this.columnNumber;
+    }
+
+    return label;
+  },
+
+  getUrl: function() {
+    return this.url;
+  }
+}
+
+// Helpers
+
+function filterFrames(frames, pivot, onlyFirst) {
+  if (onlyFirst) {
+    for (var frame of frames) {
+      if (frame.name == pivot) {
+        frames.shift();
+      } else {
+        break;
+      }
+    }
+    return frames;
+  }
+
+  var newFrames = [];
+  var remove = true;
+  for (var frame of frames) {
+    if (!remove) {
+      newFrames.push(frame);
+    }
+
+    if (frame.name == pivot) {
+      remove = false;
+    }
+  }
+
+  // The pivot frame wasn't found.
+  if (remove) {
+    newFrames = frames;
+  }
+
+  return newFrames;
+}
+
 // Exports from this module
 exports.PacketsStore = PacketsStore;
+exports.StackTrace = StackTrace;
+exports.StackFrame = StackFrame;
 });

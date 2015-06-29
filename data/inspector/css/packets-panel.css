@@ -105,7 +105,11 @@
   display: inline-flex;
   font-family: monospace;
   float: right;
-  padding-top: 2px;
+  padding-top: 4px;
+}
+
+.packetPanel .stack:hover {
+  text-decoration: underline;
 }
 
 .packetPanel .arrow {
@@ -244,4 +248,41 @@
 
 .packetsMessage .text {
   padding-right: 3px;
+}
+
+/******************************************************************************/
+/* StackFrame */
+
+.stackSidePanel {
+  height: 100%;
+  overflow: auto;
+}
+
+.stackSidePanel .preview {
+  overflow: auto;
+  width: 100%;
+}
+
+.stackSidePanel .objectBox-stackFrame .stackName {
+  display: inline-flex;
+  font-family: monospace;
+  float: left;
+  text-align: left;
+}
+
+.packetPanel .stackFrameLabel,
+.stackSidePanel .objectBox-stackFrame .stackLabel {
+  color: blue;
+  text-align: right;
+  display: inline-flex;
+  font-family: monospace;
+  float: right;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.packetPanel .stackFrameLabel {
+  font-size: 10px;
+  margin-top: 4px;
+  float: left;
 }

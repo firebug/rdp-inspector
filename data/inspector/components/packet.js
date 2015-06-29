@@ -11,6 +11,9 @@ const React = require("react");
 const { Reps } = require("reps/reps");
 const { TreeView } = require("reps/tree-view");
 
+// RDP Inspector
+const { TextWithTooltip } = require("./text-with-tooltip");
+
 // Constants
 const { DIV, SPAN, UL, LI, A } = Reps.DOM;
 
@@ -41,12 +44,14 @@ var Packet = React.createClass({
   },
 
   render: function() {
-    var packet = this.props.data.packet;
+    var data = this.props.data;
+    var packet = data.packet;
     var type = packet.type ? packet.type : "";
     var mode = "tiny";
-    var classNames = ["packetPanel", this.props.data.type];
-    var size = Str.formatSize(this.props.data.size);
-    var time = this.props.data.time;
+    var classNames = ["packetPanel", data.type];
+    var size = Str.formatSize(data.size);
+    var time = data.time;
+    var stack = data.stack;
 
     // Use String.formatTime, but how to access from the content?
     var timeText = time.toLocaleTimeString() + "." + time.getMilliseconds();
@@ -63,6 +68,10 @@ var Packet = React.createClass({
     if (this.props.selected) {
       classNames.push("selected");
     }
+
+    var topFrame = stack.getTopFrame();
+    var stackFrameUrl = topFrame ? topFrame.getUrl() : null;
+    var stackFrame = topFrame ? topFrame.getLabel() : null;
 
     // Inline preview component
     var preview = this.props.showInlineDetails ? TreeView(
@@ -83,7 +92,14 @@ var Packet = React.createClass({
                     " " + Locale.$STR("rdpInspector.label.to") + " "
                 ),
                 SPAN({className: "to"}, packet.to),
-                SPAN({className: "info"}, timeText + ", " + size),
+                DIV({},
+                  /*TextWithTooltip({
+                    tooltip: stackFrameUrl, className: "stackFrameLabel",
+                    onClick: this.onViewSource.bind(this, topFrame)},
+                    stackFrame
+                  ),*/
+                  SPAN({className: "info"}, timeText + ", " + size)
+                ),
                 DIV({className: "preview"},
                   preview
                 )
@@ -120,7 +136,14 @@ var Packet = React.createClass({
                   SPAN({className: "text"},
                     " " + Locale.$STR("rdpInspector.label.from") + " "),
                   SPAN({}, packet.from),
-                  SPAN({className: "info"}, timeText + ", " + size)
+                  DIV({},
+                    /*TextWithTooltip({
+                      tooltip: stackFrameUrl, className: "stackFrameLabel",
+                      onClick: this.onViewSource.bind(this, topFrame)},
+                      stackFrame
+                    ),*/
+                    SPAN({className: "info"}, timeText + ", " + size)
+                  )
                 ),
                 // NOTE: on issue #44, a long "consoleAPICall" received packet
                 // was wrongly turned into a "div.errorMessage"
@@ -146,11 +169,13 @@ var Packet = React.createClass({
     });
     this.props.actions.editPacket(this.props.data.packet);
   },
+
   onContextMenuMouseLeave: function() {
     this.setState({
       contextMenu: false
     });
   },
+
   onContextMenu: function(event) {
     event.stopPropagation();
     event.preventDefault();
@@ -160,8 +185,9 @@ var Packet = React.createClass({
       contextMenuTop: event.clientY - 16,
       contextMenuLeft: event.clientX - 16
     });
-    this.props.actions.selectPacket(this.props.data.packet);
+    this.props.actions.selectPacket(this.props.data);
   },
+
   onClick: function(event) {
     var target = event.target;
 
@@ -172,8 +198,18 @@ var Packet = React.createClass({
     // tree, let's process it by the tree, so expansion and
     // collapsing works. Otherwise just select the packet.
     if (!target.classList.contains("memberLabel")) {
-      this.props.actions.selectPacket(this.props.data.packet);
+      this.props.actions.selectPacket(this.props.data);
     }
+  },
+
+  onViewSource: function(topFrame, event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    this.props.actions.onViewSource({
+      url: topFrame.url,
+      lineNumber: topFrame.lineNumber
+    });
   }
 });
 

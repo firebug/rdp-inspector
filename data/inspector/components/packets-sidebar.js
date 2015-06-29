@@ -11,6 +11,7 @@ const ReactBootstrap = require("react-bootstrap");
 // RDP Inspector
 const { PacketDetails } = require("./packet-details");
 const { PacketEditor } = require("./packet-editor");
+const { PacketStackSidePanel } = require("./packet-stack-sidepanel");
 
 // Constants
 const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
@@ -38,7 +39,8 @@ var PacketsSidebar = React.createClass({
   },
 
   componentDidMount: function() {
-    window.addEventListener("rdpinspector:switchToPacketEditorTab", this.onSwitchToPacketEditorTab);
+    window.addEventListener("rdpinspector:switchToPacketEditorTab",
+      this.onSwitchToPacketEditorTab);
   },
 
   componentWillUnmount: function() {
@@ -57,13 +59,21 @@ var PacketsSidebar = React.createClass({
         onSelect: this.onTabSelected
       },
         TabPane({eventKey: 1, tab: "Packet Details"},
-          PacketDetails({selectedPacket: this.props.selectedPacket})
+          PacketDetails({
+            selectedPacket: this.props.selectedPacket
+          })
         ),
         TabPane({eventKey: 2, tab: "Send Packet"},
           PacketEditor({
             actions: this.props.actions,
             actorIDs: this.props.actorIDs,
             editedPacket: this.props.editedPacket
+          })
+        ),
+        TabPane({eventKey: 3, tab: "Stack"},
+          PacketStackSidePanel({
+            actions: this.props.actions,
+            selectedPacket: this.props.selectedPacket
           })
         )
       )

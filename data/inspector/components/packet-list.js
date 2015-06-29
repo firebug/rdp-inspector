@@ -83,7 +83,7 @@ var PacketList = React.createClass({
         continue;
       }
 
-      var selected = this.props.selectedPacket == packet.packet;
+      var selected = this.props.selectedPacket == packet;
 
       output.push(Packet({
         key: packet.id,

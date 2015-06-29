@@ -15,6 +15,9 @@ var { ActorsStore } = require("actors-store");
 var { Resizer } = require("resizer");
 var { Search } = require("search");
 
+// Reps
+require("./components/stack-frame-rep");
+
 var packetsStore;
 var theApp;
 
@@ -112,9 +115,11 @@ var actions = {
       packetsStore.appendMessage(Locale.$STR("rdpInspector.label.Unpaused"));
     }
   },
+
   loadPacketsFromFile: function() {
     postChromeMessage("load-from-file");
   },
+
   savePacketsToFile: function() {
     try {
       var json = packetsStore.serialize();
@@ -133,7 +138,11 @@ var actions = {
       contentType: "application/json",
       filename: "RDP-packets-dump.json"
     });
-  }
+  },
+
+  onViewSource: function(sourceLink) {
+    postChromeMessage("view-source", sourceLink);
+  },
 };
 
 /**

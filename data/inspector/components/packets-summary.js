@@ -11,27 +11,11 @@ const ReactBootstrap = require("react-bootstrap");
 // Firebug SDK
 const { Reps } = require("reps/reps");
 
+// RDP Inspector
+const { TextWithTooltip } = require("./text-with-tooltip");
+
 // Constants
-const Tooltip = React.createFactory(ReactBootstrap.Tooltip);
-const OverlayTrigger = React.createFactory(ReactBootstrap.OverlayTrigger);
 const { DIV } = Reps.DOM;
-
-/**
- * @template Helper template responsible for rendering a tooltip.
- */
-const TextWithTooltip = React.createFactory(React.createClass({
-  displayName: "TextWithTooltip",
-
-  render: function() {
-    var tooltip = Tooltip({}, this.props.tooltip);
-    return (
-      OverlayTrigger({placement: "top", overlay: tooltip, delayShow: 200,
-        delayHide: 150},
-        DIV({}, this.props.children)
-      )
-    );
-  }
-}));
 
 /**
  * @template This template is responsible for rendering packet summary
