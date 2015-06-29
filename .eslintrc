@@ -17,7 +17,9 @@
     "linebreak-style": [0],
     "eqeqeq": [0],
     "new-cap": [0],
-    "no-new": [0]
+    "no-new": [0],
+    "comma-dangle": [0],
+    "no-use-before-define": [0]
   },
   "env": {
     "es6": true,

@@ -318,10 +318,10 @@ StackTrace.prototype = {
     return this.frames.length > 0;
   },
 
-  getTopFrame: function(stack) {
+  getTopFrame: function() {
     return this.hasFrames() ? this.frames[0] : null;
   },
-}
+};
 
 // StackFrame
 
@@ -352,13 +352,17 @@ StackFrame.prototype = {
   getUrl: function() {
     return this.url;
   }
-}
+};
 
 // Helpers
 
+/* NOTE: currently unused */
+/*
 function filterFrames(frames, pivot, onlyFirst) {
+  var frame;
+
   if (onlyFirst) {
-    for (var frame of frames) {
+    for (frame of frames) {
       if (frame.name == pivot) {
         frames.shift();
       } else {
@@ -370,7 +374,7 @@ function filterFrames(frames, pivot, onlyFirst) {
 
   var newFrames = [];
   var remove = true;
-  for (var frame of frames) {
+  for (frame of frames) {
     if (!remove) {
       newFrames.push(frame);
     }
@@ -387,6 +391,7 @@ function filterFrames(frames, pivot, onlyFirst) {
 
   return newFrames;
 }
+*/
 
 // Exports from this module
 exports.PacketsStore = PacketsStore;
