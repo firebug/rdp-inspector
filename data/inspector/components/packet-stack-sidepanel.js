@@ -33,6 +33,11 @@ var PacketStackSidePanel = React.createClass({
     var selectedPacket = this.props.selectedPacket || {};
     var frames = selectedPacket.stack ? selectedPacket.stack.frames : [];
 
+    // Customize TreeView logic that is responsible for
+    // returning object properties. In case of StackFrames
+    // only props (not functions) are returned.
+    // Result of the function is used for computing children
+    // nodes in the tree view.
     function getObjectProperties(obj, callback) {
       for (var p in obj) {
         try {
