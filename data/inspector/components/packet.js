@@ -12,7 +12,7 @@ const { Reps } = require("reps/reps");
 const { TreeView } = require("reps/tree-view");
 
 // RDP Inspector
-const { TextWithTooltip } = require("./text-with-tooltip");
+//const { TextWithTooltip } = require("./text-with-tooltip");
 
 // Constants
 const { DIV, SPAN, UL, LI, A } = Reps.DOM;
@@ -51,7 +51,7 @@ var Packet = React.createClass({
     var classNames = ["packetPanel", data.type];
     var size = Str.formatSize(data.size);
     var time = data.time;
-    var stack = data.stack;
+    //var stack = data.stack;
 
     // Use String.formatTime, but how to access from the content?
     var timeText = time.toLocaleTimeString() + "." + time.getMilliseconds();
@@ -69,9 +69,9 @@ var Packet = React.createClass({
       classNames.push("selected");
     }
 
-    var topFrame = stack.getTopFrame();
+    /*var topFrame = stack.getTopFrame();
     var stackFrameUrl = topFrame ? topFrame.getUrl() : null;
-    var stackFrame = topFrame ? topFrame.getLabel() : null;
+    var stackFrame = topFrame ? topFrame.getLabel() : null;*/
 
     // Inline preview component
     var preview = this.props.showInlineDetails ? TreeView(

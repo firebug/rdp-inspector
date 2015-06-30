@@ -41,6 +41,7 @@ var PacketStackSidePanel = React.createClass({
           }
         }
         catch (e) {
+          /* eslint: no-empty-block: 0*/
         }
       }
     }

@@ -1,4 +1,5 @@
 /* See license.txt for terms of usage */
+/* globals postChromeMessage */
 
 define(function(require, exports /*, module */) {
 
@@ -15,7 +16,7 @@ const { ObjectBox } = require("reps/object-box");
 const { StackFrame } = require("../packets-store");
 
 // Constants
-const { DIV, SPAN, UL, LI, A } = Reps.DOM;
+const { SPAN } = Reps.DOM;
 
 /**
  * This component is responsible for rendering a stack frame.
@@ -35,7 +36,7 @@ var StackFrameRep = React.createClass({
         SPAN({className: "stackName"}, name + "()"),
         SPAN({className: "stackLabel", onClick: this.onViewSource}, label)
       )
-    )
+    );
   },
 
   onViewSource: function(event) {
@@ -58,7 +59,7 @@ var StackFrameRep = React.createClass({
 
 // Registration
 
-function supportsObject(object, type) {
+function supportsObject(object/*, type*/) {
   return object instanceof StackFrame;
 }
 
