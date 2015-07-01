@@ -28,7 +28,7 @@
     "jpm-tests": "jpm test",
     "travis-ci": "npm run karma-coverage && npm run lint",
     "lint-content": "eslint data/inspector && eslint karma-tests/",
-    "lint-addon": "eslint --env node lib",
+    "lint-addon": "eslint lib",
     "lint": "npm run lint-content && npm run lint-addon"
   },
   "engines": {

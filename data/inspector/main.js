@@ -156,9 +156,12 @@ theApp = React.render(MainTabbedArea({
 
 // Helper modules for handling application events.
 packetsStore = new PacketsStore(window, theApp);
+
+/* eslint-disable no-new */
 new ActorsStore(window, theApp);
 new Resizer(window, theApp);
 new Search(window, theApp);
+/* eslint-enable */
 
 // Send notification about initialization being done.
 postChromeMessage("initialized");

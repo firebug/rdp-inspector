@@ -1,5 +1,7 @@
 /* See license.txt for terms of usage */
 
+/* globals requirejs */
+
 // RequireJS configuration
 require.config({
   baseUrl: ".",

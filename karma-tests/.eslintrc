@@ -1,0 +1,7 @@
+// extends data eslintrc config with karma tests specific configs
+{
+    "extends": "../data/.eslintrc",
+    "env": {},
+    "rules": {},
+    "globals": {}
+}

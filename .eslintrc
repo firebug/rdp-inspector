@@ -1,38 +1,23 @@
 {
-  "plugins": [
-    "no-tabs",
-    "react"
-  ],
   "rules": {
+    "indent": [2, 2], // check 2 space indentation
     "no-mixed-spaces-and-tabs": [2],
     "quotes": [2, "double"],
     "semi": [1, "always"],
 
-    "no-tabs/at-all": [2],
-
-    "react/display-name": 2,
-    "react/prop-types": 0,
-
-    "indent": [0, 2],
+    // disabled rule which enforce unix or windows line breaks
     "linebreak-style": [0],
-    "eqeqeq": [0],
-    "new-cap": [0],
-    "no-new": [0],
+
+    // disabled comma-dangle is safe for our use case
     "comma-dangle": [0],
-    "no-use-before-define": [0]
+
+    // disabled eqeqeq and no-use-before-define are safe if you use them correctly
+    "eqeqeq": [0],
+    "no-use-before-define": [0],
   },
   "env": {
-    "es6": true,
-    "browser": true,
-    "amd": true
+    "es6": true
   },
   "globals": {
-    "define": true,
-    "require": true,
-    "requirejs": true,
-
-    "Str": true,
-    "Locale": true,
-    "Options": true
   }
 }

@@ -1,0 +1,18 @@
+// extends common eslintrc config with addon-sdk specific configs
+{
+    "extends": "../.eslintrc",
+    "env": {
+      // commonjs conventions
+      "node": true
+    },
+    "rules": {
+      "global-strict": 0,
+      "dot-notation": 0,
+      "new-cap": 0,
+      "no-underscore-dangle": 0
+    },
+    "globals": {
+      // firebug.sdk globals
+      "FBTrace": true
+    }
+}

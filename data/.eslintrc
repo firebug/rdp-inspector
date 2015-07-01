@@ -1,0 +1,35 @@
+// extends common eslintrc config with "javascript running in a content context" specific configs
+{
+    "extends": "../.eslintrc",
+		"plugins": [
+			// prevents tab whitespace when 'indent' rule is disabled
+	    "no-tabs",
+	    "react"
+	  ],
+		"env": {
+      // enable browser & amd conventions
+      "browser": true,
+			"amd": true
+    },
+    "rules": {
+			// disabled due to conflicts with special indentation in requirejs modules
+			"indent": 0,
+			// prevents any usage of tab whitespaces
+			"no-tabs/at-all": [2],
+
+			// force definition of displayName on React components
+			"react/display-name": 2,
+
+			// TODO: force propTypes on React Components
+	    "react/prop-types": 0,
+
+			// disabled due to conflicts with capitalized React components names
+			"new-cap": [0],
+    },
+    "globals": {
+      // firebug.sdk globals
+			"Str": true,
+			"Locale": true,
+			"Options": true
+    }
+}
