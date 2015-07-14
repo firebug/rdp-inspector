@@ -190,7 +190,7 @@ PacketsStore.prototype =
 
       if (packet.type == "send") {
         // filter sent RDP packets needed to register the RDPi actorInspector actor
-        if (packet.packet.rdpInspectorInternals == true) {
+        if (packet.packet.rdpInspectorInternals) {
           filterFrom[packet.packet.to] = filterFrom[packet.packet.to] || 0;
           filterFrom[packet.packet.to] += 1;
 
