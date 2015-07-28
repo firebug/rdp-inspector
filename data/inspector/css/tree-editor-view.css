@@ -66,3 +66,8 @@
   background: yellow;
   color: black;
 }
+
+/* FIX: missing close button on hover */
+.closeButton:hover {
+  filter: url("resource://rdpinspector-at-getfirebug-dot-com/node_modules/firebug.sdk/skin/classic/shared/filters.svg#darken") !important;
+}
