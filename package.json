@@ -45,6 +45,13 @@
   "preferences-branch": "rdpinspector",
   "preferences": [
     {
+      "name": "webideConnectionMonitor",
+      "title": "Monitor WebIDE connections",
+      "description": "Monitor WebIDE connections and auto-open an RDP inspector window",
+      "type": "bool",
+      "value": false
+    },
+    {
       "name": "showInlineDetails",
       "title": "Show Packet Details Inline",
       "description": "Show a detailed tree view of the Packet content",
