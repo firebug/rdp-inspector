@@ -53,25 +53,7 @@
       const { inspectorWindowName } = window.arguments[0];
       document.title += ` - ${inspectorWindowName}`;
     }
-
-    const MIN_WIDTH=700, MIN_HEIGHT=600;
-    let resizeTaskID;
-
-    window.addEventListener("resize", (event) => {
-      let { outerWidth, outerHeight } = window;
-
-      let newWidth = outerWidth >= MIN_WIDTH ? outerWidth : MIN_WIDTH;
-      let newHeight = outerHeight >= MIN_HEIGHT ? outerHeight : MIN_HEIGHT;
-
-      if (outerWidth < MIN_WIDTH || outerHeight < MIN_HEIGHT) {
-        event.preventDefault();
-        if (resizeTaskID) {
-          clearTimeout(resizeTaskID);
-        }
-        resizeTaskID = setTimeout(() => window.resizeTo(newWidth, newHeight), 200);
-        return false;
-      }
-    }, false)
+    
     ]]>
     </script>
 
