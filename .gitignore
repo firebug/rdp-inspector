@@ -40,3 +40,7 @@
 
 # code coverage logs & reports
 /coverage/
+
+bootstrap.js
+install.rdf
+npm-debug.log
