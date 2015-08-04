@@ -5,6 +5,7 @@ node_js:
 env:
   ## Firefox Developer Edition
   - FIREFOX_VERSION=aurora-latest
+  - FIREFOX_VERSION=fx-team
 
 before_install:
 - "export DISPLAY=:99.0"
@@ -15,15 +16,12 @@ before_install:
 
 before_script:
 - npm install jpm -g
-# - npm install mozilla-download -g
-- cd ..
-# - mozilla-download --branch fx-team --product firefox $TRAVIS_BUILD_DIR/../
-- wget "https://download.mozilla.org/?product=firefox-$FIREFOX_VERSION-ssl&os=linux64&lang=en-US" -O $TRAVIS_BUILD_DIR/../firefox.tar.bz2
-- tar xvf firefox.tar.bz2
+- '( [[ "$FIREFOX_VERSION" = "fx-team" ]] && npm install mozilla-download -g && mozilla-download --branch fx-team --product firefox $TRAVIS_BUILD_DIR/../ ) || echo "Building on release $FIREFOX_VERSION"'
+- '( [[ "$FIREFOX_VERSION" != "fx-team" ]] && wget "https://download.mozilla.org/?product=firefox-$FIREFOX_VERSION-ssl&os=linux64&lang=en-US" -O $TRAVIS_BUILD_DIR/../firefox.tar.bz2 && cd $TRAVIS_BUILD_DIR/../ && tar xvf firefox.tar.bz2 ) || echo "Building on release $FIREFOX_VERSION"'
 - cd $TRAVIS_BUILD_DIR
 
 script:
 - export JPM_FIREFOX_BINARY=$TRAVIS_BUILD_DIR/../firefox/firefox
 - export FIREFOX_BIN=$JPM_FIREFOX_BINARY
 - npm run travis-ci
-- npm run jpm-tests -- -b $TRAVIS_BUILD_DIR/../firefox/firefox --verbose
+- npm run jpm-tests
