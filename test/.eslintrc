@@ -1,0 +1,4 @@
+// extends common eslintrc config with addon-sdk specific configs
+{
+    "extends": "../lib/.eslintrc"
+}
