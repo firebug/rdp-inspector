@@ -23,7 +23,7 @@ module.exports = function(config) {
     files: [
       'karma-tests/lib/firebug-sdk-shims.js',
       'karma-tests/test-main.js',
-      {pattern: 'node_modules/firebug.sdk/lib/reps/*.js', included: false },
+      {pattern: 'node_modules/firebug.sdk/lib/reps/**/*.js', included: false },
       {pattern: 'node_modules/firebug.sdk/skin/**/*', included: false},
       {pattern: 'data/**/*.js', included: false},
       {pattern: 'data/**/*.css', included: false},
