@@ -44,5 +44,18 @@
     <script type="application/x-javascript">
     window.gFindBar = document.getElementById("FindToolbar");
     </script>
+
+    <script type="application/x-javascript">
+    <![CDATA[
+
+    if (window.arguments.length > 0 &&
+        window.arguments[0].inspectorWindowName) {
+      const { inspectorWindowName } = window.arguments[0];
+      document.title += ` - ${inspectorWindowName}`;
+    }
+    
+    ]]>
+    </script>
+
   </vbox>
 </window>
