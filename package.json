@@ -18,7 +18,7 @@
     "Marco Aurelio Krause (pt-BR)"
   ],
   "license": "BSD License",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "scripts": {
     "test": "npm run karma-tests && npm run jpm-tests",
     "karma-tests": "karma start --single-run --reporters spec",
@@ -32,7 +32,7 @@
     "lint": "npm run lint-content && npm run lint-addon"
   },
   "engines": {
-    "firefox": ">=38.0 <=40.0"
+    "firefox": ">=38.0"
   },
   "main": "index.js",
   "repository": {
