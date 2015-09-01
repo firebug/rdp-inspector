@@ -1,5 +1,4 @@
 /* See license.txt for terms of usage */
-/* globals postChromeMessage */
 
 define(function(require/*, exports, module*/) {
 
@@ -17,6 +16,9 @@ var { Search } = require("search");
 
 // Reps
 require("./components/stack-frame-rep");
+
+// RDP Window injected APIs
+var { Locale, postChromeMessage } = require("./rdp-inspector-window");
 
 var packetsStore;
 var theApp;

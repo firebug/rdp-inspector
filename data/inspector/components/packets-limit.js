@@ -13,6 +13,9 @@ const { Reps } = require("reps/reps");
 // Constants
 const { DIV, SPAN } = Reps.DOM;
 
+// RDP Window injected APIs
+const { Locale } = require("../rdp-inspector-window");
+
 /**
  * @template This template is responsible for rendering a message
  * at the top of the packet list that informs the user about reaching
