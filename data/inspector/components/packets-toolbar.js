@@ -1,5 +1,4 @@
 /* See license.txt for terms of usage */
-/* globals Locale */
 
 define(function(require, exports/*, module*/) {
 
@@ -19,6 +18,9 @@ var Tooltip = React.createFactory(ReactBootstrap.Tooltip);
 
 const { Reps } = require("reps/reps");
 const { SPAN, INPUT } = Reps.DOM;
+
+// RDP Window injected APIs
+const { Locale } = require("../rdp-inspector-window");
 
 /**
  * @template This object represents a template for a toolbar displayed

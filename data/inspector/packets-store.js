@@ -1,9 +1,11 @@
 /* See license.txt for terms of usage */
-/* globals Options */
 
 define(function(require, exports/*, module*/) {
 
 "use strict";
+
+// RDP Window injected APIs
+const { Options } = require("./rdp-inspector-window");
 
 // Constants
 const refreshTimeout = 200;

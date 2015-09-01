@@ -1,5 +1,4 @@
 /* See license.txt for terms of usage */
-/* globals postChromeMessage */
 
 define(function(require, exports /*, module */) {
 
@@ -17,6 +16,9 @@ const { StackFrame } = require("../packets-store");
 
 // Constants
 const { SPAN } = Reps.DOM;
+
+// RDP Window injected APIs
+const { postChromeMessage } = require("../rdp-inspector-window");
 
 /**
  * This component is responsible for rendering a stack frame.

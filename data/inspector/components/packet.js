@@ -17,6 +17,9 @@ const { TreeView } = require("reps/tree-view");
 // Constants
 const { DIV, SPAN, UL, LI, A } = Reps.DOM;
 
+// RDP Window injected APIs
+const { Locale, Str } = require("../rdp-inspector-window");
+
 /**
  * @template This template is responsible for rendering a packet.
  * Packets are rendered within {@link PacketList} sorted by time.

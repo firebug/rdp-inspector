@@ -15,6 +15,9 @@ var Button = React.createFactory(ReactBootstrap.Button);
 const { Reps } = require("reps/reps");
 const { SELECT, OPTION } = Reps.DOM;
 
+// RDP Window injected APIs
+const { Locale } = require("../rdp-inspector-window");
+
 /**
  * @template This object is responsible for rendering the toolbar
  * in Actors tab

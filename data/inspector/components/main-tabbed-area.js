@@ -18,6 +18,9 @@ const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
 const TabPane = React.createFactory(ReactBootstrap.TabPane);
 const Alert = React.createFactory(ReactBootstrap.Alert);
 
+// RDP Window injected APIs
+const { Locale } = require("../rdp-inspector-window");
+
 /**
  * @template This template is responsible for rendering the main
  * application UI. The UI consist from set of tabs (Packets and Actors)

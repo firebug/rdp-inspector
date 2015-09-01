@@ -13,6 +13,10 @@ const { Reps } = require("reps/reps");
 // RDP Inspector
 const { TextWithTooltip } = require("./text-with-tooltip");
 
+// RDP Window injected APIs
+const { Locale, Str } = require("../rdp-inspector-window");
+
+
 // Constants
 const { DIV } = Reps.DOM;
 
