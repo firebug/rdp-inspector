@@ -5,6 +5,7 @@
 // RequireJS configuration
 require.config({
   baseUrl: ".",
+  scriptType: "application/javascript;version=1.8",
   paths: {
     "shared": "../shared",
     "jquery": "../lib/jquery/jquery",
