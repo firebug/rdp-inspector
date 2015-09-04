@@ -36,6 +36,15 @@ if (["http:", "https:", "file:"].indexOf(window.location.protocol) >= 0) {
       console.log("POST CHROME MESSAGE", arguments);
     };
 
+    exports.RDPConnectionsList = {
+      getConnectionsInfo: () => {},
+      onConnectionsUpdated: {
+        addListener: function() {},
+        removeListener: function() {}
+      },
+      openRDPInspectorWindow: () => {}
+    };
+
     // inject domTree css with a relative url (chrom urls can't be
     // loaded in a page not loaded from a resource or chrome urls)
 
@@ -51,7 +60,13 @@ if (["http:", "https:", "file:"].indexOf(window.location.protocol) >= 0) {
   exports.Options = Options;
   exports.Trace = Trace;
 
-  exports.postChromeMessage = postChromeMessage;
+  if ("postChromeMessage" in window) {
+    exports.postChromeMessage = window.postChromeMessage;
+  }
+
+  if ("RDPConnectionsList" in window) {
+    exports.RDPConnectionsList = window.RDPConnectionsList;
+  }
 }
 
 });

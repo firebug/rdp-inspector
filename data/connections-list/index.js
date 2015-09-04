@@ -4,16 +4,33 @@ define(function(require/*, exports, module*/) {
 
 "use strict";
 
-require("shared/rdp-inspector-window");
+const { RDPConnectionsList } = require("shared/rdp-inspector-window");
+var { Resizer } = require("shared/resizer");
 
 const { MainPanel } = require("./components/main-panel");
 
 // ReactJS
 var React = require("react");
 
-React.render(
-  React.createElement(MainPanel, {}),
-  document.querySelector("#content")
-);
+function render() {
+  let connections = RDPConnectionsList.getConnectionsInfo();
+
+  return React.render(
+    React.createElement(MainPanel, {
+      connections,
+      onConnectionClick: (conn) => {
+        RDPConnectionsList.openRDPInspectorWindow(conn);
+      }
+    }),
+    document.querySelector("#content")
+  );
+}
+
+let theApp = render();
+RDPConnectionsList.onConnectionsUpdated.addListener(render);
+
+/* eslint-disable no-new */
+new Resizer(window, theApp);
+/* eslint-enable */
 
 });

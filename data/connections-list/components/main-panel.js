@@ -14,18 +14,9 @@ exports.MainPanel = React.createClass({
   displayName: "MainPanel",
 
   render() {
-    let connections = {
-      "Local Tabs": [
-        { name: "New Tab", status: "CONNECTED" },
-        { name: "Tab2", status: "CONNECTED" },
-      ],
-      "WebIDE": [
-        { name: "Remote", status: "CONNECTED" }
-      ]
-    };
-
     return React.createElement(ConnectionsList, {
-      connections
+      connections: this.props.connections,
+      onConnectionClick: this.props.onConnectionClick
     });
   }
 });

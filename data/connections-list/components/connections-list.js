@@ -25,7 +25,7 @@ const ConnectionsGroup = React.createClass({
       }, conn.name);
     });
 
-    return ListGroup({}, connections);
+    return ListGroup({ fill: true }, connections);
   }
 });
 
@@ -40,9 +40,10 @@ exports.ConnectionsList = React.createClass({
       return TabPane({
         key: groupName,
         tab: groupName,
-        eventKey: i + 1
+        eventKey: i + 1,
+        style: { overflow: "auto"}
       }, React.createElement(ConnectionsGroup, {
-        onConnectionClick: this.onConnectionClick,
+        onConnectionClick: this.props.onConnectionClick,
         connectionsList: connections[groupName]
       }));
     });
@@ -51,10 +52,6 @@ exports.ConnectionsList = React.createClass({
       className: "mainTabbedArea",
       defaultActiveKey: 1, animation: false
     }, connectionsGroups);
-  },
-
-  onConnectionClick(conn) {
-    console.log("CONNECTION CLICKED", conn);
   }
 });
 
