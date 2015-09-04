@@ -14,7 +14,7 @@ const { Reps } = require("reps/reps");
 const { TextWithTooltip } = require("./text-with-tooltip");
 
 // RDP Window injected APIs
-const { Locale, Str } = require("../rdp-inspector-window");
+const { Locale, Str } = require("shared/rdp-inspector-window");
 
 
 // Constants

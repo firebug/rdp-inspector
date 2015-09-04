@@ -14,7 +14,7 @@ const { Reps } = require("reps/repository");
 // RDP Inspector
 const { ActorsToolbar } = require("./actors-toolbar");
 
-const { Locale } = require("../rdp-inspector-window");
+const { Locale } = require("shared/rdp-inspector-window");
 
 // Shortcuts
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;

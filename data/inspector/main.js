@@ -18,7 +18,7 @@ var { Search } = require("search");
 require("./components/stack-frame-rep");
 
 // RDP Window injected APIs
-var { Locale, postChromeMessage } = require("./rdp-inspector-window");
+var { Locale, postChromeMessage } = require("shared/rdp-inspector-window");
 
 var packetsStore;
 var theApp;

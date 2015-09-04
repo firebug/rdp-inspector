@@ -35,6 +35,15 @@ if (["http:", "https:", "file:"].indexOf(window.location.protocol) >= 0) {
     exports.postChromeMessage = window.postChromeMessage = function() {
       console.log("POST CHROME MESSAGE", arguments);
     };
+
+    // inject domTree css with a relative url (chrom urls can't be
+    // loaded in a page not loaded from a resource or chrome urls)
+
+    const domTreeStylesheet = document.createElement("link");
+    domTreeStylesheet.setAttribute("href", "../../node_modules/firebug.sdk/skin/classic/shared/domTree.css");
+    domTreeStylesheet.setAttribute("rel", "stylesheet");
+
+    document.querySelector("head").appendChild(domTreeStylesheet);
 } else {
   /* globals Str, Locale, Options, Trace, postChromeMessage */
   exports.Str = Str;

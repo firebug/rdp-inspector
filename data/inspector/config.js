@@ -6,6 +6,7 @@
 require.config({
   baseUrl: ".",
   paths: {
+    "shared": "../shared",
     "jquery": "../lib/jquery/jquery",
     "react": "../lib/react/react",
     "bootstrap": "../lib/bootstrap/js/bootstrap",
