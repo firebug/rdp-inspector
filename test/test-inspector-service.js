@@ -2,12 +2,10 @@
 
 const { InspectorService } = require("../lib/inspector-service");
 
-const { Cu } = require("chrome");
 const { getMostRecentBrowserWindow } = require("sdk/window/utils");
 
 // DevTools
-const { gDevTools } = Cu.import("resource:///modules/devtools/gDevTools.jsm", {});
-const { devtools } = Cu.import("resource://gre/modules/devtools/Loader.jsm", {});
+const { devtools, gDevTools } = require("firebug.sdk/lib/core/devtools.js");
 
 function showToolbox(toolId) {
   let browser = getMostRecentBrowserWindow();

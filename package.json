@@ -80,7 +80,7 @@
     }
   ],
   "dependencies": {
-    "firebug.sdk": "~0.6.3"
+    "firebug.sdk": "~0.6.7"
   },
   "devDependencies": {
     "eslint": "^0.21.0",
