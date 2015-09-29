@@ -39,12 +39,12 @@ exports.ConnectionsList = React.createClass({
     const connectionsGroups = Object.keys(connections).map((groupName, i) => {
       return TabPane({
         key: groupName,
-        tab: groupName,
+        tab: connections[groupName].label,
         eventKey: i + 1,
         style: { overflow: "auto"}
       }, React.createElement(ConnectionsGroup, {
         onConnectionClick: this.props.onConnectionClick,
-        connectionsList: connections[groupName]
+        connectionsList: connections[groupName].connections
       }));
     });
 
