@@ -45,9 +45,9 @@
   "preferences-branch": "rdpinspector",
   "preferences": [
     {
-      "name": "webideConnectionMonitor",
-      "title": "Monitor WebIDE connections",
-      "description": "Monitor WebIDE connections and auto-open an RDP inspector window",
+      "name": "autoOpenOnWebIDEConnection",
+      "title": "Open RDP Inspector window automatically on new WebIDE connections",
+      "description": "auto-open an RDP inspector window on every new WebIDE connections",
       "type": "bool",
       "value": false
     },
