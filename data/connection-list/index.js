@@ -4,7 +4,7 @@ define(function(require/*, exports, module*/) {
 
 "use strict";
 
-const { RDPConnectionsList } = require("shared/rdp-inspector-window");
+const { RDPConnectionList } = require("shared/rdp-inspector-window");
 var { Resizer } = require("shared/resizer");
 
 const { MainPanel } = require("./components/main-panel");
@@ -13,13 +13,13 @@ const { MainPanel } = require("./components/main-panel");
 var React = require("react");
 
 function render() {
-  let connections = RDPConnectionsList.getConnectionsInfo();
+  let connections = RDPConnectionList.getConnectionsInfo();
 
   return React.render(
     React.createElement(MainPanel, {
       connections,
       onConnectionClick: (conn) => {
-        RDPConnectionsList.openRDPInspectorWindow(conn);
+        RDPConnectionList.openRDPInspectorWindow(conn);
       }
     }),
     document.querySelector("#content")
@@ -27,7 +27,7 @@ function render() {
 }
 
 let theApp = render();
-RDPConnectionsList.onConnectionsUpdated.addListener(render);
+RDPConnectionList.onConnectionsUpdated.addListener(render);
 
 /* eslint-disable no-new */
 new Resizer(window, theApp);

@@ -17,7 +17,7 @@ const ConnectionsGroup = React.createClass({
   displayName: "ConnectionsGroup",
 
   render() {
-    let connections = this.props.connectionsList.map((conn) => {
+    let connections = this.props.connections.map((conn) => {
       return ListGroupItem({
         onClick: (evt) => {
           this.props.onConnectionClick(conn, evt);
@@ -29,8 +29,8 @@ const ConnectionsGroup = React.createClass({
   }
 });
 
-exports.ConnectionsList = React.createClass({
-  displayName: "ConnectionsList",
+exports.ConnectionList = React.createClass({
+  displayName: "ConnectionList",
 
   render() {
     const connections = this.props.connections || {};
@@ -44,7 +44,7 @@ exports.ConnectionsList = React.createClass({
         style: { overflow: "auto"}
       }, React.createElement(ConnectionsGroup, {
         onConnectionClick: this.props.onConnectionClick,
-        connectionsList: connections[groupName].connections
+        connections: connections[groupName].connections
       }));
     });
 

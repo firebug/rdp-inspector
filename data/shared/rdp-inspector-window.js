@@ -36,7 +36,7 @@ if (["http:", "https:", "file:"].indexOf(window.location.protocol) >= 0) {
       console.log("POST CHROME MESSAGE", arguments);
     };
 
-    exports.RDPConnectionsList = {
+    exports.RDPConnectionList = {
       getConnectionsInfo: () => {},
       onConnectionsUpdated: {
         addListener: function() {},
@@ -64,8 +64,8 @@ if (["http:", "https:", "file:"].indexOf(window.location.protocol) >= 0) {
     exports.postChromeMessage = window.postChromeMessage;
   }
 
-  if ("RDPConnectionsList" in window) {
-    exports.RDPConnectionsList = window.RDPConnectionsList;
+  if ("RDPConnectionList" in window) {
+    exports.RDPConnectionList = window.RDPConnectionList;
   }
 }
 

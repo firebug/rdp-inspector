@@ -8,13 +8,13 @@ define(function(require, exports/*, module*/) {
 const React = require("react");
 
 // Connections List components
-const { ConnectionsList } = require("./connections-list");
+const { ConnectionList } = require("./connection-list");
 
 exports.MainPanel = React.createClass({
   displayName: "MainPanel",
 
   render() {
-    return React.createElement(ConnectionsList, {
+    return React.createElement(ConnectionList, {
       connections: this.props.connections,
       onConnectionClick: this.props.onConnectionClick
     });
