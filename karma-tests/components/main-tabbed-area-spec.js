@@ -11,13 +11,13 @@ var React = require("react");
 // Fake actions singleton
 var actions = {};
 
-var { MainTabbedArea: mainTabbedArea } = require("components/main-tabbed-area");
-var { PacketsSummaryComponent } = require("components/packets-summary");
-var { PacketComponent } = require("components/packet");
-var { PacketsPanelComponent } = require("components/packets-panel");
-var { ActorsPanelComponent } = require("components/actors-panel");
+var { MainTabbedArea: mainTabbedArea } = require("inspector/components/main-tabbed-area");
+var { PacketsSummaryComponent } = require("inspector/components/packets-summary");
+var { PacketComponent } = require("inspector/components/packet");
+var { PacketsPanelComponent } = require("inspector/components/packets-panel");
+var { ActorsPanelComponent } = require("inspector/components/actors-panel");
 
-var { PacketsStore } = require("packets-store");
+var { PacketsStore } = require("inspector/packets-store");
 
 var theApp, packetsStore;
 theApp = React.render(mainTabbedArea({ actions: actions }), document.body);

@@ -11,14 +11,14 @@ var React = require("react");
 var { MainTabbedArea } = require("components/main-tabbed-area");
 var { PacketsStore } = require("packets-store");
 var { ActorsStore } = require("actors-store");
-var { Resizer } = require("resizer");
+var { Resizer } = require("shared/resizer");
 var { Search } = require("search");
 
 // Reps
 require("./components/stack-frame-rep");
 
 // RDP Window injected APIs
-var { Locale, postChromeMessage } = require("./rdp-inspector-window");
+var { Locale, postChromeMessage } = require("shared/rdp-inspector-window");
 
 var packetsStore;
 var theApp;

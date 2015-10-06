@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css"?>
+<?xml-stylesheet href="chrome://global/skin/findBar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/devtools/widgets.css" type="text/css"?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  id="rdpinspectorconnections"
+  windowtype="RDPInspectorConnectionList"
+  title="RDP Inspector - Connections"
+  width="300" height="480"
+  screenX="10" screenY="10"
+  persist="screenX screenY width height sizemode">
+
+  <!-- Firefox Files -->
+  <script xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" type="application/javascript;version=1.8"
+          src="chrome://browser/content/devtools/theme-switching.js"/>
+  <script type="application/x-javascript" src="chrome://global/content/globalOverlay.js"/>
+  <script type="application/x-javascript" src="chrome://global/content/findBar.js"/>
+
+  <!-- String Bundles -->
+  <stringbundle id="bundle_findBar" src="chrome://global/locale/findbar.properties"/>
+
+    <!-- Commands -->
+    <commandset id="mainCommandSet">
+      <command id="cmd_find" oncommand="gFindBar.onFindCommand();"/>
+      <command id="cmd_findAgain" oncommand="gFindBar.onFindAgainCmd();"/>
+      <command id="cmd_findPrevious" oncommand="gFindBar.onFindPreviousCmd();"/>
+    </commandset>
+
+    <keyset id="mainKeyset">
+      <key id="key_find" key="f" command="cmd_find" modifiers="accel"/>
+    </keyset>
+
+  <!-- Application Content -->
+  <vbox flex="1">
+
+    <!-- React UI Container -->
+    <browser id="contentFrame" type="content-primary" flex="1"
+      disablehistory="true" />
+
+    <!-- Search bar -->
+    <findbar id="FindToolbar" browserid="contentFrame"/>
+
+    <script type="application/x-javascript">
+    window.gFindBar = document.getElementById("FindToolbar");
+    </script>
+  </vbox>
+</window>

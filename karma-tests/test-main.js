@@ -17,24 +17,25 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 
 require.config({
   // Karma serves files under /base, which is the basePath from your config file
-  baseUrl: '/base/data/inspector/',
+  baseUrl: '/base/data/',
 
   // dynamically load all test files
   deps: allTestFiles,
 
   paths: {
     // rdp-inspector requirejs paths
-    "jquery": "../lib/jquery/jquery",
-    "bootstrap": "../lib/bootstrap/js/bootstrap",
-    "immutable": "../lib/immutable/immutable",
-    "react-bootstrap": "../lib/react-bootstrap/react-bootstrap",
-    "reps": "../../node_modules/firebug.sdk/lib/reps",
+    "shared": "./shared",
+    "jquery": "./lib/jquery/jquery",
+    "bootstrap": "./lib/bootstrap/js/bootstrap",
+    "immutable": "./lib/immutable/immutable",
+    "react-bootstrap": "./lib/react-bootstrap/react-bootstrap",
+    "reps": "../node_modules/firebug.sdk/lib/reps",
 
     // use react-with-addons during testing
-    "react": "../../karma-tests/lib/react-with-addons",
+    "react": "../karma-tests/lib/react-with-addons",
 
     // include jasmine custom matchers
-    "karma-tests": "../../karma-tests"
+    "karma-tests": "../karma-tests"
   },
 
   // we have to kickoff jasmine, as it is asynchronous

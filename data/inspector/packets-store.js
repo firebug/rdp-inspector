@@ -5,7 +5,7 @@ define(function(require, exports/*, module*/) {
 "use strict";
 
 // RDP Window injected APIs
-const { Options } = require("./rdp-inspector-window");
+const { Options } = require("shared/rdp-inspector-window");
 
 // Constants
 const refreshTimeout = 200;

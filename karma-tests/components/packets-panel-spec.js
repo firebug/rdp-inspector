@@ -8,10 +8,10 @@ define(function (require) {
 var React = require("react");
 var { TestUtils } = React.addons;
 
-var { PacketsPanel } = require("components/packets-panel");
-var { PacketsToolbarComponent } = require("components/packets-toolbar");
-var { PacketListComponent } = require("components/packet-list");
-var { PacketsSidebarComponent } = require("components/packets-sidebar");
+var { PacketsPanel } = require("inspector/components/packets-panel");
+var { PacketsToolbarComponent } = require("inspector/components/packets-toolbar");
+var { PacketListComponent } = require("inspector/components/packet-list");
+var { PacketsSidebarComponent } = require("inspector/components/packets-sidebar");
 
 var packetsPanel = TestUtils.renderIntoDocument(PacketsPanel({}));
 

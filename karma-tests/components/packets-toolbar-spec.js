@@ -7,7 +7,7 @@ define(function (require) {
 var React = require("react");
 var { TestUtils } = React.addons;
 
-var { PacketsToolbar } = require("components/packets-toolbar");
+var { PacketsToolbar } = require("inspector/components/packets-toolbar");
 
 var packetsToolbar = TestUtils.renderIntoDocument(PacketsToolbar({}));
 
