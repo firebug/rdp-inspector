@@ -8,7 +8,7 @@ define(function (require) {
 var React = require("react");
 var { TestUtils } = React.addons;
 
-var { Packet } = require("components/packet");
+var { Packet } = require("inspector/components/packet");
 const { TreeViewComponent } = require("reps/tree-view");
 
 var ReactMatchers = require("karma-tests/custom-react-matchers");

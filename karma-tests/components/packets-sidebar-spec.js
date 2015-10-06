@@ -8,7 +8,7 @@ define(function (require) {
 var React = require("react");
 var { TestUtils } = React.addons;
 
-var { PacketsSidebar } = require("components/packets-sidebar");
+var { PacketsSidebar } = require("inspector/components/packets-sidebar");
 var ReactMatchers = require("karma-tests/custom-react-matchers");
 
 describe("PacketsSidebar", () => {

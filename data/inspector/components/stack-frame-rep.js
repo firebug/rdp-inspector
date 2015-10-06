@@ -18,7 +18,7 @@ const { StackFrame } = require("../packets-store");
 const { SPAN } = Reps.DOM;
 
 // RDP Window injected APIs
-const { postChromeMessage } = require("../rdp-inspector-window");
+const { postChromeMessage } = require("shared/rdp-inspector-window");
 
 /**
  * This component is responsible for rendering a stack frame.

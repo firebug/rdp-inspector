@@ -14,7 +14,7 @@ const { Reps } = require("reps/reps");
 const { DIV, SPAN } = Reps.DOM;
 
 // RDP Window injected APIs
-const { Locale } = require("../rdp-inspector-window");
+const { Locale } = require("shared/rdp-inspector-window");
 
 /**
  * @template This template is responsible for rendering a message
