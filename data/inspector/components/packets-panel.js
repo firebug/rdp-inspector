@@ -8,13 +8,14 @@ define(function(require, exports/*, module*/) {
 const React = require("react");
 
 // Firebug SDK
+const { createFactories } = require("reps/rep-utils");
 const { Reps } = require("reps/repository");
+const { Splitter } = createFactories(require("reps/splitter"));
 
 // RDP Inspector
 const { PacketList } = require("./packet-list");
 const { PacketsSidebar } = require("./packets-sidebar");
 const { PacketsToolbar } = require("./packets-toolbar");
-const { Splitter } = require("./splitter");
 
 // Shortcuts
 const { DIV } = Reps.DOM;

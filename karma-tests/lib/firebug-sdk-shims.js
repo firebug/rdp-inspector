@@ -44,8 +44,8 @@ var stylesheets = [
   "css/actors-panel.css",
   "css/search-box.css",
   "css/tree-editor-view.css",
-  "css/splitter.css",
-  "../../node_modules/firebug.sdk/skin/classic/shared/domTree.css"
+  "../../node_modules/firebug.sdk/skin/classic/shared/domTree.css",
+  "../../node_modules/firebug.sdk/skin/classic/shared/splitter.css"
 ];
 
 stylesheets.forEach(function(url) {
