@@ -4,13 +4,14 @@ define(function(require, exports/*, module*/) {
 
 "use strict";
 
-// ReactJS
+// React & Redux
 const React = require("react");
+const { connect } = require("react-redux");
 
 // Connections List components
-const { ConnectionList } = require("./connection-list");
+const { ConnectionList } = require("../components/connection-list");
 
-exports.MainPanel = React.createClass({
+const MainPanel = React.createClass({
   displayName: "MainPanel",
 
   render() {
@@ -20,5 +21,12 @@ exports.MainPanel = React.createClass({
     });
   }
 });
+
+function mapStoreToProps(state) {
+  let { connections } = state;
+  return { connections };
+}
+
+exports.MainPanel = connect(mapStoreToProps)(MainPanel);
 
 });
