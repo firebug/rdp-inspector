@@ -44,7 +44,7 @@ var PacketsSidebar = React.createClass({
   },
 
   componentWillUnmount: function() {
-    window.removeEventListener(this.onSwitchToPacketEditorTab);
+    window.removeEventListener("rdpinspector:switchToPacketEditorTab", this.onSwitchToPacketEditorTab);
   },
 
   onSwitchToPacketEditorTab: function() {
