@@ -37,12 +37,12 @@ var MainTabbedArea = React.createClass({
   },
 
   componentDidMount: function() {
-    var tabbedArea = this.refs.tabbedArea;
+    var tabbedArea = this.refs.tabbedArea.getDOMNode();
     SearchBox.create(tabbedArea.querySelector(".nav-tabs"));
   },
 
   componentWillUnmount: function() {
-    var tabbedArea = this.refs.tabbedArea;
+    var tabbedArea = this.refs.tabbedArea.getDOMNode();
     SearchBox.destroy(tabbedArea.querySelector(".nav-tabs"));
   },
 
