@@ -4,33 +4,6 @@
 
 "use strict";
 
-// inject firebug.sdk APIs shims
-window.Locale = {
-  $STR: function(s) { return s; }
-};
-
-window.Options = {
-  getPref: function(key) {
-    /* eslint no-console: 0 */
-    switch(key) {
-    case "extensions.rdpinspector.packetLimit":
-      return 100;
-    default:
-      throw Error("UNKNOWN Option.getPref: " + key);
-    }
-  }
-};
-
-window.Str = {
-  formatSize: function(str) { return str; }
-};
-
-window.Trace = {
-  sysout: function(...args) {
-    console.log.apply(console, args);
-  }
-}
-
 // set the theme-firebug class on the body element
 document.body.setAttribute("class", "theme-firebug");
 

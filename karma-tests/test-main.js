@@ -18,6 +18,7 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 require.config({
   // Karma serves files under /base, which is the basePath from your config file
   baseUrl: '/base/data/',
+  scriptType: "application/javascript;version=1.8",
 
   // dynamically load all test files
   deps: allTestFiles,
@@ -30,6 +31,9 @@ require.config({
     "immutable": "./lib/immutable/immutable",
     "react-bootstrap": "./lib/react-bootstrap/react-bootstrap",
     "reps": "../node_modules/firebug.sdk/lib/reps",
+    "firebug.sdk": "../node_modules/firebug.sdk",
+    "redux": "./lib/redux/redux",
+    "react-redux": "./lib/redux/react-redux",
 
     // use react-with-addons during testing
     "react": "../karma-tests/lib/react-with-addons",
