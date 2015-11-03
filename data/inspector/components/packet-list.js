@@ -6,6 +6,7 @@ define(function(require, exports/*, module*/) {
 
 // Dependencies
 const React = require("react");
+const ReactDOM = require("react-dom");
 
 // Firebug SDK
 const { Reps } = require("reps/reps");
@@ -33,14 +34,14 @@ var PacketList = React.createClass({
   },
 
   componentWillUpdate: function() {
-    var node = this.getDOMNode();
+    var node = ReactDOM.findDOMNode(this);
     this.shouldScrollBottom = node.scrollTop +
       node.offsetHeight === node.scrollHeight;
   },
 
   componentDidUpdate: function() {
     if (this.shouldScrollBottom) {
-      var node = this.getDOMNode();
+      var node = ReactDOM.findDOMNode(this);
       node.scrollTop = node.scrollHeight;
     }
   },

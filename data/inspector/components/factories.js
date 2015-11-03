@@ -7,7 +7,8 @@ define(function(require, exports/*, module*/) {
 // Dependencies
 const { Reps } = require("reps/reps");
 
-var React = require("react");
+var ReactDOM = require("react-dom");
+
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
 
 // Templates
@@ -106,9 +107,10 @@ var FactoryList = React.createFactory(React.createClass({
   }
 }));
 
+// TODO: turn this into a more React approach
 var Factories = {
   render: function(parentNode) {
-    return React.render(FactoryList(), parentNode);
+    return ReactDOM.render(FactoryList(), parentNode);
   }
 };
 

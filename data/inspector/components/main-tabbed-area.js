@@ -6,6 +6,7 @@ define(function(require, exports, module) {
 
 // ReactJS
 var React = require("react");
+var ReactDOM = require("react-dom");
 var ReactBootstrap = require("react-bootstrap");
 
 // RDP Inspector
@@ -37,12 +38,12 @@ var MainTabbedArea = React.createClass({
   },
 
   componentDidMount: function() {
-    var tabbedArea = this.refs.tabbedArea.getDOMNode();
+    var tabbedArea = ReactDOM.findDOMNode(this.refs.tabbedArea);
     SearchBox.create(tabbedArea.querySelector(".nav-tabs"));
   },
 
   componentWillUnmount: function() {
-    var tabbedArea = this.refs.tabbedArea.getDOMNode();
+    var tabbedArea = ReactDOM.findDOMNode(this.refs.tabbedArea);
     SearchBox.destroy(tabbedArea.querySelector(".nav-tabs"));
   },
 
