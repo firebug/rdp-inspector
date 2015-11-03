@@ -8,14 +8,13 @@ define(function(require, exports /*, module */) {
 const React = require("react");
 
 // Firebug SDK
-const { Reps } = require("reps/reps");
 const { TreeView } = require("reps/tree-view");
 
 // RDP Inspector
 //const { TextWithTooltip } = require("./text-with-tooltip");
 
 // Constants
-const { DIV, SPAN, UL, LI, A } = Reps.DOM;
+const { div, span, ul, li, a } = React.DOM;
 
 // RDP Window injected APIs
 const { Locale, Str } = require("shared/rdp-inspector-window");
@@ -82,79 +81,79 @@ var Packet = React.createClass({
 
     if (this.props.data.type == "send") {
       return (
-        DIV({className: classNames.join(" "), onClick: this.onClick,
+        div({className: classNames.join(" "), onClick: this.onClick,
              onContextMenu: this.onContextMenu},
-          DIV({className: "packetBox"},
-            DIV({className: "packetContent"},
-              DIV({className: "body"},
-                SPAN({className: "text"},
+          div({className: "packetBox"},
+            div({className: "packetContent"},
+              div({className: "body"},
+                span({className: "text"},
                   Locale.$STR("rdpInspector.label.sent") + " "
                 ),
-                SPAN({className: "type"}, type),
-                SPAN({className: "text"},
+                span({className: "type"}, type),
+                span({className: "text"},
                     " " + Locale.$STR("rdpInspector.label.to") + " "
                 ),
-                SPAN({className: "to"}, packet.to),
-                DIV({},
+                span({className: "to"}, packet.to),
+                div({},
                   /*TextWithTooltip({
                     tooltip: stackFrameUrl, className: "stackFrameLabel",
                     onClick: this.onViewSource.bind(this, topFrame)},
                     stackFrame
                   ),*/
-                  SPAN({className: "info"}, timeText + ", " + size)
+                  span({className: "info"}, timeText + ", " + size)
                 ),
-                DIV({className: "preview"},
+                div({className: "preview"},
                   preview
                 )
               ),
-              DIV({className: "boxArrow"})
+              div({className: "boxArrow"})
             )
           ),
           this.state && this.state.contextMenu &&
-          UL({className: "dropdown-menu", role: "menu", ref: "contextMenu",
+          ul({className: "dropdown-menu", role: "menu", ref: "contextMenu",
             onMouseLeave: this.onContextMenuMouseLeave,
             style: {
               display: "block",
               top: this.state.contextMenuTop,
               left: this.state.contextMenuLeft
             }},
-            LI({role: "presentation"},
-              A({ref: "editAndResendAction", onClick: this.onEditAndResendClick},
+            li({role: "presentation"},
+              a({ref: "editAndResendAction", onClick: this.onEditAndResendClick},
                 "Edit and Resend"))
           )
         )
       );
     } else {
       return (
-        DIV({className: classNames.join(" "), onClick: this.onClick},
-          DIV({className: "packetBox"},
-            DIV({className: "packetContent"},
-              DIV({className: "boxArrow"}),
-              DIV({className: "body"},
-                DIV({className: "from"},
-                  SPAN({className: "text"},
+        div({className: classNames.join(" "), onClick: this.onClick},
+          div({className: "packetBox"},
+            div({className: "packetContent"},
+              div({className: "boxArrow"}),
+              div({className: "body"},
+                div({className: "from"},
+                  span({className: "text"},
                     Locale.$STR("rdpInspector.label.received") + " "
                   ),
-                  SPAN({}, type),
-                  SPAN({className: "text"},
+                  span({}, type),
+                  span({className: "text"},
                     " " + Locale.$STR("rdpInspector.label.from") + " "),
-                  SPAN({}, packet.from),
-                  DIV({},
+                  span({}, packet.from),
+                  div({},
                     /*TextWithTooltip({
                       tooltip: stackFrameUrl, className: "stackFrameLabel",
                       onClick: this.onViewSource.bind(this, topFrame)},
                       stackFrame
                     ),*/
-                    SPAN({className: "info"}, timeText + ", " + size)
+                    span({className: "info"}, timeText + ", " + size)
                   )
                 ),
                 // NOTE: on issue #44, a long "consoleAPICall" received packet
                 // was wrongly turned into a "div.errorMessage"
-                packet.error ? DIV({className: "errorMessage"},
-                  DIV({}, packet.error),
-                  DIV({}, packet.message)
+                packet.error ? div({className: "errorMessage"},
+                  div({}, packet.error),
+                  div({}, packet.message)
                 ) : null,
-                DIV({className: "preview"},
+                div({className: "preview"},
                   preview
                 )
               )

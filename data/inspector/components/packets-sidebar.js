@@ -6,7 +6,6 @@ define(function(require, exports/*, module*/) {
 
 // ReactJS
 const React = require("react");
-const ReactBootstrap = require("react-bootstrap");
 
 // RDP Inspector
 const { PacketDetails } = require("./packet-details");
@@ -14,8 +13,7 @@ const { PacketEditor } = require("./packet-editor");
 const { PacketStackSidePanel } = require("./packet-stack-sidepanel");
 
 // Constants
-const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
-const TabPane = React.createFactory(ReactBootstrap.TabPane);
+const { Tabs, Tab } = require("shared/react-bootstrap-factories");
 
 /**
  * @template This template represents a list of packets displayed
@@ -52,25 +50,26 @@ var PacketsSidebar = React.createClass({
   },
 
   render: function() {
+    // TODO xxxRpl: externalize and localize sidebar tab titles
     return (
-      TabbedArea({
+      Tabs({
         className: "sideBarTabbedArea", animation: false,
         activeKey: this.state.activeKey,
         onSelect: this.onTabSelected
       },
-        TabPane({eventKey: 1, tab: "Packet Details"},
+        Tab({ eventKey: 1, title: "Packet Details" },
           PacketDetails({
             selectedPacket: this.props.selectedPacket
           })
         ),
-        TabPane({eventKey: 2, tab: "Send Packet"},
+        Tab({ eventKey: 2, title: "Send Packet" },
           PacketEditor({
             actions: this.props.actions,
             actorIDs: this.props.actorIDs,
             editedPacket: this.props.editedPacket
           })
         ),
-        TabPane({eventKey: 3, tab: "Stack"},
+        Tab({ eventKey: 3, title: "Stack" },
           PacketStackSidePanel({
             actions: this.props.actions,
             selectedPacket: this.props.selectedPacket

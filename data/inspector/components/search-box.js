@@ -12,7 +12,7 @@ var SearchBox =
 {
   create: function(parentNode) {
     var doc = parentNode.ownerDocument;
-    var tabArea = doc.querySelector(".mainTabbedArea.nav-tabs");
+    var tabArea = doc.querySelector(".mainTabbedArea [role=tablist] .nav-tabs");
     var item = doc.createElement("li");
     tabArea.appendChild(item);
 

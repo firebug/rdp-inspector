@@ -7,7 +7,6 @@ define(function(require, exports, module) {
 // ReactJS
 var React = require("react");
 var ReactDOM = require("react-dom");
-var ReactBootstrap = require("react-bootstrap");
 
 // RDP Inspector
 const { ActorsPanel } = require("./actors-panel");
@@ -15,9 +14,7 @@ const { PacketsPanel } = require("./packets-panel");
 const { SearchBox } = require("./search-box");
 
 // Constants
-const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
-const TabPane = React.createFactory(ReactBootstrap.TabPane);
-const Alert = React.createFactory(ReactBootstrap.Alert);
+const { Tabs, Tab, Alert } = require("shared/react-bootstrap-factories");
 
 // RDP Window injected APIs
 const { Locale } = require("shared/rdp-inspector-window");
@@ -57,7 +54,7 @@ var MainTabbedArea = React.createClass({
     var { error } = this.props.packets;
 
     return (
-      TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1,
+      Tabs({className: "mainTabbedArea", defaultActiveKey: 1,
         animation: false, ref: "tabbedArea"},
         error ? Alert({
           bsStyle: "warning",
@@ -69,7 +66,7 @@ var MainTabbedArea = React.createClass({
             zIndex: 999999
           }
         }, error.message) : null,
-        TabPane({eventKey: 1, tab: packets},
+        Tab({ eventKey: 1, title: packets },
           PacketsPanel({
             packets: this.props.packets.filteredPackets,
             actions: this.props.view,
@@ -83,7 +80,7 @@ var MainTabbedArea = React.createClass({
             actorIDs: this.props.actors.actorIDs
           })
         ),
-        TabPane({eventKey: 2, tab: actors},
+        Tab({ eventKey: 2, title: actors },
           ActorsPanel({
             actions: this.props.view,
             actors: this.props.actors,

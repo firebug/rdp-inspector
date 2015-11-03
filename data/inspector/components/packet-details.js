@@ -8,11 +8,10 @@ define(function(require, exports/*, module*/) {
 const React = require("react");
 
 // Firebug SDK
-const { Reps } = require("reps/repository");
 const { TreeView } = require("reps/tree-view");
 
 // Shortcuts
-const { DIV } = Reps.DOM;
+const { div } = React.DOM;
 
 /**
  * @template This template represents a list of packets displayed
@@ -33,7 +32,7 @@ var PacketDetails = React.createClass({
     var selectedPacket = this.props.selectedPacket || {};
 
     return (
-      DIV({className: "details"},
+      div({className: "details"},
         TreeView({key: "packet-detail", data: selectedPacket.packet})
       )
     );

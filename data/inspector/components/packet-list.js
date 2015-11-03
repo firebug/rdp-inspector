@@ -8,9 +8,6 @@ define(function(require, exports/*, module*/) {
 const React = require("react");
 const ReactDOM = require("react-dom");
 
-// Firebug SDK
-const { Reps } = require("reps/reps");
-
 // RDP Inspector
 const { Packet } = require("./packet");
 const { PacketsSummary } = require("./packets-summary");
@@ -18,7 +15,7 @@ const { PacketsLimit } = require("./packets-limit");
 const { PacketsMessage } = require("./packets-message");
 
 // Shortcuts
-const { DIV } = Reps.DOM;
+const { div } = React.DOM;
 
 /**
  * @template This template represents a list of packets displayed
@@ -96,8 +93,8 @@ var PacketList = React.createClass({
     }
 
     return (
-      DIV({className: "list"},
-        DIV({}, output)
+      div({className: "list"},
+        div({}, output)
       )
     );
   }

@@ -6,14 +6,11 @@ define(function(require, exports/*, module*/) {
 
 // Dependencies
 var React = require("react");
-var ReactBootstrap = require("react-bootstrap");
 
 // Shortcuts
-var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
-var Button = React.createFactory(ReactBootstrap.Button);
+const { ButtonToolbar, Button } = require("shared/react-bootstrap-factories");
 
-const { Reps } = require("reps/reps");
-const { SELECT, OPTION } = Reps.DOM;
+const { select, option } = React.DOM;
 
 // RDP Window injected APIs
 const { Locale } = require("shared/rdp-inspector-window");
@@ -32,7 +29,7 @@ var ActorsToolbar = React.createClass({
 
     var options = Object.keys(panelTypesLabels).map((value) => {
       var label = panelTypesLabels[value];
-      return OPTION({ value: value, key: value }, label);
+      return option({ value: value, key: value }, label);
     });
 
     return (
@@ -40,7 +37,7 @@ var ActorsToolbar = React.createClass({
         Button({bsSize: "xsmall", onClick: this.onRefresh},
           Locale.$STR("rdpInspector.cmd.refresh")
         ),
-        SELECT({ selected: currentPanelType, onChange: this.onChange },
+        select({ selected: currentPanelType, onChange: this.onChange },
           options
         )
       )

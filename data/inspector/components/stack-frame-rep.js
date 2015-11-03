@@ -12,7 +12,7 @@ const { Reps } = require("reps/reps");
 const { ObjectBox } = require("reps/object-box");
 
 // Constants
-const { SPAN } = Reps.DOM;
+const { span } = React.DOM;
 
 // RDP Window injected APIs
 const { postChromeMessage } = require("shared/rdp-inspector-window");
@@ -32,8 +32,8 @@ var StackFrameRep = React.createClass({
 
     return (
       ObjectBox({className: "stackFrame"},
-        SPAN({className: "stackName"}, name + "()"),
-        SPAN({className: "stackLabel", onClick: this.onViewSource}, label)
+        span({className: "stackName"}, name + "()"),
+        span({className: "stackLabel", onClick: this.onViewSource}, label)
       )
     );
   },

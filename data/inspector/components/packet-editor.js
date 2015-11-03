@@ -6,17 +6,14 @@ define(function(require, exports/*, module*/) {
 
 // Dependencies
 const React = require("react");
-const ReactBootstrap = require("react-bootstrap");
 
 // Firebug SDK
-const { Reps } = require("reps/repository");
 const { TreeEditorView } = require("./tree-editor-view");
 
 // Constants
-const { DIV } = Reps.DOM;
+const { div } = React.DOM;
 
-const ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
-const Button = React.createFactory(ReactBootstrap.Button);
+const { ButtonToolbar, Button } = require("shared/react-bootstrap-factories");
 
 /**
  * @template This template represents the Packet Editor toolbar
@@ -78,7 +75,7 @@ var PacketEditor = React.createClass({
     var { actorIDs } = this.props;
 
     return (
-      DIV({className: "details editor"},
+      div({className: "details editor"},
           PacketEditorToolbar({
             onClear: this.onClear,
             onSend: this.onSend,

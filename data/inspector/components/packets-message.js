@@ -7,11 +7,8 @@ define(function(require, exports/*, module*/) {
 // ReactJS
 const React = require("react");
 
-// Firebug SDK
-const { Reps } = require("reps/reps");
-
 // Constants
-const { DIV } = Reps.DOM;
+const { div } = React.DOM;
 
 /**
  * @template This template renders a generic message within the
@@ -31,9 +28,9 @@ var PacketsMessage = React.createClass({
 
     // Render summary info
     return (
-      DIV({className: "packetsMessage"},
-        DIV({className: "text"}, message),
-        DIV({className: "time"}, timeText)
+      div({className: "packetsMessage"},
+        div({className: "text"}, message),
+        div({className: "time"}, timeText)
       )
     );
   }

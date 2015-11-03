@@ -10,7 +10,7 @@ const React = require("react");
 // React Bootstrap factories
 const {
   ListGroup, ListGroupItem,
-  TabbedArea, TabPane
+  Tabs, Tab
 } = require("shared/react-bootstrap-factories");
 
 const ConnectionsGroup = React.createClass({
@@ -19,13 +19,14 @@ const ConnectionsGroup = React.createClass({
   render() {
     let connections = this.props.connections.map((conn) => {
       return ListGroupItem({
+        style: { width: "100%" },
         onClick: (evt) => {
           this.props.onConnectionClick(conn, evt);
         }
       }, conn.name);
     });
 
-    return ListGroup({ fill: true }, connections);
+    return ListGroup({ style: { width: "100%" } }, connections);
   }
 });
 
@@ -37,18 +38,18 @@ exports.ConnectionList = React.createClass({
 
     // turn the first level (connections group) into a ConnectionsGroups components
     const connectionsGroups = Object.keys(connections).map((groupName, i) => {
-      return TabPane({
+      return Tab({
         key: groupName,
-        tab: connections[groupName].label,
+        title: connections[groupName].label,
         eventKey: i + 1,
-        style: { overflow: "auto"}
+        style: { overflow: "auto" }
       }, React.createElement(ConnectionsGroup, {
         onConnectionClick: this.props.onConnectionClick,
         connections: connections[groupName].connections
       }));
     });
 
-    return TabbedArea({
+    return Tabs({
       className: "mainTabbedArea",
       defaultActiveKey: 1, animation: false
     }, connectionsGroups);

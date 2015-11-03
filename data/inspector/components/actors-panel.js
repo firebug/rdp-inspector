@@ -7,17 +7,13 @@ define(function(require, exports/*, module*/) {
 // Dependencies
 const React = require("react");
 
-// Firebug SDK
-
-const { Reps } = require("reps/repository");
-
 // RDP Inspector
 const { ActorsToolbar } = require("./actors-toolbar");
 
 const { Locale } = require("shared/rdp-inspector-window");
 
 // Shortcuts
-const { TR, TD, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
+const { tr, td, table, tbody, thead, th, div, h4 } = React.DOM;
 
 const GLOBAL_ACTORS_POOLS = "global-actors-pool";
 const TAB_ACTORS_POOLS = "tab-actors-pool";
@@ -76,13 +72,13 @@ var ActorsPanel = React.createClass({
     }
 
     return (
-      DIV({ className: "actorsPanelBox" },
+      div({ className: "actorsPanelBox" },
         ActorsToolbar({ actions: this.props.actions,
           currentPanelType: panelType,
           panelTypesLabels: PanelTypesLabels,
           onPanelTypeSelected: this.onPanelTypeSelected
         }),
-        DIV({ className: "actorsScrollBox" }, el)
+        div({ className: "actorsScrollBox" }, el)
       )
     );
   },
@@ -131,7 +127,7 @@ var ActorsPools = React.createFactory(React.createClass({
       }
     }).filter((el) => el);
 
-    return DIV({ className: "poolContainer" }, poolTables);
+    return div({ className: "poolContainer" }, poolTables);
   }
 }));
 
@@ -169,17 +165,17 @@ var PoolTable = React.createFactory(React.createClass({
     var id = this.props.id ? "ID: " + this.props.id : "";
 
     return (
-      DIV({},
-        H4({}, "Pool" + id),
-        TABLE({className: className},
-          THEAD({className: "poolRow"},
-            TH({width: "20%"}, "Actor ID"),
-            TH({width: "20%"}, "Prefix"),
-            TH({width: "20%"}, "TypeName"),
-            TH({width: "20%"}, "Parent"),
-            TH({width: "20%"}, "Constructor")
+      div({},
+        h4({}, "Pool" + id),
+        table({className: className},
+          thead({className: "poolRow"},
+            th({width: "20%"}, "Actor ID"),
+            th({width: "20%"}, "Prefix"),
+            th({width: "20%"}, "TypeName"),
+            th({width: "20%"}, "Parent"),
+            th({width: "20%"}, "Constructor")
           ),
-          TBODY(null, rows)
+          tbody(null, rows)
         )
       )
     );
@@ -197,12 +193,12 @@ var PoolRow = React.createFactory(React.createClass({
   render: function() {
     var actor = this.props;
     return (
-      TR({className: "poolRow"},
-        TD({}, actor.actorID),
-        TD({}, actor.actorPrefix),
-        TD({}, actor.typeName),
-        TD({}, actor.parentID),
-        TD({}, actor.constructor)
+      tr({className: "poolRow"},
+        td({}, actor.actorID),
+        td({}, actor.actorPrefix),
+        td({}, actor.typeName),
+        td({}, actor.parentID),
+        td({}, actor.constructor)
       )
     );
   }
@@ -233,13 +229,13 @@ var FactoryTable = React.createFactory(React.createClass({
     }
 
     return (
-      TABLE({className: "poolTable"},
-        THEAD({className: "poolRow"},
-          TH({width: "33%"}, "Name"),
-          TH({width: "33%"}, "Prefix"),
-          TH({width: "33%"}, "Constructor")
+      table({className: "poolTable"},
+        thead({className: "poolRow"},
+          th({width: "33%"}, "Name"),
+          th({width: "33%"}, "Prefix"),
+          th({width: "33%"}, "Constructor")
         ),
-        TBODY(null, rows)
+        tbody(null, rows)
       )
     );
   }
@@ -259,14 +255,14 @@ var ActorsFactories = React.createFactory(React.createClass({
     var searchFilter = this.props.searchFilter;
 
     return (
-      DIV({className: "poolContainer"},
-        H4(null, "Main Process - Global Factories"),
+      div({className: "poolContainer"},
+        h4(null, "Main Process - Global Factories"),
         FactoryTable({ factories: main.factories.global, searchFilter: searchFilter }),
-        H4(null, "Main Process - Tab Factories"),
+        h4(null, "Main Process - Tab Factories"),
         FactoryTable({ factories: main.factories.tab, searchFilter: searchFilter }),
-        H4(null, "Child Process - Global Factories"),
+        h4(null, "Child Process - Global Factories"),
         FactoryTable({ factories: child.factories.global, searchFilter: searchFilter }),
-        H4(null, "Child Process - Tab Factories"),
+        h4(null, "Child Process - Tab Factories"),
         FactoryTable({ factories: child.factories.tab, searchFilter: searchFilter })
       )
     );
@@ -284,10 +280,10 @@ var FactoryRow = React.createFactory(React.createClass({
   render: function() {
     var factory = this.props;
     return (
-      TR({className: "poolRow"},
-        TD({}, factory.name),
-        TD({}, factory.prefix),
-        TD({}, factory.ctor)
+      tr({className: "poolRow"},
+        td({}, factory.name),
+        td({}, factory.prefix),
+        td({}, factory.ctor)
       )
     );
   }

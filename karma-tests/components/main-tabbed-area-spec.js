@@ -6,6 +6,7 @@ define(function (require) {
 "use strict";
 
 var React = require("react");
+var ReactDOM = require("react-dom");
 /*var { TestUtils } = React.addons;*/
 
 const { ReactLazyFactories } = require("shared/react-helpers");
@@ -32,7 +33,7 @@ view.render = function() {
   let provider = Provider({ store }, () => {
     return App({ view });
   });
-  this.app = React.render(provider, content);
+  this.app = ReactDOM.render(provider, content);
 };
 
 view.render();
@@ -54,7 +55,7 @@ describe("MainTabbedArea React Component", function() {
     //console.log("theApp", theApp, theApp.getDOMNode());
     expect(view).toBeDefined();
 
-    expect(React.findDOMNode(view.app)).toEqual(document.body.firstChild);
+    expect(ReactDOM.findDOMNode(view.app)).toEqual(document.body.firstChild);
   });
 
   it("is composed by a PacketsPanel and an ActorsPanel", function () {

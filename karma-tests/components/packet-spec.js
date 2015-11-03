@@ -6,6 +6,7 @@ define(function (require) {
 "use strict";
 
 var React = require("react");
+var ReactDOM = require("react-dom");
 var { TestUtils } = React.addons;
 
 var { Packet } = require("inspector/components/packet");
@@ -74,7 +75,7 @@ describe("Packet", () => {
 
       expect(packet.refs.contextMenu).not.toBeDefined();
 
-      var el = React.findDOMNode(packet);
+      var el = ReactDOM.findDOMNode(packet);
       TestUtils.Simulate.contextMenu(el);
 
       // right clicking a packet opens a context menu and
@@ -84,7 +85,7 @@ describe("Packet", () => {
       expect(packet.refs.editAndResendAction).toBeDefined();
 
       // clicking on the 'Edit and Resend' action
-      var actionEl = React.findDOMNode(packet.refs.editAndResendAction);
+      var actionEl = ReactDOM.findDOMNode(packet.refs.editAndResendAction);
       TestUtils.Simulate.click(actionEl);
       expect(actions.editPacket).toHaveBeenCalled();
     });
@@ -119,7 +120,7 @@ describe("Packet", () => {
         data: data
       }));
 
-      var el = React.findDOMNode(packet);
+      var el = ReactDOM.findDOMNode(packet);
 
       expect(el).toBeDefined();
 
