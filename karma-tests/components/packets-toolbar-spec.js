@@ -22,7 +22,7 @@ describe("PacketsToolbar", () => {
   it("renders without errors", () => {
     expect(packetsToolbar).toBeDefined();
 
-    expect(packetsToolbar.getDOMNode()).toBeDefined();
+    expect(ReactDOM.findDOMNode(packetsToolbar)).toBeDefined();
   });
 
   it("contains a 'File' DropdownButton", () => {
@@ -50,13 +50,13 @@ describe("PacketsToolbar", () => {
 
     it("calls props.actions.loadPacketsFromFile on Load clicks", () => {
       var node = ReactDOM.findDOMNode(packetsToolbar.refs.fileLoad);
-      TestUtils.Simulate.click(node);
+      TestUtils.Simulate.click(node.querySelector("a"));
       expect(actions.loadPacketsFromFile).toHaveBeenCalled();
     });
 
     it("calls props.actions.savePacketsFromFile on Save clicks", () => {
       var node = ReactDOM.findDOMNode(packetsToolbar.refs.fileSave);
-      TestUtils.Simulate.click(node);
+      TestUtils.Simulate.click(node.querySelector("a"));
       expect(actions.savePacketsToFile).toHaveBeenCalled();
     });
   });
@@ -82,13 +82,13 @@ describe("PacketsToolbar", () => {
 
     it("calls props.actions.onShowInlineDetails on 'Show Inline Details' clicks", () => {
       var node = ReactDOM.findDOMNode(packetsToolbar.refs.optionShowInlineDetails);
-      TestUtils.Simulate.click(node);
+      TestUtils.Simulate.click(node.querySelector("a"));
       expect(actions.onShowInlineDetails).toHaveBeenCalled();
     });
 
     it("calls props.actions.onPacketCacheEnabled on 'Packet Cache' clicks", () => {
       var node = ReactDOM.findDOMNode(packetsToolbar.refs.optionCachePackets);
-      TestUtils.Simulate.click(node);
+      TestUtils.Simulate.click(node.querySelector("a"));
       expect(actions.onPacketCacheEnabled).toHaveBeenCalled();
     });
   });

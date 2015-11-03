@@ -5,9 +5,7 @@ define(function (require) {
 
 "use strict";
 
-var React = require("react");
 var ReactDOM = require("react-dom");
-/*var { TestUtils } = React.addons;*/
 
 const { ReactLazyFactories } = require("shared/react-helpers");
 const { Provider } = ReactLazyFactories(require("react-redux"));
@@ -28,12 +26,11 @@ const view = new RDPInspectorView({
   window, actions, store,
 });
 
+var testContainerEl = document.querySelector("#test-container");
+
 view.render = function() {
-  let content = document.body;
-  let provider = Provider({ store }, () => {
-    return App({ view });
-  });
-  this.app = ReactDOM.render(provider, content);
+  let provider = Provider({ store }, App({ view }));
+  this.app = ReactDOM.render(provider, testContainerEl);
 };
 
 view.render();
@@ -48,14 +45,13 @@ describe("MainTabbedArea React Component", function() {
   });
 
   afterAll(function () {
-    React.unmountComponentAtNode(document.body);
+    ReactDOM.unmountComponentAtNode(document.querySelector("#test-container"));
   });
 
   it("renders without errors", function() {
-    //console.log("theApp", theApp, theApp.getDOMNode());
     expect(view).toBeDefined();
 
-    expect(ReactDOM.findDOMNode(view.app)).toEqual(document.body.firstChild);
+    expect(ReactDOM.findDOMNode(view.app)).toEqual(testContainerEl.firstChild);
   });
 
   it("is composed by a PacketsPanel and an ActorsPanel", function () {
@@ -87,9 +83,6 @@ describe("MainTabbedArea React Component", function() {
         stack: []
       })
     });
-
-    // NOTE: packets-store refresh the app every 200 ms
-    //packetsStore.refreshPackets(true);
 
     expect(PacketComponent).toBeFoundInReactTree(view.app, 1);
   });

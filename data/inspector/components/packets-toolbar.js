@@ -44,7 +44,7 @@ var PacketsToolbar = React.createClass({
 
     return (
       ButtonToolbar({className: "toolbar"},
-        DropdownButton({bsSize: "xsmall", ref: "fileMenu", title: Locale.$STR("rdpInspector.menu.File")},
+        DropdownButton({ bsSize: "xsmall", ref: "fileMenu", title: Locale.$STR("rdpInspector.menu.File")},
           MenuItem({key: "fileLoad", ref: "fileLoad", onClick: this.onLoadPacketsFromFile },
             Locale.$STR("rdpInspector.cmd.load")),
           MenuItem({key: "fileSave", ref: "fileSave", onClick: this.onSavePacketsFromFile },
@@ -110,13 +110,13 @@ var PacketsToolbar = React.createClass({
 
   onLoadPacketsFromFile: function(/*event*/) {
     this.props.actions.loadPacketsFromFile();
-    this.refs.fileMenu.setDropdownState(false);
+    this.refs.fileMenu.setState({ open: false });
 
   },
 
   onSavePacketsFromFile: function(/*event*/) {
     this.props.actions.savePacketsToFile();
-    this.refs.fileMenu.setDropdownState(false);
+    this.refs.fileMenu.setState({ open: false });
   }
 });
 
