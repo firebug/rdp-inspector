@@ -5,7 +5,7 @@ define(function(require/*, exports, module*/) {
 "use strict";
 
 // React
-var React = require("react");
+var ReactDOM = require("react-dom");
 
 // RDP Inspector
 const { Resizer } = require("shared/resizer");
@@ -22,14 +22,12 @@ const store = require("./store").configureStore();
 
 function render() {
   let content = document.querySelector("#content");
-  let provider = Provider({ store }, () => {
-    return MainPanel({
-      onConnectionClick: (conn) => {
-        RDPConnectionList.openRDPInspectorWindow(conn);
-      }
-    });
-  });
-  let app = React.render(provider, content);
+  let provider = Provider({ store }, MainPanel({
+    onConnectionClick: (conn) => {
+      RDPConnectionList.openRDPInspectorWindow(conn);
+    }
+  }));
+  let app = ReactDOM.render(provider, content);
   return new Resizer(window, app);
 }
 
