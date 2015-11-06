@@ -1,0 +1,12 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* Connection List Window */
+
+.tab-content .list-group-item {
+  border-radius: 0;
+}
+
+.tab-content .list-group-item:first-child {
+  border-top: 0;
+}
