@@ -11,9 +11,6 @@ const React = require("react");
 const { Reps } = require("reps/reps");
 const { ObjectBox } = require("reps/object-box");
 
-// RDP Inspector
-const { StackFrame } = require("../packets-store");
-
 // Constants
 const { SPAN } = Reps.DOM;
 
@@ -70,6 +67,112 @@ Reps.registerRep({
   supportsObject: supportsObject
 });
 
+// helper classes using in the packets reducers
+
+// StackTrace
+
+// xxxHonza: revisit frame filtering should and find solid way.
+function StackTrace(frames, packetType) {
+  // Remove all frames before 'EventEmitter_emit()' frame.
+  // These are part of the infrastructure (always there).
+  if (packetType == "send") {
+    //frames = filterFrames(frames, "DebuggerClient.requester/<");
+    //frames = filterFrames(frames, "EventEmitter_emit");
+    //frames = filterFrames(frames, "makeInfallible/<", true);
+  }
+
+  // Filter out empty frames
+  frames = frames.filter(frame => !!frame.name);
+
+  // Create StackFrame instances, so the right rep is used for
+  // rendering (see {@StackFrameRep}.
+  this.frames = frames.map(frame => new StackFrame(frame));
+}
+
+StackTrace.prototype = {
+  hasFrames: function() {
+    return this.frames.length > 0;
+  },
+
+  getTopFrame: function() {
+    return this.hasFrames() ? this.frames[0] : null;
+  },
+};
+
+// StackFrame
+
+function StackFrame(frame) {
+  this.url = frame.fileName;
+  this.lineNumber = frame.lineNumber;
+  this.columnNumber = frame.columnNumber;
+  this.name = frame.name;
+}
+
+StackFrame.prototype = {
+  getLabel: function() {
+    var path = this.url;
+    var index = path ? path.lastIndexOf("/") : -1;
+    var label = (index == -1) ? path : path.substr(index + 1);
+
+    if (this.lineNumber) {
+      label += ":" + this.lineNumber;
+    }
+
+    if (this.columnNumber) {
+      label += ":" + this.columnNumber;
+    }
+
+    return label;
+  },
+
+  getUrl: function() {
+    return this.url;
+  }
+};
+
+// Helpers
+
+/* NOTE: currently unused */
+/*
+function filterFrames(frames, pivot, onlyFirst) {
+  var frame;
+
+  if (onlyFirst) {
+    for (frame of frames) {
+      if (frame.name == pivot) {
+        frames.shift();
+      } else {
+        break;
+      }
+    }
+    return frames;
+  }
+
+  var newFrames = [];
+  var remove = true;
+  for (frame of frames) {
+    if (!remove) {
+      newFrames.push(frame);
+    }
+
+    if (frame.name == pivot) {
+      remove = false;
+    }
+  }
+
+  // The pivot frame wasn't found.
+  if (remove) {
+    newFrames = frames;
+  }
+
+  return newFrames;
+}
+*/
+
+
 // Exports from this module
 exports.StackFrameRep = StackFrameRep;
+exports.StackTrace = StackTrace;
+exports.StackFrame = StackFrame;
+
 });

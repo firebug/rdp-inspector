@@ -1,6 +1,6 @@
 /* See license.txt for terms of usage */
 
-define(function(require, exports/*, module*/) {
+define(function(require, exports, module) {
 
 "use strict";
 
@@ -47,15 +47,13 @@ var MainTabbedArea = React.createClass({
   },
 
   onErrorDismiss: function() {
-    this.setState({
-      error: null
-    });
+    this.props.view.clearError();
   },
 
   render: function() {
     var packets = Locale.$STR("rdpInspector.tab.Packets");
     var actors = Locale.$STR("rdpInspector.tab.Actors");
-    var { error } = this.state;
+    var { error } = this.props.packets;
 
     return (
       TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1,
@@ -72,23 +70,23 @@ var MainTabbedArea = React.createClass({
         }, error.message) : null,
         TabPane({eventKey: 1, tab: packets},
           PacketsPanel({
-            packets: this.state.packets,
-            actions: this.props.actions,
-            selectedPacket: this.state.selectedPacket,
-            editedPacket: this.state.editedPacket,
-            searchFilter: this.state.searchFilter,
-            showInlineDetails: this.state.showInlineDetails,
-            packetCacheEnabled: this.state.packetCacheEnabled,
-            removedPackets: this.state.removedPackets,
-            paused: this.state.paused,
-            actorIDs: this.state.actorIDs
+            packets: this.props.packets.filteredPackets,
+            actions: this.props.view,
+            selectedPacket: this.props.packets.selectedPacket,
+            editedPacket: this.props.packets.editedPacket,
+            searchFilter: this.props.packets.filter,
+            showInlineDetails: this.props.packets.options.showInlineDetails,
+            packetCacheEnabled: this.props.packets.options.packetCacheEnabled,
+            removedPackets: this.props.packets.removedPackets,
+            paused: this.props.packets.paused,
+            actorIDs: this.props.actors.actorIDs
           })
         ),
         TabPane({eventKey: 2, tab: actors},
           ActorsPanel({
-            actions: this.props.actions,
-            actors: this.state.actors,
-            searchFilter: this.state.searchFilter
+            actions: this.props.view,
+            actors: this.props.actors,
+            searchFilter: this.props.packets.filter
           })
         )
       )
@@ -97,5 +95,5 @@ var MainTabbedArea = React.createClass({
 });
 
 // Exports from this module
-exports.MainTabbedArea = React.createFactory(MainTabbedArea);
+module.exports = MainTabbedArea;
 });

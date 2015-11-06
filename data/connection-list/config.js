@@ -13,7 +13,10 @@ require.config({
     "bootstrap": "../lib/bootstrap/js/bootstrap",
     "immutable": "../lib/immutable/immutable",
     "react-bootstrap": "../lib/react-bootstrap/react-bootstrap",
-    "reps": "../../node_modules/firebug.sdk/lib/reps"
+    "reps": "../../node_modules/firebug.sdk/lib/reps",
+    "firebug.sdk": "../../node_modules/firebug.sdk",
+    "redux": "../lib/redux/redux",
+    "react-redux": "../lib/redux/react-redux",
   }
 });
 
