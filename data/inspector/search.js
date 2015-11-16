@@ -4,13 +4,15 @@ define(function(require, exports/*, module*/) {
 
 "use strict";
 
+const actions = require("./actions/index");
+
 /**
  * This object is responsible for listening search events
  * and updating application state (the root RJS component).
  */
-function Search(win, app) {
+function Search(win, store) {
   this.win = win;
-  this.app = app;
+  this.store = store;
 
   this.win.addEventListener("search", this.onSearch.bind(this));
 }
@@ -20,7 +22,7 @@ Search.prototype =
 {
   onSearch: function(event) {
     var value = event.data;
-    this.app.setState({searchFilter: value});
+    this.store.dispatch(actions.setSearchFilter(value));
   }
 };
 

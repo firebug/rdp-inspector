@@ -8,10 +8,11 @@ define(function(require, exports/*, module*/) {
 const { combineReducers } = require("redux");
 
 // RDP Inspector
+const global = require("./global");
 const actors = require("./actors");
 const packets = require("./packets");
 
-var rootReducer = combineReducers({ actors, packets });
+var rootReducer = combineReducers({ global, actors, packets });
 
 // Exports from this module
 exports.rootReducer = rootReducer;

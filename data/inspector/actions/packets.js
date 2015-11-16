@@ -58,10 +58,6 @@ module.exports = {
     return { type: types.SELECT_PACKET, packet };
   },
 
-  setPacketFilter(filter) {
-    return { type: types.SET_PACKET_FILTER, filter };
-  },
-
   clearPacketList() {
     return { type: types.CLEAR_PACKET_LIST };
   },

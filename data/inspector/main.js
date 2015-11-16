@@ -43,7 +43,7 @@ view.render = function() {
 
   /* eslint-disable no-new */
   new Resizer(window, app);
-  new Search(window, app);
+  new Search(window, store);
   /* eslint-enable */
 };
 

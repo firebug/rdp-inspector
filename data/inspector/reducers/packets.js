@@ -53,8 +53,6 @@ function packetsReducer(state = initialState, action) {
     return selectPacket(state, action.packet);
     case types.EDIT_PACKET:
       return editPacket(state, action.packet);
-  case types.SET_PACKET_FILTER:
-    return setPacketFilter(state, action.filter);
   case types.CLEAR_PACKET_LIST:
     return clearPacketList(state);
   case types.SET_PACKETLIST_ERROR:
@@ -199,12 +197,6 @@ function selectPacket(state, packet) {
 function editPacket(state, packet) {
   return Object.assign({}, state, {
     editedPacket: packet
-  });
-}
-
-function setPacketFilter(state, filter) {
-  return Object.assign({}, state, {
-    filter
   });
 }
 

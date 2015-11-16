@@ -17,6 +17,7 @@ const App = React.createClass({
   render() {
     return React.createElement(MainTabbedArea, {
       view: this.props.view,
+      global: this.props.global,
       actors: this.props.actors,
       packets: this.props.packets,
     });
@@ -24,8 +25,8 @@ const App = React.createClass({
 });
 
 function mapStoreToProps(state) {
-  let { actors, packets } = state;
-  return { actors, packets };
+  let { global, actors, packets } = state;
+  return { global, actors, packets };
 }
 
 exports.App = connect(mapStoreToProps)(App);
