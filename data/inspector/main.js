@@ -5,7 +5,7 @@ define(function(require/*, exports, module*/) {
 "use strict";
 
 // ReactJS
-var React = require("react");
+var ReactDOM = require("react-dom");
 
 // RDP Inspector
 const { Resizer } = require("shared/resizer");
@@ -38,10 +38,8 @@ const view = new RDPInspectorView({
  */
 view.render = function() {
   let content = document.querySelector("#content");
-  let provider = Provider({ store }, () => {
-    return App({ view });
-  });
-  let app = React.render(provider, content);
+  let provider = Provider({ store }, App({ view }));
+  let app = ReactDOM.render(provider, content);
 
   /* eslint-disable no-new */
   new Resizer(window, app);

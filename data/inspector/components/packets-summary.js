@@ -7,9 +7,6 @@ define(function(require, exports/*, module*/) {
 // ReactJS
 const React = require("react");
 
-// Firebug SDK
-const { Reps } = require("reps/reps");
-
 // RDP Inspector
 const { TextWithTooltip } = require("./text-with-tooltip");
 
@@ -18,7 +15,7 @@ const { Locale, Str } = require("shared/rdp-inspector-window");
 
 
 // Constants
-const { DIV } = Reps.DOM;
+const { div } = React.DOM;
 
 /**
  * @template This template is responsible for rendering packet summary
@@ -51,18 +48,18 @@ var PacketsSummary = React.createClass({
 
     // Render summary info
     return (
-      DIV({className: "packetsSummary"},
-        DIV({className: "text"}, packetsText + ": "),
+      div({className: "packetsSummary"},
+        div({className: "text"}, packetsText + ": "),
         TextWithTooltip({tooltip: packetsSentTip}, summary.packets.sent),
-        DIV({className: "slash"}, " / "),
+        div({className: "slash"}, " / "),
         TextWithTooltip({tooltip: packetsReceivedTip}, summary.packets.received),
-        DIV({className: "separator"}),
-        DIV({className: "text"}, dataText + ": "),
+        div({className: "separator"}),
+        div({className: "text"}, dataText + ": "),
         TextWithTooltip({tooltip: sizeSentTip}, sizeSent),
-        DIV({className: "slash"}, " / "),
+        div({className: "slash"}, " / "),
         TextWithTooltip({tooltip: sizeReceivedTip}, sizeReceived),
-        DIV({className: "separator"}),
-        DIV({className: "time"}, timeText)
+        div({className: "separator"}),
+        div({className: "time"}, timeText)
       )
     );
   }

@@ -15,6 +15,10 @@ Object.keys(window.__karma__.files).forEach(function(file) {
   }
 });
 
+var testContainerEl = document.createElement("div");
+testContainerEl.setAttribute("id", "test-container");
+document.body.appendChild(testContainerEl);
+
 require.config({
   // Karma serves files under /base, which is the basePath from your config file
   baseUrl: '/base/data/',
@@ -34,6 +38,7 @@ require.config({
     "firebug.sdk": "../node_modules/firebug.sdk",
     "redux": "./lib/redux/redux",
     "react-redux": "./lib/redux/react-redux",
+    "react-dom": "./lib/react/react-dom",
 
     // use react-with-addons during testing
     "react": "../karma-tests/lib/react-with-addons",

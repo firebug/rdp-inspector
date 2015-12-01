@@ -10,6 +10,7 @@ require.config({
     "shared": "../shared",
     "jquery": "../lib/jquery/jquery",
     "react": "../lib/react/react",
+    "react-dom": "../lib/react/react-dom",
     "bootstrap": "../lib/bootstrap/js/bootstrap",
     "immutable": "../lib/immutable/immutable",
     "react-bootstrap": "../lib/react-bootstrap/react-bootstrap",

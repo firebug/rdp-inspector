@@ -7,11 +7,8 @@ define(function(require, exports/*, module*/) {
 // ReactJS
 const React = require("react");
 
-// Firebug SDK
-const { Reps } = require("reps/reps");
-
 // Constants
-const { DIV, SPAN } = Reps.DOM;
+const { div, span } = React.DOM;
 
 // RDP Window injected APIs
 const { Locale } = require("shared/rdp-inspector-window");
@@ -33,8 +30,8 @@ var PacketsLimit = React.createClass({
 
     // Render summary info
     return (
-      DIV({className: "packetsLimit"},
-        SPAN({className: "text"}, removedPackets + " " + label)
+      div({className: "packetsLimit"},
+        span({className: "text"}, removedPackets + " " + label)
       )
     );
   }

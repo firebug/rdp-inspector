@@ -6,6 +6,7 @@ define(function(require, exports/*, module*/) {
 
 // Dependencies
 const React = require("react");
+const ReactDOM = require("react-dom");
 const Immutable = require("immutable");
 
 // Firebug SDK
@@ -563,7 +564,7 @@ var TableRowEditingFieldLabel = React.createFactory(React.createClass({
   },
 
   componentDidMount: function() {
-    React.findDOMNode(this.refs.input).focus();
+    ReactDOM.findDOMNode(this.refs.input).focus();
   },
 
   render: function() {
@@ -627,7 +628,7 @@ var TableRowEditingFieldValue = React.createFactory(React.createClass({
   },
 
   componentDidMount: function() {
-    React.findDOMNode(this.refs.input).focus();
+    ReactDOM.findDOMNode(this.refs.input).focus();
   },
 
   render: function() {

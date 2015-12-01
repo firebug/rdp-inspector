@@ -33,11 +33,13 @@
   border-bottom-color: transparent !important;
 }
 
-.mainTabbedArea.nav-tabs {
+.mainTabbedArea .nav-tabs {
   padding-top: 3px;
   padding-left: 3px;
-  height: 31px;
+  height: 30px;
   border-bottom-color: rgb(170, 188, 207);
+  background-color: rgb(219, 234, 249) !important;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
 }
 
 .tab-content {
@@ -47,10 +49,7 @@
 
 .tab-pane {
   height: 100%;
-}
-
-.tabPane {
-  padding: 10px;
+  padding: 0px;
   background-color: white;
 }
 

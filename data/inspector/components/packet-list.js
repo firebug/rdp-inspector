@@ -6,9 +6,7 @@ define(function(require, exports/*, module*/) {
 
 // Dependencies
 const React = require("react");
-
-// Firebug SDK
-const { Reps } = require("reps/reps");
+const ReactDOM = require("react-dom");
 
 // RDP Inspector
 const { Packet } = require("./packet");
@@ -17,7 +15,7 @@ const { PacketsLimit } = require("./packets-limit");
 const { PacketsMessage } = require("./packets-message");
 
 // Shortcuts
-const { DIV } = Reps.DOM;
+const { div } = React.DOM;
 
 /**
  * @template This template represents a list of packets displayed
@@ -33,14 +31,14 @@ var PacketList = React.createClass({
   },
 
   componentWillUpdate: function() {
-    var node = this.getDOMNode();
+    var node = ReactDOM.findDOMNode(this);
     this.shouldScrollBottom = node.scrollTop +
       node.offsetHeight === node.scrollHeight;
   },
 
   componentDidUpdate: function() {
     if (this.shouldScrollBottom) {
-      var node = this.getDOMNode();
+      var node = ReactDOM.findDOMNode(this);
       node.scrollTop = node.scrollHeight;
     }
   },
@@ -95,8 +93,8 @@ var PacketList = React.createClass({
     }
 
     return (
-      DIV({className: "list"},
-        DIV({}, output)
+      div({className: "list"},
+        div({}, output)
       )
     );
   }

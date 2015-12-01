@@ -6,6 +6,8 @@ define(function (require) {
 "use strict";
 
 var React = require("react");
+var ReactDOM = require("react-dom");
+
 var { TestUtils } = React.addons;
 
 var { PacketsPanel } = require("inspector/components/packets-panel");
@@ -25,7 +27,7 @@ describe("PacketsPanel", () => {
   it("renders without errors", () => {
     expect(packetsPanel).toBeDefined();
 
-    expect(packetsPanel.getDOMNode()).toBeDefined();
+    expect(ReactDOM.findDOMNode(packetsPanel)).toBeDefined();
   });
 
   it("contains a PacketsToolbar, a PacketsList and a PacketsSidebar", () => {

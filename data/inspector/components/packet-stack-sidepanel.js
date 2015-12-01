@@ -8,11 +8,10 @@ define(function(require, exports/*, module*/) {
 const React = require("react");
 
 // Firebug SDK
-const { Reps } = require("reps/repository");
 const { TreeView } = require("reps/tree-view");
 
 // Shortcuts
-const { DIV } = Reps.DOM;
+const { div } = React.DOM;
 
 /**
  * @template This template represents a side panel that displays
@@ -52,7 +51,7 @@ var PacketStackSidePanel = React.createClass({
     }
 
     return (
-      DIV({className: "stackSidePanel"},
+      div({className: "stackSidePanel"},
         TreeView({key: "packet-detail", data: frames,
           getObjectProperties: getObjectProperties})
       )

@@ -9,7 +9,6 @@ const React = require("react");
 
 // Firebug SDK
 const { createFactories } = require("reps/rep-utils");
-const { Reps } = require("reps/repository");
 const { Splitter } = createFactories(require("reps/splitter"));
 
 // RDP Inspector
@@ -18,7 +17,7 @@ const { PacketsSidebar } = require("./packets-sidebar");
 const { PacketsToolbar } = require("./packets-toolbar");
 
 // Shortcuts
-const { DIV } = Reps.DOM;
+const { div } = React.DOM;
 
 /**
  * @template This template renders 'Packets' tab body.
@@ -36,7 +35,7 @@ var PacketsPanel = React.createClass({
   },
 
   render: function() {
-    var leftPanel = DIV({className: "mainPanel"},
+    var leftPanel = div({className: "mainPanel"},
       PacketsToolbar({
         actions: this.props.actions,
         showInlineDetails: this.props.showInlineDetails,
@@ -53,7 +52,7 @@ var PacketsPanel = React.createClass({
       })
     );
 
-    var rightPanel = DIV({className: "sidePanel"},
+    var rightPanel = div({className: "sidePanel"},
       PacketsSidebar({
         selectedPacket: this.props.selectedPacket,
         editedPacket: this.props.editedPacket,
@@ -63,13 +62,13 @@ var PacketsPanel = React.createClass({
     );
 
     return (
-      DIV({className: "packetsPanelBox"},
+      div({className: "packetsPanelBox"},
         Splitter({
           mode: "vertical",
           min: 200,
           leftPanel: leftPanel,
           rightPanel: rightPanel,
-          innerBox: DIV({className: "innerBox"})
+          innerBox: div({className: "innerBox"})
         })
       )
     );

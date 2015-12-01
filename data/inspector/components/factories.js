@@ -5,10 +5,11 @@ define(function(require, exports/*, module*/) {
 "use strict";
 
 // Dependencies
-const { Reps } = require("reps/reps");
-
 var React = require("react");
-const { TR, TD, TABLE, TBODY, THEAD, TH, DIV, H4 } = Reps.DOM;
+var ReactDOM = require("react-dom");
+
+// Consts
+const { tr, td, table, tbody, thead, th, div, h4 } = React.DOM;
 
 // Templates
 
@@ -23,10 +24,10 @@ var FactoryRow = React.createFactory(React.createClass({
   render: function() {
     var factory = this.props;
     return (
-      TR({className: "poolRow"},
-        TD({}, factory.name),
-        TD({}, factory.prefix),
-        TD({}, factory.ctor)
+      tr({className: "poolRow"},
+        td({}, factory.name),
+        td({}, factory.prefix),
+        td({}, factory.ctor)
       )
     );
   }
@@ -58,13 +59,13 @@ var FactoryTable = React.createFactory(React.createClass({
     }
 
     return (
-      TABLE({className: "poolTable"},
-        THEAD({className: "poolRow"},
-          TH({width: "33%"}, "Name"),
-          TH({width: "33%"}, "Prefix"),
-          TH({width: "33%"}, "Constructor")
+      table({className: "poolTable"},
+        thead({className: "poolRow"},
+          th({width: "33%"}, "Name"),
+          th({width: "33%"}, "Prefix"),
+          th({width: "33%"}, "Constructor")
         ),
-        TBODY(null, rows)
+        tbody(null, rows)
       )
     );
   }
@@ -92,23 +93,24 @@ var FactoryList = React.createFactory(React.createClass({
 
     // xxxHonza: localization
     return (
-      DIV({className: "poolContainer"},
-        H4(null, "Main Process - Global Factories"),
+      div({className: "poolContainer"},
+        h4(null, "Main Process - Global Factories"),
         FactoryTable({ factories: main.factories.global, searchFilter: searchFilter }),
-        H4(null, "Main Process - Tab Factories"),
+        h4(null, "Main Process - Tab Factories"),
         FactoryTable({ factories: main.factories.tab, searchFilter: searchFilter }),
-        H4(null, "Child Process - Global Factories"),
+        h4(null, "Child Process - Global Factories"),
         FactoryTable({ factories: child.factories.global, searchFilter: searchFilter }),
-        H4(null, "Child Process - Tab Factories"),
+        h4(null, "Child Process - Tab Factories"),
         FactoryTable({ factories: child.factories.tab, searchFilter: searchFilter })
       )
     );
   }
 }));
 
+// TODO: turn this into a more React approach
 var Factories = {
   render: function(parentNode) {
-    return React.render(FactoryList(), parentNode);
+    return ReactDOM.render(FactoryList(), parentNode);
   }
 };
 

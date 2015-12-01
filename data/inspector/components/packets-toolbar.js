@@ -6,18 +6,15 @@ define(function(require, exports/*, module*/) {
 
 // ReactJS
 var React = require("react");
-var ReactBootstrap = require("react-bootstrap");
 
 // Constants
-var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
-var Button = React.createFactory(ReactBootstrap.Button);
-var DropdownButton = React.createFactory(ReactBootstrap.DropdownButton);
-var MenuItem = React.createFactory(ReactBootstrap.MenuItem);
-var OverlayTrigger = React.createFactory(ReactBootstrap.OverlayTrigger);
-var Tooltip = React.createFactory(ReactBootstrap.Tooltip);
+const {
+  ButtonToolbar, Button,
+  DropdownButton, MenuItem,
+  OverlayTrigger, Tooltip
+} = require("shared/react-bootstrap-factories");
 
-const { Reps } = require("reps/reps");
-const { SPAN, INPUT } = Reps.DOM;
+const { span, input } = React.DOM;
 
 // RDP Window injected APIs
 const { Locale } = require("shared/rdp-inspector-window");
@@ -47,7 +44,7 @@ var PacketsToolbar = React.createClass({
 
     return (
       ButtonToolbar({className: "toolbar"},
-        DropdownButton({bsSize: "xsmall", ref: "fileMenu", title: Locale.$STR("rdpInspector.menu.File")},
+        DropdownButton({ bsSize: "xsmall", ref: "fileMenu", title: Locale.$STR("rdpInspector.menu.File")},
           MenuItem({key: "fileLoad", ref: "fileLoad", onClick: this.onLoadPacketsFromFile },
             Locale.$STR("rdpInspector.cmd.load")),
           MenuItem({key: "fileSave", ref: "fileSave", onClick: this.onSavePacketsFromFile },
@@ -59,12 +56,12 @@ var PacketsToolbar = React.createClass({
         },
           OverlayTrigger({placement: "bottom", overlay: Tooltip({}, tooltips.inlineDetails)},
             MenuItem({key: "inlineDetails", ref: "optionShowInlineDetails", onClick: this.onShowInlineDetails},
-              INPUT({type: "checkbox", checked: showInlineDetails}), labels.inlineDetails
+              input({type: "checkbox", checked: showInlineDetails}), labels.inlineDetails
             )
           ),
           OverlayTrigger({placement: "bottom", overlay: Tooltip({}, tooltips.cachePackets)},
             MenuItem({key: "cachePackets", ref: "optionCachePackets", onClick: this.onCachePackets},
-              INPUT({type: "checkbox", checked: packetCacheEnabled}), labels.cachePackets
+              input({type: "checkbox", checked: packetCacheEnabled}), labels.cachePackets
             )
           )
         ),
@@ -79,7 +76,7 @@ var PacketsToolbar = React.createClass({
         ),
         Button({bsSize: "xsmall", className: pauseClassName,
           onClick: this.onPause},
-          SPAN({className: "glyphicon glyphicon-pause", "aria-hidden": true})
+          span({className: "glyphicon glyphicon-pause", "aria-hidden": true})
         )
       )
     );
@@ -113,13 +110,13 @@ var PacketsToolbar = React.createClass({
 
   onLoadPacketsFromFile: function(/*event*/) {
     this.props.actions.loadPacketsFromFile();
-    this.refs.fileMenu.setDropdownState(false);
+    this.refs.fileMenu.setState({ open: false });
 
   },
 
   onSavePacketsFromFile: function(/*event*/) {
     this.props.actions.savePacketsToFile();
-    this.refs.fileMenu.setDropdownState(false);
+    this.refs.fileMenu.setState({ open: false });
   }
 });
 
