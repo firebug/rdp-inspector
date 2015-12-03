@@ -72,7 +72,7 @@ var MainTabbedArea = React.createClass({
             actions: this.props.view,
             selectedPacket: this.props.packets.selectedPacket,
             editedPacket: this.props.packets.editedPacket,
-            searchFilter: this.props.packets.filter,
+            searchFilter: this.props.global.searchFilter,
             showInlineDetails: this.props.packets.options.showInlineDetails,
             packetCacheEnabled: this.props.packets.options.packetCacheEnabled,
             removedPackets: this.props.packets.removedPackets,
@@ -84,7 +84,7 @@ var MainTabbedArea = React.createClass({
           ActorsPanel({
             actions: this.props.view,
             actors: this.props.actors,
-            searchFilter: this.props.packets.filter
+            searchFilter: this.props.global.searchFilter
           })
         )
       )
