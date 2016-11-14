@@ -1,16 +1,17 @@
 /* See license.txt for terms of usage */
 
-(function({
+(function(global) {
+
+"use strict";
+
+const {
   Components,
   content,
   addEventListener,
   sendAsyncMessage,
   addMessageListener,
-  /*removeMessageListener*/
-}) {
-
-"use strict";
-
+  /*removeMessageListener,*/
+} = global;
 
 const Cu = Components.utils;
 /*const Cc = Components.classes;
