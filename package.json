@@ -10,7 +10,8 @@
   "contributors": [
     "Jan Odvarko (Mozilla Corp.)",
     "Luca Greco",
-    "Sebastian Zartner"
+    "Sebastian Zartner",
+    "Jarda Snajdr"
   ],
   "translators": [
     "YFdyh000 (zh-CN)",
@@ -18,7 +19,7 @@
     "Marco Aurelio Krause (pt-BR)"
   ],
   "license": "BSD-3-Clause",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "scripts": {
     "test": "npm run karma-tests && npm run jpm-tests",
     "karma-tests": "karma start --single-run --reporters spec",
