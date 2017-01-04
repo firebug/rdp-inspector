@@ -37,8 +37,7 @@
   <vbox flex="1">
 
     <!-- React UI Container -->
-    <browser id="contentFrame" type="content-primary" flex="1"
-      disablehistory="true" />
+    <browser id="contentFrame" type="content" flex="1" disablehistory="true" />
 
     <!-- Search bar -->
     <findbar id="FindToolbar" browserid="contentFrame"/>
