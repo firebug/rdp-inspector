@@ -35,8 +35,7 @@
   <vbox flex="1">
 
     <!-- Logging Output -->
-    <browser id="contentFrame" type="content-primary" flex="1"
-      disablehistory="true" />
+    <browser id="contentFrame" type="content" flex="1" disablehistory="true" />
 
     <!-- Search bar -->
     <findbar id="FindToolbar" browserid="contentFrame"/>
@@ -53,7 +52,7 @@
       const { inspectorWindowName } = window.arguments[0];
       document.title += ` - ${inspectorWindowName}`;
     }
-    
+
     ]]>
     </script>
 
