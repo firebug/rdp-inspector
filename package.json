@@ -19,7 +19,7 @@
     "Marco Aurelio Krause (pt-BR)"
   ],
   "license": "BSD-3-Clause",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "scripts": {
     "test": "npm run karma-tests && npm run jpm-tests",
     "karma-tests": "karma start --single-run --reporters spec",
